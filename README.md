@@ -5,9 +5,9 @@
 
 
 
-#integrantes
-| Integrantes|
-|:-----------|
-|Matias Jünemann|
-|Fernando Florenzano|
-|Guillermo Figueroa |
+# Integrantes
+|      Integrantes    |
+|:--------------------|
+| Matias Jünemann     |
+| Fernando Florenzano |
+| Guillermo Figueroa  |
