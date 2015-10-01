@@ -9,6 +9,6 @@ package Backend;
  *
  * @author matia
  */
-public class Usuario {
+public class User {
     
 }

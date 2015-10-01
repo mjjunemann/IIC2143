@@ -9,6 +9,6 @@ package Backend;
  *
  * @author matia
  */
-public interface ITransporte {
+public interface ITransport {
     
 }

@@ -9,6 +9,7 @@ package Backend;
  *
  * @author matia
  */
-public class Encomienda {
+public class Address 
+{
     
 }

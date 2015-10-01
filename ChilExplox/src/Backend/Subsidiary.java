@@ -9,6 +9,6 @@ package Backend;
  *
  * @author matia
  */
-public class Sucursal {
+public class Subsidiary {
     
 }
