@@ -1,2 +1,12 @@
 # IIC2143
-Proyecto de Software
+## Tabla de contenidos
+*[Integrantes] (#integrantes)
+*[Avances] (#avances)
+
+
+
+#integrantes
+| Integrantes|
+|Matias Jünemann|
+|Fernando Florenzano|
+|Guillermo Figueroa |
