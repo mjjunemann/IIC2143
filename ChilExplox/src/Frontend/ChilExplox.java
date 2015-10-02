@@ -27,7 +27,6 @@ public class ChilExplox extends Application {
      
         User a = new User("mjjunemann","Matias Jünemann","papel123");
         User b = new User("gafigueroa","Guillermo Figueroa","cacapipimoco");
-        
        
         btn.setText(String.format(a.getPassword()));
         btn.setOnAction(new EventHandler<ActionEvent>() {
