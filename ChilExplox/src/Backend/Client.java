@@ -18,7 +18,7 @@ public class Client {
     private String rut;
     private String phone_number;
     
-    Client(String name,String address,String rut,String phone_number)
+    public Client(String name,String address,String rut,String phone_number)
     {
      this.setName(name);
      this.setAddress(address);

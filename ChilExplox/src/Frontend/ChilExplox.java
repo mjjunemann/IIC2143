@@ -5,6 +5,8 @@
  */
 package Frontend;
 
+import Backend.Address;
+import Backend.User;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -22,7 +24,12 @@ public class ChilExplox extends Application {
     @Override
     public void start(Stage primaryStage) {
         Button btn = new Button();
-        btn.setText("Say 'Hello World'");
+     
+        User a = new User("mjjunemann","Matias Jünemann","papel123");
+        User b = new User("gafigueroa","Guillermo Figueroa","cacapipimoco");
+        
+       
+        btn.setText(String.format(a.getPassword()));
         btn.setOnAction(new EventHandler<ActionEvent>() {
             
             @Override
