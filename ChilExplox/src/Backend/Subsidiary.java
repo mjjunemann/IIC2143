@@ -19,7 +19,8 @@ public class Subsidiary
     
     public Subsidiary(Address addr)
     {
-        this.orders = new Map<String,Order>();
+        //this.orders = new Map<String,Order>();
+        User a = new User("mjjunemann","Matias Jünemann","papel123");
         this.subsidiary_address = addr;
     }
 }

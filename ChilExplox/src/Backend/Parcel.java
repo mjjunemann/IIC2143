@@ -15,10 +15,18 @@ public class Parcel
     private float weight;
     private float volume;
     private int priority;
-    private final Address origin;
-    private Address destination;
+    public final Address origin;
+    public Address destination;
     private State state;
     
+    /**
+     * 
+     * @param weight 
+     * @param volume
+     * @param priority
+     * @param origin
+     * @param destination 
+     */
     public Parcel(float weight,float volume,int priority,Address origin,Address destination)
     {
         this.origin = origin;

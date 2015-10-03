@@ -14,25 +14,46 @@ import java.util.Date;
  */
 public class Order 
 {
-    private ArrayList<Parcel> parcels = new ArrayList<>();
+    private ArrayList<Parcel> parcels;
     private Date sales_date;
     private Date delivery_date;
-    
+    private boolean calculated;
     private float total_price;
     
-    public Order(Date date)
+    /*constructor para testear */
+    public Order()
     {
+        this.parcels = new ArrayList<>();
+        this.calculated = false;
         this.total_price = 0;
     }
-    
+    public Order(Date date)
+    {
+        this.parcels = new ArrayList<>();
+        this.calculated = false;
+        this.total_price = 0;
+    }
+    /**
+     * Add a parcel to the order.
+     * @param parcel 
+     */
     public void addParcel(Parcel parcel)
     {
-        parcels.add(parcel);
+        this.calculated = false;
+        this.parcels.add(parcel);
     }
-    
-    public float calculatePrice()
+    /**
+     * Get the total price of the order
+     * @return total price.
+     */
+    public float getTotal()
     {
-        return 0;
+        if (!this.calculated)
+        {
+            this.total_price = BudgetCalculator.calculateTotal(this.parcels);
+            this.calculated = true;
+        }
+        return this.total_price;
     }
     
     public void updateStatus()

@@ -9,6 +9,41 @@ package Backend;
  *
  * @author matia
  */
-public class ChilExplox {
+public class ChilExplox 
+{
+    private static ChilExplox instance;
+    private Subsidiary current_subsidiary;
+    protected ChilExplox()
+    {
+        // Here could be a static class that take cares of loading the information
+        //loadUsers
+        //loadSubsidaries
+        //loadInformation
+        //loadTrucks
+    }
     
+    /**
+     * Validate user information
+     *
+     * @param username 
+     * @param password 
+     */
+    public void login(String username, String password)
+    {
+        
+    }
+    
+    /**
+     * Returns a the instance of the class if
+     * doesn't exist create one
+     * @return ChilExplox instance
+     */
+    public ChilExplox getInstance()
+    {
+        if (instance != null)
+        {
+            instance = new ChilExplox();
+        }
+        return instance;
+    }
 }

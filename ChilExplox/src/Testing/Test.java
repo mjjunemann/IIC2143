@@ -7,6 +7,7 @@ package Testing;
 //import static org.junit.Assert.*;
 
 import Backend.Address;
+import Backend.User;
 
 /**
  *
@@ -22,7 +23,13 @@ public class Test
         Address a = new Address("Amapolas",1500,"Providencia","Santiago");
         Address b = new Address("amapolas",1500, "providencia","santiago");
         Address c = new Address("Hernando Aguirre",300,"Providencia", "Santiago");
-        boolean d =  a.equals(b);
         
+        boolean d =  a.equals(b);   
+    }
+    
+    public void Users()
+    {
+        User a = new User("mjjunemann","Matias Jünemann","papel123");
+        User b = new User("gafigueroa","Guillermo Figueroa","cacapipimoco");
     }
 }

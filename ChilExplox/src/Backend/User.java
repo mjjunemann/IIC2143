@@ -35,7 +35,7 @@ public class User
      * Changes the user password
      * @param password receives the user new password
      */
-    protected  final void setPassword(String password)
+    protected final void setPassword(String password)
     {
         this.password = password;
     }

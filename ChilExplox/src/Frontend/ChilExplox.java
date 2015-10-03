@@ -6,6 +6,8 @@
 package Frontend;
 
 import Backend.Address;
+import Backend.Order;
+import Backend.Parcel;
 import Backend.User;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -24,11 +26,19 @@ public class ChilExplox extends Application {
     @Override
     public void start(Stage primaryStage) {
         Button btn = new Button();
-     
-        User a = new User("mjjunemann","Matias Jünemann","papel123");
-        User b = new User("gafigueroa","Guillermo Figueroa","cacapipimoco");
-       
-        btn.setText(String.format(a.getPassword()));
+        
+        
+        Address addr = new Address("Amapolas",1500,"Providencia","Santiago");
+        Parcel p1 = new Parcel(10,10,10,addr,addr);
+        Parcel p2 = new Parcel(10,10,10,addr,addr);
+        Order o = new Order();
+        o.addParcel(p1);
+        o.addParcel(p2);
+        float a = o.getTotal();
+        String b = Float.toString(a);
+        System.out.print(b);
+        
+        btn.setText("hello");
         btn.setOnAction(new EventHandler<ActionEvent>() {
             
             @Override
