@@ -27,6 +27,11 @@ public class Order
         this.calculated = false;
         this.total_price = 0;
     }
+    
+    /**
+     * Constructor receive a date.
+     * @param date of the sale
+     */
     public Order(Date date)
     {
         this.parcels = new ArrayList<>();
@@ -55,7 +60,8 @@ public class Order
         }
         return this.total_price;
     }
-    
+    /*this method update the status of the order, if all the parcels are 
+        delivered change the status to delivered*/
     public void updateStatus()
     {
         

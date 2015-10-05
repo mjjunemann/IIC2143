@@ -16,8 +16,8 @@ public class ChilExplox
     protected ChilExplox()
     {
         // Here could be a static class that take cares of loading the information
-        //loadUsers
         //loadSubsidaries
+        //loadUsers
         //loadInformation
         //loadTrucks
     }

@@ -62,11 +62,11 @@ public class Client {
     {
         this.address = address;
     }
+    
     /**
      * Returns the clients contact number.
      * @return contact number.
      */
-    
     public String getPhone()
     {
         return this.phone_number;

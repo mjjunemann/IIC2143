@@ -22,7 +22,7 @@ public class Test
         /*Aqui debe ir un assert para checkear si falla o no*/
         Address a = new Address("Amapolas",1500,"Providencia","Santiago");
         Address b = new Address("amapolas",1500, "providencia","santiago");
-        Address c = new Address("Hernando Aguirre",300,"Providencia", "Santiago");
+        Address c = new Address("Hernando Aguirre",1133,"Providencia", "Santiago");
         
         boolean d =  a.equals(b);   
     }

@@ -26,6 +26,12 @@ public class Address
         this.number = number;
     }
     
+    
+    /**
+     * Check if two addresses are equal
+     * @param obj
+     * @return boolean
+     */
     @Override
     public boolean equals(Object obj)
     {

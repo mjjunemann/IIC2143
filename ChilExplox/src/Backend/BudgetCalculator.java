@@ -13,7 +13,11 @@ import java.util.ArrayList;
  */
 public class BudgetCalculator 
 {
-    
+    /**
+     * Given a list of parcels return the total price  
+     * @param parcels 
+     * @return total price 
+     */
     public static float calculateTotal(ArrayList<Parcel> parcels)
     {
         float total = 0;
@@ -24,6 +28,12 @@ public class BudgetCalculator
         return total;
     }
     
+    
+    /**
+     * Calculate the individual price of a parcel
+     * @param parcel
+     * @return price of a parcel
+     */
     public static float calculateParcel(Parcel parcel)
     {
         float a = 10;
