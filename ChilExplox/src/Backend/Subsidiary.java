@@ -16,11 +16,18 @@ public class Subsidiary
 {
     Address subsidiary_address;
     Map<String,Order> orders;
+    Mailbox mailbox;
     
     public Subsidiary(Address addr)
     {
         //this.orders = new Map<String,Order>();
         User a = new User("mjjunemann","Matias Jünemann","papel123");
         this.subsidiary_address = addr;
+        this.mailbox = new Mailbox();
     }
+    
+    public Mailbox getMailbox(){
+        return this.mailbox;
+    }
+
 }

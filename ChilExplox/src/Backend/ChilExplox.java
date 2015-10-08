@@ -13,8 +13,12 @@ public class ChilExplox
 {
     private static ChilExplox instance;
     private Subsidiary current_subsidiary;
+    private final Messaging messaging;
+    
     protected ChilExplox()
     {
+        messaging = new Messaging();
+        
         // Here could be a static class that take cares of loading the information
         //loadSubsidaries
         //loadUsers

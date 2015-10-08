@@ -5,17 +5,16 @@
  */
 package Frontend;
 
-import Backend.Address;
-import Backend.Order;
-import Backend.Parcel;
-import Backend.User;
+import Backend.*;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
+import javafx.scene.text.*;
+import javafx.scene.control.*;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
+
 
 /**
  *
@@ -27,29 +26,70 @@ public class ChilExplox extends Application {
     public void start(Stage primaryStage) {
         Button btn = new Button();
         
+        TextField textFieldSubject = new TextField();
+        TextField textFieldContent = new TextField();
+
         
         Address addr = new Address("Amapolas",1500,"Providencia","Santiago");
+        
+        Address addr2 = new Address("Hernando de Aguirre",1133,
+                "Providencia","Santiago");
+        
         Parcel p1 = new Parcel(10,10,10,addr,addr);
         Parcel p2 = new Parcel(10,10,10,addr,addr);
         Order o = new Order();
         o.addParcel(p1);
         o.addParcel(p2);
+        
+        Subsidiary subsidiaryAmapolas = new Subsidiary(addr);
+        Subsidiary subsidiaryHernando = new Subsidiary(addr2);
+        
+        Messaging messaging = new Messaging();
+        
         float a = o.getTotal();
         String b = Float.toString(a);
         System.out.print(b);
         
-        btn.setText("hello");
+       
+        btn.setText("send");
         btn.setOnAction(new EventHandler<ActionEvent>() {
             
             @Override
             public void handle(ActionEvent event) {
                 System.out.println("Hello World!");
+                String subject = textFieldSubject.getText();
+                String content = textFieldContent.getText();
+                
+                messaging.sendMessage(subsidiaryAmapolas.getMailbox(),
+                        subsidiaryHernando.getMailbox(), subject, content);
             }
         });
         
-        StackPane root = new StackPane();
+        Pane root = new Pane();
+        
+        btn.setLayoutX(130);
+        btn.setLayoutY(220);
         root.getChildren().add(btn);
         
+        textFieldSubject.setPrefWidth(200);
+        textFieldSubject.setLayoutX(50);
+        textFieldSubject.setLayoutY(100);
+        root.getChildren().add(textFieldSubject);
+        
+        textFieldContent.setPrefWidth(200);
+        textFieldContent.setPrefHeight(50);
+        textFieldContent.setLayoutX(50);
+        textFieldContent.setLayoutY(150);
+        root.getChildren().add(textFieldContent);
+        
+        Text t = new Text(120, 95, "Subject");
+        t.setFont(new Font(14));
+        root.getChildren().add(t);
+        
+        Text t2 = new Text(120, 145, "Content");
+        t2.setFont(new Font(14));
+        root.getChildren().add(t2);
+
         Scene scene = new Scene(root, 300, 250);
         
         primaryStage.setTitle("Hello World!");
