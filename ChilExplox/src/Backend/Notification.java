@@ -14,5 +14,4 @@ public abstract class Notification
   private String content;
   public abstract String getContent();
   public abstract void action();
-  
 }
