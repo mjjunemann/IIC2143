@@ -33,15 +33,28 @@ public class Subsidiary implements java.io.Serializable
         return this.mailbox;
     }
     
-    public Order newOrder(){
-        Order o = new Order();
+    public Order newOrder(Client client){
+        
         Date da = new Date();
         long d = da.getTime();
+        
+        Order o = new Order(client, da);
+        
         System.out.print("HOLA\n");
         System.out.print(d);
         System.out.print("HOLA\n");
         orders.put(String.valueOf(d), o);
         return o;
+    }
+    
+    public void sendOrder(Order order){
+        String rut = order.getClient().getRut();
+        Date saleDate = order.getSaleDate();
+        String date = String.valueOf(saleDate.getTime());
+        
+        String id = rut + "-" + date;
+        
+        this.orders.put(id, order);
     }
 
 }

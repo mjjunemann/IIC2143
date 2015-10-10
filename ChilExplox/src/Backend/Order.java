@@ -19,7 +19,7 @@ public class Order implements java.io.Serializable
     private Date delivery_date;
     private boolean calculated;
     private float total_price;
-    
+    private Client client;
     /*constructor para testear */
     public Order()
     {
@@ -37,7 +37,23 @@ public class Order implements java.io.Serializable
         this.parcels = new ArrayList<>();
         this.calculated = false;
         this.total_price = 0;
+        this.sales_date = date;
     }
+    
+    
+    /**
+     * Constructor receive a date.
+     * @param date of the sale
+     */
+    public Order(Client client, Date date)
+    {
+        this.parcels = new ArrayList<>();
+        this.calculated = false;
+        this.total_price = 0;
+        this.sales_date = date;
+        this.client = client;
+    }
+    
     /**
      * Add a parcel to the order.
      * @param parcel 
@@ -65,6 +81,22 @@ public class Order implements java.io.Serializable
     public void updateStatus()
     {
         
+    }
+    
+    /**
+     * Get the client who made the order
+     * @return client
+     */
+    public Client getClient(){
+        return this.client;
+    }
+    
+    /**
+     * Get the date of the sale
+     * @return 
+     */
+    public Date getSaleDate(){
+        return this.sales_date;
     }
     
     
