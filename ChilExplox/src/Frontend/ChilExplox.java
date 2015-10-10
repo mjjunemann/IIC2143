@@ -43,6 +43,7 @@ public class ChilExplox extends Application {
         
         Subsidiary subsidiaryAmapolas = new Subsidiary(addr);
         Subsidiary subsidiaryHernando = new Subsidiary(addr2);
+        subsidiaryHernando.newOrder();
         Loader.saveSubsidiary(subsidiaryAmapolas);
         Subsidiary amapolas1 = Loader.loadSubsidary("Amapolas1500");
         System.out.print(amapolas1.getAddress()+"\n");

@@ -9,10 +9,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Iterator;
-import org.json.simple.JSONObject;
-import org.json.simple.JSONArray;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 /**
  *
@@ -22,22 +18,7 @@ public class Loader
 {   
     static private final String path ="./data/";
     
-    static private void readJson(String path)
-    {
-        JSONParser rdr = new JSONParser();
-        
-        try{
-            
-        JSONObject obj = (JSONObject)rdr.parse(new FileReader(path));
-        }
-        catch (FileNotFoundException e) {
-		e.printStackTrace();
-	} catch (IOException e) {
-		e.printStackTrace();
-	} catch (ParseException e) {
-		e.printStackTrace();
-	}
-    }
+   
     
     
     /**

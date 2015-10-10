@@ -36,7 +36,7 @@ public class ChilExplox implements java.io.Serializable
      * @param username 
      * @param password 
      */
-    public void login(String username, String password)
+    public void login(String username, Address subsidary_addrs)
     {
         
     }
@@ -55,8 +55,9 @@ public class ChilExplox implements java.io.Serializable
         return instance;
     }
     
-    public void addSubsidary()
+    public void addSubsidary(Address address)
     {
+        Subsidiary s = new Subsidiary(address);
         
     }
 }
