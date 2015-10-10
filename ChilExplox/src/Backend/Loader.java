@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package Backend;
+import java.io.*;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -18,8 +19,9 @@ import org.json.simple.parser.ParseException;
  * @author matia
  */
 public class Loader
-{
- 
+{   
+    static private final String path ="./data/";
+    
     static private void readJson(String path)
     {
         JSONParser rdr = new JSONParser();
@@ -37,15 +39,61 @@ public class Loader
 	}
     }
     
-        
-        
-        
-        
+    
+    /**
+     * Save the state of the subsidiary and all his elements
+     * @param subsidiary 
+     */
+    static public void saveSubsidiary(Subsidiary subsidiary)
+    {
+        try
+        {
+            FileOutputStream fileOut =
+         new FileOutputStream(String.format(path+"%s",subsidiary.subsidiary_address.getMainStreet()));
+         ObjectOutputStream out = new ObjectOutputStream(fileOut);
+         out.writeObject(subsidiary);
+        }catch(IOException i)
+                {
+                    i.printStackTrace();
+                }
+    }
+    
+    
+    
+    /**
+     * Receives the address of the subsidiary and load the information
+     * @param subsidiary
+     * @return 
+     */
+    static public Subsidiary loadSubsidary(String subsidiary)
+    {   Subsidiary tmp = null;
+    
+        try
+        {
+            FileInputStream fileIn = new FileInputStream(String.format(path+"%s",subsidiary));
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            tmp = (Subsidiary)in.readObject();
+            return tmp;
+            
+        }catch(IOException i)
+        {
+            i.printStackTrace();
+            return tmp;
+        }
+        catch(ClassNotFoundException e)
+        {
+            e.printStackTrace();
+            return tmp;
+        }
+    }
+    
+    /* load subsidiary from json
     static void loadSubsidiary(String path)
     {
         JSONParser obj = new JSONParser();
         
     }
+    */
     
     
 }

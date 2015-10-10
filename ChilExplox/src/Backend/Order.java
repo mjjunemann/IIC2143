@@ -12,7 +12,7 @@ import java.util.Date;
  *
  * @author matia
  */
-public class Order 
+public class Order implements java.io.Serializable
 {
     private ArrayList<Parcel> parcels;
     private Date sales_date;

@@ -10,7 +10,8 @@ import java.util.LinkedList;
  *
  * @author guillermofigueroa
  */
-public class Mailbox {
+public class Mailbox implements java.io.Serializable
+{
     private final LinkedList<Message> sentMessages;
     private final LinkedList<Message> receivedMessages;
     

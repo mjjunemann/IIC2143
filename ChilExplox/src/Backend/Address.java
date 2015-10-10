@@ -11,7 +11,7 @@ import java.util.Objects;
  *
  * @author matia
  */
-public class Address 
+public class Address implements java.io.Serializable
 {
     private final String city;
     private final String neighborhood;
@@ -54,6 +54,10 @@ public class Address
         return hash;
     }
     
+    public String getMainStreet()
+    {
+        return this.street+this.number;
+    }
     public String getAddress()
     {
         return String.format("%1$s %2$s,%3$s,%4$s",street,number,neighborhood,city);

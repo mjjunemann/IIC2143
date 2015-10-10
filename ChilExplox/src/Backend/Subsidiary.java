@@ -12,11 +12,11 @@ import java.util.Map;
  *
  * @author matia
  */
-public class Subsidiary 
+public class Subsidiary implements java.io.Serializable
 {
-    Address subsidiary_address;
-    Map<String,Order> orders;
-    Mailbox mailbox;
+    public Address subsidiary_address;
+    private Map<String,Order> orders;
+    private Mailbox mailbox;
     
     public Subsidiary(Address addr)
     {
@@ -26,6 +26,10 @@ public class Subsidiary
         this.mailbox = new Mailbox();
     }
     
+    public String getAddress()
+    {
+        return subsidiary_address.getAddress();
+    }
     public Mailbox getMailbox(){
         return this.mailbox;
     }

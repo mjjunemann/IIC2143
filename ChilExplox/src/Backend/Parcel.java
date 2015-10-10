@@ -10,7 +10,7 @@ package Backend;
  * @author matia
  */
 enum State {Origin,OnTransit,Delivered}
-public class Parcel 
+public class Parcel implements java.io.Serializable
 {
     private float weight;
     private float volume;

@@ -5,13 +5,17 @@
  */
 package Backend;
 
+import java.util.*;
+
 /**
  *
  * @author matia
  */
-public class ChilExplox 
+public class ChilExplox implements java.io.Serializable
 {
     private static ChilExplox instance;
+    private Map<String,String> Usuarios;
+    private ArrayList<String> subsidiaries_addrs;
     private Subsidiary current_subsidiary;
     private final Messaging messaging;
     
@@ -49,5 +53,10 @@ public class ChilExplox
             instance = new ChilExplox();
         }
         return instance;
+    }
+    
+    public void addSubsidary()
+    {
+        
     }
 }
