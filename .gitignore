@@ -1,3 +1,3 @@
-ChilExplox/build/
-ChilExplox/nb_project/
-ChilExplox/dist/
+ChilExplox/build/*
+ChilExplox/nb_project/*
+ChilExplox/dist/*
