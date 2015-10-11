@@ -39,10 +39,6 @@ public class Subsidiary implements java.io.Serializable
         long d = da.getTime();
         
         Order o = new Order(client, da);
-        
-        System.out.print("HOLA\n");
-        System.out.print(d);
-        System.out.print("HOLA\n");
         orders.put(String.valueOf(d), o);
         return o;
     }
