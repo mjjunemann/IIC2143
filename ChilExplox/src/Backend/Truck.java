@@ -11,7 +11,7 @@ import java.util.ArrayList;
  *
  * @author Fernando
  */
-public class Truck extends ITransport{
+public class Truck extends ITransport implements java.io.Serializable{
     String license_plate;
     int max_parcels ;
     State dispatch_status;
@@ -35,13 +35,21 @@ public class Truck extends ITransport{
     }
     @Override
     public void send(Address addr){
+        for(Parcel p: this.parcels){
+            p.updateStatus();
+        }
         this.dispatch_status = State.OnTransit;
     }
     @Override
     public ArrayList<Parcel> unload(){
-        ArrayList<Parcel> p = (ArrayList<Parcel>)this.parcels.clone();
-        this.parcels = new ArrayList<>();
-        return p;
+        ArrayList<Parcel> arrived = new ArrayList<>();
+        for(Parcel p: this.parcels){
+            p.updateStatus();
+            arrived.add(p);
+        }
+        this.parcels.clear();
+        this.dispatch_status = State.Delivered;
+        return arrived;
     }
     @Override
     public void sendBack(){
@@ -52,4 +60,10 @@ public class Truck extends ITransport{
         return max_parcels - parcels.size();
     }
     
+    public State getState(){
+        return this.dispatch_status;
+    }
+    public ArrayList<Parcel> getParcels(){
+        return this.parcels;
+    }
 }

@@ -13,6 +13,7 @@ import java.util.ArrayList;
  */
 public abstract class ITransport 
 {
+    public String license_plate;
     private ArrayList<Parcel> parcels;
     public State dispatch_status;
     private Subsidiary home_sub;

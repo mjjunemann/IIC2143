@@ -87,12 +87,13 @@ public class Order implements java.io.Serializable
         Boolean origin = true;
         Boolean delivered = true;
         for( Parcel p : this.parcels){
-            if ( p.state == State.OnTransit){
+            State s = p.getState();
+            if ( s == State.OnTransit){
                 delivered = false;
                 origin = false;
                 break;
             }
-            else if (p.state == State.Delivered){
+            else if (s == State.Delivered){
                 origin = false;
             }
             else{
@@ -122,6 +123,14 @@ public class Order implements java.io.Serializable
      */
     public Date getSaleDate(){
         return this.sales_date;
+    }
+    
+    public State getState(){
+        return this.state;
+    }
+    
+    public ArrayList<Parcel> getParcel(){
+        return this.parcels;
     }
     
     

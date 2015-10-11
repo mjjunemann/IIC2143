@@ -23,7 +23,12 @@ public class Subsidiary implements java.io.Serializable
         this.subsidiary_address = addr;
         this.mailbox = new Mailbox();
         this.orders = new HashMap();
+        this.transport = new HashMap();
         this.arrived = new ArrayList<>(); 
+    }
+    
+    public void addVehicle(ITransport v){
+        transport.put(v.license_plate,v);
     }
     
     public String getAddress(){
@@ -39,7 +44,7 @@ public class Subsidiary implements java.io.Serializable
         Date da = new Date();
         long d = da.getTime();
         
-        Order o = new Order(client, da);
+        Order o = new Order();
         orders.put(String.valueOf(d), o);
         return o;
     }
@@ -58,7 +63,18 @@ public class Subsidiary implements java.io.Serializable
         v.send(S.subsidiary_address);
         S.receivesVehicle(v);
     }
+    
     public void receivesVehicle(ITransport v){
         this.arrived.add(v);
     }
+    
+    public void receivesParcels(ITransport from){
+        from.unload();
+    }
+    
+    public void sendBack(ITransport v){
+        this.arrived.remove(v);
+        v.sendBack();
+    }
+    
 }
