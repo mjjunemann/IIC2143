@@ -15,9 +15,10 @@ public abstract class ITransport
 {
     private ArrayList<Parcel> parcels;
     public String dispatch_status;
-    public abstract void loadParcel(Parcel parcel);
+    private Subsidiary home_sub;
+    public abstract boolean loadParcel(Parcel parcel);
     public abstract void send(Address addr);
     public abstract void sendBack();
-    public abstract int checkSpace();
+    protected abstract int checkSpace();
   
 }
