@@ -14,11 +14,12 @@ import java.util.ArrayList;
 public abstract class ITransport 
 {
     private ArrayList<Parcel> parcels;
-    public String dispatch_status;
+    public State dispatch_status;
     private Subsidiary home_sub;
     public abstract boolean loadParcel(Parcel parcel);
     public abstract void send(Address addr);
     public abstract void sendBack();
+    public abstract ArrayList<Parcel> unload();
     protected abstract int checkSpace();
   
 }

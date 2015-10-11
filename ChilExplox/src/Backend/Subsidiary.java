@@ -17,18 +17,19 @@ public class Subsidiary implements java.io.Serializable
     private Map<String,Order> orders;
     private Mailbox mailbox;
     private Map<String,ITransport> transport;
+    private ArrayList<ITransport> arrived;
     
-    public Subsidiary(Address addr)
-    {
+    public Subsidiary(Address addr){
         this.subsidiary_address = addr;
         this.mailbox = new Mailbox();
         this.orders = new HashMap();
+        this.arrived = new ArrayList<>(); 
     }
     
-    public String getAddress()
-    {
+    public String getAddress(){
         return subsidiary_address.getAddress();
     }
+    
     public Mailbox getMailbox(){
         return this.mailbox;
     }
@@ -52,5 +53,12 @@ public class Subsidiary implements java.io.Serializable
         
         this.orders.put(id, order);
     }
-
+    
+    public void sendsVehicle(ITransport v, Subsidiary S){
+        v.send(S.subsidiary_address);
+        S.receivesVehicle(v);
+    }
+    public void receivesVehicle(ITransport v){
+        this.arrived.add(v);
+    }
 }
