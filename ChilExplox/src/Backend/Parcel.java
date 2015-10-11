@@ -17,7 +17,7 @@ public class Parcel implements java.io.Serializable
     private int priority;
     public final Address origin;
     public Address destination;
-    private State state;
+    public State state;
     
     /**
      * 
@@ -38,8 +38,13 @@ public class Parcel implements java.io.Serializable
     }
     
     public void updateStatus()
-    {
-        
+    {/*Se llamara a este metodo solo cuando sea apropiado, 
+      actualiza al siguiente estado logico del proceso"*/
+        if (this.state == State.Origin){
+            this.state = State.OnTransit;
+        }else{
+            this.state = State.Delivered;
+        }
     }
     //<editor-fold desc="Setter&Getters">
      public Address getDestination()

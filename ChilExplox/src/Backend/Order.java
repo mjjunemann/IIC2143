@@ -20,12 +20,14 @@ public class Order implements java.io.Serializable
     private boolean calculated;
     private float total_price;
     private Client client;
+    private State state;
     /*constructor para testear */
     public Order()
     {
         this.parcels = new ArrayList<>();
         this.calculated = false;
         this.total_price = 0;
+        this.state = State.Origin;
     }
     
     /**
@@ -77,10 +79,33 @@ public class Order implements java.io.Serializable
         return this.total_price;
     }
     /*this method update the status of the order, if all the parcels are 
-        delivered change the status to delivered*/
+        delivered change the status to delivered, if one is on transit or
+        some are at origin and others at delivered, the hole order is on transit
+        finally, if all parcels are at origin, the order as well.*/
     public void updateStatus()
     {
-        
+        Boolean origin = true;
+        Boolean delivered = true;
+        for( Parcel p : this.parcels){
+            if ( p.state == State.OnTransit){
+                delivered = false;
+                origin = false;
+                break;
+            }
+            else if (p.state == State.Delivered){
+                origin = false;
+            }
+            else{
+                delivered = false;
+            }
+        }
+        if( !origin && !delivered){
+            this.state = State.OnTransit;
+        }else if (delivered){
+            this.state = State.Delivered;
+        }else{
+            this.state = State.Origin;
+        }
     }
     
     /**
