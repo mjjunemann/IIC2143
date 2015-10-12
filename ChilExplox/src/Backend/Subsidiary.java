@@ -59,6 +59,10 @@ public class Subsidiary implements java.io.Serializable
         this.notification_center.addOrderNotification(id,order);
         return order.getTotal();
     }
+    public void editParcel(Parcel parcel,Address origin,Address destination){
+        parcel.setDestination(destination);
+        parcel.setOrigin(origin);
+    }
     
     public void sendsVehicle(ITransport v, Subsidiary S){
         v.send(S.subsidiary_address);

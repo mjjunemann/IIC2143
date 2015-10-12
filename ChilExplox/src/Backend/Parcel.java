@@ -15,7 +15,7 @@ public class Parcel implements java.io.Serializable
     private float weight;
     private float volume;
     private int priority;
-    public final Address origin;
+    public Address origin;
     public Address destination;
     private State state;
     private Order order;
@@ -64,6 +64,10 @@ public class Parcel implements java.io.Serializable
      public void setDestination(Address subsidiary)
      {
          this.destination = subsidiary;
+     }
+     public void setOrigin(Address subsidiary)
+     {
+         this.origin = subsidiary;
      }
      public State getState()
      {
