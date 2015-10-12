@@ -25,6 +25,7 @@ public class BudgetCalculator
         {
             total+= BudgetCalculator.calculateParcel(parcel);
         }
+        System.out.print("All parcels costs: "+ total + " \n");
         return total;
     }
     
@@ -36,6 +37,8 @@ public class BudgetCalculator
      */
     public static float calculateParcel(Parcel parcel)
     {
-        return parcel.getVolume()*10 + parcel.getWeight()*20;
+        float total = parcel.getVolume()*10 + parcel.getWeight()*20;
+        System.out.print("Parcel costs: "+ total + " \n");
+        return total;
     }
 }

@@ -114,10 +114,10 @@ public class Order implements java.io.Serializable
         }
         if( !origin && !delivered && !destination ){
             this.state = State.OnTransit;
-        }else if (destination){
-            this.state = State.Destination;
         }else if (delivered){
             this.state = State.Delivered;
+        }else if (destination){
+            this.state = State.Destination;
         }else{
             this.state = State.Origin;
         }
@@ -129,6 +129,14 @@ public class Order implements java.io.Serializable
      */
     public Client getClient(){
         return this.client;
+    }
+    
+    public void setClient(Client client){
+        this.client = client;
+    }
+    
+    public void setDate(){
+        this.sales_date = new Date();
     }
     
     /**

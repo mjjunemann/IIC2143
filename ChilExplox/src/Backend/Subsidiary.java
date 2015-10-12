@@ -41,12 +41,14 @@ public class Subsidiary implements java.io.Serializable
         return this.mailbox;
     }
     
-    public Order newOrder(Client client){
+    public Order newOrder(){
         Order o = new Order();
         return o;
     }
     
-    public void sendOrder(Order order){
+    public float setOrder(Order order, Client client){
+        order.setClient(client);
+        order.setDate();
         String rut = order.getClient().getRut();
         Date saleDate = order.getSaleDate();
         String date = String.valueOf(saleDate.getTime());
@@ -55,6 +57,7 @@ public class Subsidiary implements java.io.Serializable
         
         this.orders.put(id, order);
         this.notification_center.addOrderNotification(id,order);
+        return order.getTotal();
     }
     
     public void sendsVehicle(ITransport v, Subsidiary S){

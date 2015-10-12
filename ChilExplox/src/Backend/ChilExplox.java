@@ -17,10 +17,10 @@ public class ChilExplox implements java.io.Serializable
     private Map<String,User> users;
     private ArrayList<Address> subsidiaries_addrs;
     private Map<Address,Subsidiary> subsidiaries;
-    private Subsidiary current_subsidiary;
-    private final Messaging messaging;
+    public Subsidiary current_subsidiary;
+    public final Messaging messaging;
     
-    protected ChilExplox()
+    public ChilExplox()
     {
         this.messaging = new Messaging();
         this.users = new HashMap();
@@ -43,6 +43,7 @@ public class ChilExplox implements java.io.Serializable
         if( this.subsidiaries_addrs.contains(subsidiary_addrs) 
                 && users.get(username).getPassword() == password){
             this.current_subsidiary = this.subsidiaries.get(subsidiary_addrs);
+            System.out.print("Logged-in as: "+ username +" in "+ subsidiary_addrs.getAddress()+" \n");
             return true;
             }
         return false;
@@ -79,5 +80,8 @@ public class ChilExplox implements java.io.Serializable
     }
     public ArrayList<Address> getSubsidiariesAddress(){
         return this.subsidiaries_addrs;
+    }
+    public Subsidiary getSubsidiary(Address address){
+        return this.subsidiaries.get(address);
     }
 }
