@@ -5,14 +5,22 @@
  */
 package Backend;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author guillermofigueroa
  */
 public class Messaging {
 
+    private ArrayList<Mailbox> mailboxes;
+    
     public Messaging(){
-        
+        this.mailboxes = new ArrayList<>();
+    }
+    
+    public void addMailBox(Mailbox m){
+        this.mailboxes.add(m);
     }
     
     /**
@@ -24,14 +32,14 @@ public class Messaging {
      * @return boolean: true if message was sent
      */
     public boolean sendMessage(Mailbox origin, Mailbox destiny, String subject, 
-            String content){
-        Message message = createMessage(origin, destiny, subject, content);
-        return origin.sendMessage(destiny, message);
+            String content, MessageType type){
+        Message message = createMessage(origin, destiny, subject, content, type);
+        return origin.sendMessage(message) && destiny.receiveMessage(message);
     }   
     
-    public Message createMessage(Mailbox origin, Mailbox destiny, 
-            String subject, String content){
-        return new Message(origin, destiny, subject, content);
+    private Message createMessage(Mailbox origin, Mailbox destiny, 
+            String subject, String content, MessageType type){
+        return new Message(origin, destiny, subject, content, type);
     }
     
 }

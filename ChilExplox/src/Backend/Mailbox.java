@@ -27,9 +27,8 @@ public class Mailbox implements java.io.Serializable
      * @param message
      * @return boolean: true if the message was sent
      */
-    public boolean sendMessage(Mailbox destiny, Message message){
+    public boolean sendMessage( Message message){
         sentMessages.add(message);
-        destiny.receiveMessage(message);
         return true;
     }
     
@@ -37,9 +36,10 @@ public class Mailbox implements java.io.Serializable
      * A message is received by this mailbox
      * @param message 
      */
-    public void receiveMessage(Message message){
+    public boolean receiveMessage(Message message){
         System.out.println("Message received: " + message.getContent());
         receivedMessages.add(message);
+        return true;
     }
     
     /**

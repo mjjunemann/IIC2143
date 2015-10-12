@@ -9,18 +9,25 @@ package Backend;
  *
  * @author guillermofigueroa
  */
+/*To differenciate between regular messages end error messages, can 
+be exapanded to new types! */
+enum MessageType {Regular, Error}
+
 public final class Message {
     private Mailbox origin;
     private Mailbox destiny;
     private String subject;
     private String content;
+    private MessageType type;
+    private boolean seen = false;
     
     public Message(Mailbox origin, Mailbox destiny, String subject,
-            String content){
+            String content, MessageType type){
         this.setOriginMailbox(origin);
         this.setDestinyMailbox(destiny);
         this.setSubject(subject);
         this.setContent(content);
+        this.type = type;
     }
     
     
@@ -91,6 +98,18 @@ public final class Message {
      */
     public void setContent(String content) {
         this.content = content;
+    }
+    
+    public boolean getSeen() {
+        return this.seen;
+    }
+
+    /**
+     * Set the content of the message
+     * @param content 
+     */
+    public void setSeen(boolean b) {
+        this.seen = b;
     }
     //</editor-fold>
     
