@@ -19,7 +19,6 @@ public class ChilExplox implements java.io.Serializable
     private Map<Address,Subsidiary> subsidiaries;
     private Subsidiary current_subsidiary;
     private final Messaging messaging;
-    private NotificationCenter notificationcenter;
     
     protected ChilExplox()
     {
@@ -27,7 +26,6 @@ public class ChilExplox implements java.io.Serializable
         this.users = new HashMap();
         this.subsidiaries = new HashMap();
         this.subsidiaries_addrs = new ArrayList<>();
-        this.notificationcenter = new NotificationCenter();
         // Here could be a static class that take cares of loading the information
         //loadSubsidaries
         //loadUsers

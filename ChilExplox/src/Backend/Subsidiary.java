@@ -18,6 +18,7 @@ public class Subsidiary implements java.io.Serializable
     private Mailbox mailbox;
     private Map<String,ITransport> transport;
     private ArrayList<ITransport> arrived;
+    private NotificationCenter notification_center;
     
     public Subsidiary(Address addr){
         this.subsidiary_address = addr;
@@ -25,6 +26,7 @@ public class Subsidiary implements java.io.Serializable
         this.orders = new HashMap();
         this.transport = new HashMap();
         this.arrived = new ArrayList<>(); 
+        this.notification_center = new NotificationCenter();
     }
     
     public void addVehicle(ITransport v){
@@ -40,12 +42,7 @@ public class Subsidiary implements java.io.Serializable
     }
     
     public Order newOrder(Client client){
-        
-        Date da = new Date();
-        long d = da.getTime();
-        
         Order o = new Order();
-        orders.put(String.valueOf(d), o);
         return o;
     }
     
@@ -57,6 +54,7 @@ public class Subsidiary implements java.io.Serializable
         String id = rut + "-" + date;
         
         this.orders.put(id, order);
+        this.notification_center.addOrderNotification(id,order);
     }
     
     public void sendsVehicle(ITransport v, Subsidiary S){

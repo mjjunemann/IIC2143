@@ -146,6 +146,20 @@ public class Order implements java.io.Serializable
     public ArrayList<Parcel> getParcel(){
         return this.parcels;
     }
-    
+    /*
+    We define - for now - the prioriy of an order as the max priority of the 
+    parcels that make up the order.
+    */
+    public int getPriority(){
+        int max = this.parcels.get(0).getPriority();
+        int n;
+        for( Parcel p : this.parcels){
+            n = p.getPriority();
+            if (n>max){
+                max = n;
+            }
+        }
+        return max;
+    }
     
 }

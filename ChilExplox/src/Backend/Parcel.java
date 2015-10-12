@@ -70,6 +70,10 @@ public class Parcel implements java.io.Serializable
      {
          return this.state;
      }
+     public int getPriority()
+     {
+         return this.priority;
+     }
     //</editor-fold>
     
 }
