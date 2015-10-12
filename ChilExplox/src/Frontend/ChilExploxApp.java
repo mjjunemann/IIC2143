@@ -22,7 +22,7 @@ import javafx.stage.Stage;
  */
 public class ChilExploxApp extends Application {
     
-    private ChilExplox chilexplox = new ChilExplox();
+    private Backend.ChilExplox chilexplox = new Backend.ChilExplox();
     private Subsidiary actual;
     @Override
     public void start(Stage primaryStage) {
