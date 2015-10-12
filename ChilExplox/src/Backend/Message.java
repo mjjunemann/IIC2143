@@ -9,9 +9,6 @@ package Backend;
  *
  * @author guillermofigueroa
  */
-/*To differenciate between regular messages end error messages, can 
-be exapanded to new types! */
-enum MessageType {Regular, Error}
 
 public final class Message {
     private Mailbox origin;

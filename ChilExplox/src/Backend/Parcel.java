@@ -9,7 +9,6 @@ package Backend;
  *
  * @author matia
  */
-enum State {Origin,OnTransit,Destination,Delivered}
 
 public class Parcel implements java.io.Serializable
 {
@@ -73,6 +72,14 @@ public class Parcel implements java.io.Serializable
      public int getPriority()
      {
          return this.priority;
+     }
+     public float getWeight()
+     {
+         return this.weight;
+     }
+     public float getVolume()
+     {
+         return this.volume;
      }
     //</editor-fold>
     

@@ -36,7 +36,6 @@ public class BudgetCalculator
      */
     public static float calculateParcel(Parcel parcel)
     {
-        float a = 10;
-        return a;
+        return parcel.getVolume()*10 + parcel.getWeight()*20;
     }
 }
