@@ -15,7 +15,7 @@ public abstract class ITransport
 {
     public String license_plate;
     private ArrayList<Parcel> parcels;
-    public State dispatch_status;
+    public State availability;
     private Subsidiary home_sub;
     public abstract boolean loadParcel(Parcel parcel);
     public abstract void send(Address addr);

@@ -9,7 +9,8 @@ package Backend;
  *
  * @author matia
  */
-enum State {Origin,OnTransit,Delivered}
+enum State {Origin,OnTransit,Destination,Delivered}
+
 public class Parcel implements java.io.Serializable
 {
     private float weight;
@@ -40,13 +41,20 @@ public class Parcel implements java.io.Serializable
     }
     
     public void updateStatus()
-    {/*Se llamara a este metodo solo cuando sea apropiado, 
-      actualiza al siguiente estado logico del proceso"*/
+    {/*This method will only be called when status must change and it does
+        so without checking correctness, must be carefull when called.*/
         if (this.state == State.Origin){
             this.state = State.OnTransit;
+        }else if (this.state == state.OnTransit){
+            this.state = State.Destination;
         }else{
             this.state = State.Delivered;
         }
+        /*Every time a parcel changes status, the whole order may change
+        status. Example: one parcel was missing from being delivered, once is 
+        delivered, the whole order is delivered.
+        So It calls the update Status from Order.
+        */
         order.updateStatus();
     }
     //<editor-fold desc="Setter&Getters">

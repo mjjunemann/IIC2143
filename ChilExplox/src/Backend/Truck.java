@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class Truck extends ITransport implements java.io.Serializable{
     String license_plate;
     int max_parcels ;
-    State dispatch_status;
+    State availability;
     ArrayList<Parcel> parcels;
     Subsidiary home_sub;
     
@@ -22,7 +22,7 @@ public class Truck extends ITransport implements java.io.Serializable{
         license_plate = S;
         max_parcels = max;
         parcels = new ArrayList<>();
-        dispatch_status = State.Origin;
+        availability = State.Origin;
         home_sub = sub;
     }
     @Override
@@ -38,7 +38,8 @@ public class Truck extends ITransport implements java.io.Serializable{
         for(Parcel p: this.parcels){
             p.updateStatus();
         }
-        this.dispatch_status = State.OnTransit;
+        this.availability = State.OnTransit;
+        this.availability = State.Destination;
     }
     @Override
     public ArrayList<Parcel> unload(){
@@ -48,12 +49,12 @@ public class Truck extends ITransport implements java.io.Serializable{
             arrived.add(p);
         }
         this.parcels.clear();
-        this.dispatch_status = State.Delivered;
+        this.availability = State.Delivered;
         return arrived;
     }
     @Override
     public void sendBack(){
-        this.dispatch_status = State.Origin;
+        this.availability = State.Origin;
     }
     @Override
     protected int checkSpace(){
@@ -61,7 +62,7 @@ public class Truck extends ITransport implements java.io.Serializable{
     }
     
     public State getState(){
-        return this.dispatch_status;
+        return this.availability;
     }
     public ArrayList<Parcel> getParcels(){
         return this.parcels;

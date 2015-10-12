@@ -78,30 +78,44 @@ public class Order implements java.io.Serializable
         }
         return this.total_price;
     }
-    /*this method update the status of the order, if all the parcels are 
-        delivered change the status to delivered, if one is on transit or
-        some are at origin and others at delivered, the hole order is on transit
-        finally, if all parcels are at origin, the order as well.*/
     public void updateStatus()
     {
+        /*This method updates the status of the Order. Since an order is the sum
+        of many parcels and each one can has a different status, this method 
+        will follow the following logic:
+        Orden is at Origin if and only if all Parcels are at Origin.
+        Orden is Delivered if and only if all Parcels are Delivered.
+        Orden is at Destination if and only if 
+                            all Parcels are at Destination or Delivered.
+        Otherwise, Order is on Transit.
+        */
         Boolean origin = true;
+        Boolean destination = true;
         Boolean delivered = true;
         for( Parcel p : this.parcels){
             State s = p.getState();
             if ( s == State.OnTransit){
-                delivered = false;
                 origin = false;
+                delivered = false;
+                destination = false;
                 break;
+            }
+            else if (s == State.Destination){
+                origin = false;
+                delivered = false;
             }
             else if (s == State.Delivered){
                 origin = false;
             }
             else{
+                destination = false;
                 delivered = false;
             }
         }
-        if( !origin && !delivered){
+        if( !origin && !delivered && !destination ){
             this.state = State.OnTransit;
+        }else if (destination){
+            this.state = State.Destination;
         }else if (delivered){
             this.state = State.Delivered;
         }else{
