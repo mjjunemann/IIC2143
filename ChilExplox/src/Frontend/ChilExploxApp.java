@@ -170,7 +170,7 @@ public class ChilExploxApp extends Application {
     public void changeScene(String fxmlName, Class className){
         
         try{
-            FXMLLoader loader = new FXMLLoader(Main.class.getResource(fxmlName));
+            FXMLLoader loader = new FXMLLoader(ChilExploxApp.class.getResource(fxmlName));
             AnchorPane page = (AnchorPane)loader.load();
             iController controller = (iController)className.newInstance();
             controller = loader.getController();
@@ -181,7 +181,7 @@ public class ChilExploxApp extends Application {
             stage.setTitle("ChilExplox");
             stage.show();
         } catch(Exception ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ChilExploxApp.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
