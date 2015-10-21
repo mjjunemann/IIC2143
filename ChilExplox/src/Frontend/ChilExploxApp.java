@@ -35,7 +35,6 @@ public class ChilExploxApp extends Application {
     public void start(Stage primaryStage) {
         this.stage = primaryStage;
         this.changeScene("LoginViewFXML.fxml", LoginViewFXMLController.class);
-        
         /*
         // Lugar de prueba de metodos y funciones!!
         Button btn = new Button();

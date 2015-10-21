@@ -30,15 +30,16 @@ public class LoginViewFXMLController implements Initializable, iController {
     private Backend.ChilExplox chilexplox = new Backend.ChilExplox();
     
     @FXML
-    private TextField passwordTextField;
+    private TextField passwordTextField; 
     @FXML
     private TextField usernameTextField;
+
+    
     
     ChilExploxApp main;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        assert loginButton != null : "fx:id=\"loginButton\" was not injected: check your FXML file 'LoginViewFXML.fxml'.";
 
     }   
     

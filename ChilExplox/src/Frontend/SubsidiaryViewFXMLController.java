@@ -27,7 +27,9 @@ import javafx.stage.Stage;
 public class SubsidiaryViewFXMLController implements Initializable, iController {
 
     @FXML
-    private Button newOrderButton;
+    private Button newOrderButton; 
+    @FXML 
+    private Button logoutButton;
     
     ChilExploxApp main;
     
@@ -39,11 +41,18 @@ public class SubsidiaryViewFXMLController implements Initializable, iController 
     @FXML
     private void createNewOrder(ActionEvent event) {
         System.out.println("New order created");
+        main.changeScene("CreateOrderViewFXML.fxml", CreateOrderViewFXMLController.class);
+
     }
     
     @Override
     public void setChilExploxApp(ChilExploxApp main){
         this.main = main;
+    }
+    
+    @FXML
+    private void logoutUser(ActionEvent event){
+        main.changeScene("LoginViewFXML.fxml", LoginViewFXMLController.class);
     }
     
     
