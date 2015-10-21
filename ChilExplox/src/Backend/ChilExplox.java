@@ -40,12 +40,16 @@ public class ChilExplox implements java.io.Serializable
      */
     public boolean login(String username, String password, Address subsidiary_addrs)
     {
+        User user = users.get(username);
+        if (user != null){
+
         if( this.subsidiaries_addrs.contains(subsidiary_addrs) 
-                && users.get(username).getPassword() == password){
+                && user.getPassword().equals(password)){
             this.current_subsidiary = this.subsidiaries.get(subsidiary_addrs);
             System.out.print("Logged-in as: "+ username +" in "+ subsidiary_addrs.getAddress()+" \n");
             return true;
             }
+        }
         return false;
     }
     

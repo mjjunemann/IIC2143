@@ -50,9 +50,13 @@ public class LoginViewFXMLController implements Initializable, iController {
 
     @FXML
     private void loginUser(ActionEvent event) {
-        System.out.print("Logged-in as: "+ usernameTextField.getText() +" with the password "+ passwordTextField.getText() +" \n");
-        main.changeScene("SubsidiaryViewFXML.fxml", SubsidiaryViewFXMLController.class);
-        
+        String username = usernameTextField.getText();
+        String password = passwordTextField.getText();
+        Address address = new Address("Amapolas",1500,"Providencia","Santiago");
+ 
+        if (main.getChilExplox().login(username, password, address)){
+            main.changeScene("SubsidiaryViewFXML.fxml", SubsidiaryViewFXMLController.class);
+        }
     }
     
     

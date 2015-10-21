@@ -32,7 +32,7 @@ public class SubsidiaryViewFXMLController implements Initializable, iController 
     private Button logoutButton;
     
     ChilExploxApp main;
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO

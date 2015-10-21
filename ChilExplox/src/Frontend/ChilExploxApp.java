@@ -35,14 +35,7 @@ public class ChilExploxApp extends Application {
     public void start(Stage primaryStage) {
         this.stage = primaryStage;
         this.changeScene("LoginViewFXML.fxml", LoginViewFXMLController.class);
-        /*
-        // Lugar de prueba de metodos y funciones!!
-        Button btn = new Button();
-        
-        TextField textFieldSubject = new TextField();
-        TextField textFieldContent = new TextField();
 
-        
         //We add two Subsidiaries to ChilExplox and a User
         Address addr = new Address("Amapolas",1500,"Providencia","Santiago");
         Address addr2 = new Address("Hernando de Aguirre",1133,
@@ -50,7 +43,9 @@ public class ChilExploxApp extends Application {
         chilexplox.addSubsidary(addr);
         chilexplox.addSubsidary(addr2);
         chilexplox.addUser("fdoflorenzano", "Fernando", "blorg");
+        chilexplox.addUser("admin", "Administrador", "admin");
         // We log into the system in the first Subsidiary
+        /*
         if(chilexplox.login("fdoflorenzano", "blorg", addr)){
             
             actual = chilexplox.current_subsidiary; //Logged-In
@@ -182,6 +177,10 @@ public class ChilExploxApp extends Application {
         } catch(Exception ex) {
             Logger.getLogger(ChilExploxApp.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public ChilExplox getChilExplox(){
+        return this.chilexplox;
     }
     
 }
