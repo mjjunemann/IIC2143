@@ -7,13 +7,17 @@ package Frontend;
 
 import Backend.*;
 import javafx.application.Application;
+import javafx.fxml.Initializable;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.text.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -24,34 +28,41 @@ public class ChilExploxApp extends Application {
     
     private Backend.ChilExplox chilexplox = new Backend.ChilExplox();
     private Subsidiary actual;
+    
+    Stage stage;
+    
     @Override
     public void start(Stage primaryStage) {
-        /* Lugar de prueba de metodos y funciones!! */
+        this.stage = primaryStage;
+        this.changeScene("LoginViewFXML.fxml", LoginViewFXMLController.class);
+        
+        /*
+        // Lugar de prueba de metodos y funciones!!
         Button btn = new Button();
         
         TextField textFieldSubject = new TextField();
         TextField textFieldContent = new TextField();
 
         
-        /*We add two Subsidiaries to ChilExplox and a User*/
+        //We add two Subsidiaries to ChilExplox and a User
         Address addr = new Address("Amapolas",1500,"Providencia","Santiago");
         Address addr2 = new Address("Hernando de Aguirre",1133,
                 "Providencia","Santiago");
         chilexplox.addSubsidary(addr);
         chilexplox.addSubsidary(addr2);
         chilexplox.addUser("fdoflorenzano", "Fernando", "blorg");
-        /* We log into the system in the first Subsidiary*/
+        // We log into the system in the first Subsidiary
         if(chilexplox.login("fdoflorenzano", "blorg", addr)){
             
-            actual = chilexplox.current_subsidiary; /*Logged-In*/
-            /*Start New Order without Client info*/
+            actual = chilexplox.current_subsidiary; //Logged-In
+            //Start New Order without Client info
             Order o = actual.newOrder();
-            /*Add two parcels to the order. Calculate each total.*/
+            //Add two parcels to the order. Calculate each total.
             Parcel p1 = new Parcel(10,20,10,addr,addr,o);
             Parcel p2 = new Parcel(30,10,10,addr,addr2,o);
             o.addParcel(p1);
             o.addParcel(p2);
-            /*Calculate the total amount*/
+            //Calculate the total amount
             BudgetCalculator.calculateTotal(o.getParcel());
             
             Client fernando2 = new Client("Fernando","Cumbre San Juan 12496","18933054-5","76143431");
@@ -92,9 +103,8 @@ public class ChilExploxApp extends Application {
                 System.out.print("Parcel Estado:" + p.getState() + "\n");
             }
             System.out.print("--------------------------\n");
-            /*
-            Loader.saveSubsidiary(subsidiaryAmapolas);
-            */
+            //Loader.saveSubsidiary(subsidiaryAmapolas);
+            
             
 
             btn.setText("send");
@@ -136,12 +146,14 @@ public class ChilExploxApp extends Application {
             t2.setFont(new Font(14));
             root.getChildren().add(t2);
 
-            Scene scene = new Scene(root, 300, 250);
 
-            primaryStage.setTitle("Hello World!");
-            primaryStage.setScene(scene);
-            primaryStage.show();
+            
+       
+            
         }
+        */
+        
+
     }
 
     /**
@@ -149,6 +161,28 @@ public class ChilExploxApp extends Application {
      */
     public static void main(String[] args) {
         launch(args);
+    }
+    
+    public Stage getStage(){
+        return this.stage;
+    }
+    
+    public void changeScene(String fxmlName, Class className){
+        
+        try{
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource(fxmlName));
+            AnchorPane page = (AnchorPane)loader.load();
+            iController controller = (iController)className.newInstance();
+            controller = loader.getController();
+            controller.setChilExploxApp(this);
+                
+            Scene sceneLogin = new Scene(page);
+            stage.setScene(sceneLogin);
+            stage.setTitle("ChilExplox");
+            stage.show();
+        } catch(Exception ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 }

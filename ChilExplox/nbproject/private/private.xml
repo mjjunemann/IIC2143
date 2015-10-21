@@ -3,16 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/matia/Desktop/Repositorios/Software/ChilExplox/src/Backend/Client.java</file>
-            <file>file:/C:/Users/matia/Desktop/Repositorios/Software/ChilExplox/src/Backend/BudgetCalculator.java</file>
-            <file>file:/C:/Users/matia/Desktop/Repositorios/Software/ChilExplox/src/Backend/ChilExplox.java</file>
-            <file>file:/C:/Users/matia/Desktop/Repositorios/Software/ChilExplox/src/Backend/ITransport.java</file>
-            <file>file:/C:/Users/matia/Desktop/Repositorios/Software/ChilExplox/src/Backend/Address.java</file>
-            <file>file:/C:/Users/matia/Desktop/Repositorios/Software/ChilExplox/src/Backend/Loader.java</file>
-            <file>file:/C:/Users/matia/Desktop/Repositorios/Software/ChilExplox/src/Backend/Order.java</file>
-            <file>file:/C:/Users/matia/Desktop/Repositorios/Software/ChilExplox/src/Backend/Parcel.java</file>
-            <file>file:/C:/Users/matia/Desktop/Repositorios/Software/ChilExplox/src/Backend/Subsidiary.java</file>
-            <file>file:/C:/Users/matia/Desktop/Repositorios/Software/ChilExplox/src/Testing/Test.java</file>
+            <file>file:/Users/guillermofigueroa/Google%20Drive/Universidad/Tercer%20Año%202015/Sexto%20Semestre/Ingenieria%20de%20Software/GitHub/IIC2143/ChilExplox/src/Frontend/ChilExploxApp.java</file>
+            <file>file:/Users/guillermofigueroa/Google%20Drive/Universidad/Tercer%20Año%202015/Sexto%20Semestre/Ingenieria%20de%20Software/GitHub/IIC2143/ChilExplox/src/Frontend/SubsidiaryViewFXMLController.java</file>
+            <file>file:/Users/guillermofigueroa/Google%20Drive/Universidad/Tercer%20Año%202015/Sexto%20Semestre/Ingenieria%20de%20Software/GitHub/IIC2143/ChilExplox/src/Frontend/LoginViewFXMLController.java</file>
         </group>
     </open-files>
 </project-private>
