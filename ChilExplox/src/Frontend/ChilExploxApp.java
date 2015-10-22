@@ -26,15 +26,17 @@ import java.util.logging.Logger;
  */
 public class ChilExploxApp extends Application {
     
-    private Backend.ChilExplox chilexplox = new Backend.ChilExplox();
+    private static ChilExplox chilexplox;
     private Subsidiary actual;
     
-    Stage stage;
+    private Stage stage;
     
     @Override
     public void start(Stage primaryStage) {
         this.stage = primaryStage;
+        this.stage.setOnCloseRequest(e->chilexplox.Exit());
 
+        /*
         //We add two Subsidiaries to ChilExplox and a User
         Address addr = new Address("Amapolas",1500,"Providencia","Santiago");
         Address addr2 = new Address("Hernando de Aguirre",1133,
@@ -49,7 +51,7 @@ public class ChilExploxApp extends Application {
         
         Truck t2 = new Truck("FH-1288",60, chilexplox.getSubsidiary(addr2));
         chilexplox.getSubsidiary(addr2).addVehicle(t2);
-        
+        */
         this.changeScene("LoginViewFXML.fxml", LoginViewFXMLController.class);
         // We log into the system in the first Subsidiary
         /*
@@ -161,6 +163,7 @@ public class ChilExploxApp extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        chilexplox = ChilExplox.getInstance();
         launch(args);
     }
     

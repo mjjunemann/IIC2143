@@ -11,7 +11,7 @@ import java.util.ArrayList;
  *
  * @author guillermofigueroa
  */
-public class Messaging {
+public class Messaging implements java.io.Serializable{
 
     private ArrayList<Mailbox> mailboxes;
     

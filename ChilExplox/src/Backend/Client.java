@@ -11,7 +11,7 @@ import java.util.Set;
  *
  * @author matia
  */
-public class Client {
+public class Client implements java.io.Serializable {
     
     private String name;
     private String address;

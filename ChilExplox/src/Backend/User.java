@@ -9,7 +9,7 @@ package Backend;
  *
  * @author matia
  */
-public class User 
+public class User implements java.io.Serializable
 {
     public final String username;
     private String password;

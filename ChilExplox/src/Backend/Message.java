@@ -10,7 +10,7 @@ package Backend;
  * @author guillermofigueroa
  */
 
-public final class Message {
+public final class Message implements java.io.Serializable {
     private Mailbox origin;
     private Mailbox destiny;
     private String subject;

@@ -60,11 +60,13 @@ public class ChilExplox implements java.io.Serializable
      * doesn't exist create one
      * @return ChilExplox instance
      */
-    public ChilExplox getInstance()
+    public static ChilExplox getInstance()
     {
-        if (instance != null)
+        if (instance == null)
         {
-            instance = new ChilExplox();
+            instance = Loader.loadApp();
+            if (instance == null)
+                instance = new ChilExplox();
         }
         return instance;
     }
@@ -95,5 +97,11 @@ public class ChilExplox implements java.io.Serializable
     }
     public User getCurrentUser(){
         return this.current_user;
+    }
+    
+    public void Exit() 
+    {
+        System.out.print("Closing Bitches Come Back Tomorrow");
+        Loader.saveApp(this);
     }
 }
