@@ -14,11 +14,20 @@ public class Mailbox implements java.io.Serializable
 {
     private final LinkedList<Message> sentMessages;
     private final LinkedList<Message> receivedMessages;
+    private Address subsidaryAddress;
     
     public Mailbox(){
         sentMessages = new LinkedList<>();
         receivedMessages = new LinkedList<>();
         
+    }
+    
+    public void setSubsidaryAddress(Address address){
+        subsidaryAddress = address;
+    }
+    
+    public Address getSubsidaryAddress(){
+        return this.subsidaryAddress;
     }
     
     /**

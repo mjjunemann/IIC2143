@@ -18,6 +18,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -134,4 +135,39 @@ public class MailboxViewFXMLController implements Initializable, iController {
         }
         messagesListView.setItems(messages);
     }
+
+    public void changeSceneToMessage(Message message){
+        
+        try{
+            FXMLLoader loader = new FXMLLoader(ChilExploxApp.class.
+                    getResource("SeeMessageViewFXML.fxml"));
+            AnchorPane page = (AnchorPane)loader.load();
+
+            SeeMessageViewFXMLController controller = loader.getController();
+            controller.setChilExploxApp(this.main);
+            controller.setMessage(message);
+                
+            this.main.changeSceneFromPage(page);
+        } catch(Exception ex) {
+            Logger.getLogger(ChilExploxApp.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void readMessage(MouseEvent event) {
+        int messageSelected = messagesListView.getSelectionModel().
+                getSelectedIndex();
+
+        if (actualButtonDefault == setReceivedMessagesButton){
+            Message message = main.getChilExplox().getCurrentSubsidiary().
+                getMailbox().getReceivedMessages().get(messageSelected);
+            changeSceneToMessage(message);
+        } else if (actualButtonDefault == setSentMessagesButton){
+            Message message = main.getChilExplox().getCurrentSubsidiary().
+                getMailbox().getSentMessages().get(messageSelected);
+            changeSceneToMessage(message);
+        }
+
+    }
+    
 }
