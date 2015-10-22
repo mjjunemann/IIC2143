@@ -6,19 +6,23 @@
 package Frontend;
 
 import Backend.*;
+import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.cell.ComboBoxListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.TilePane;
@@ -85,6 +89,20 @@ public class WatchTrucksListFXMLController implements Initializable, iController
             imV = new ImageView();
             imV.setImage(im);
             imV.setFitWidth(75);
+            /*
+            imV.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+            @Override
+            public void handle(MouseEvent event) {
+                // TODO Auto-generated method stub
+                Parent root;
+                root = FXMLLoader.load(getClass().getClassLoader().getResource("path/to/other/view.fxml"));
+                Stage stage = new Stage();
+                stage.setTitle("My New Stage Title");
+                stage.setScene(new Scene(root, 450, 450));
+                stage.show();
+            }*/
+            });
             imV.setPreserveRatio(true);
             imV.setSmooth(true);
             imV.setCache(true);
