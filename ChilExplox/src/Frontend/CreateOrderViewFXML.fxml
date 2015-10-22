@@ -1,17 +1,82 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Frontend.CreateOrderViewFXMLController">
+<AnchorPane id="AnchorPane" prefHeight="420.0" prefWidth="672.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Frontend.CreateOrderViewFXMLController">
    <children>
       <ToolBar layoutX="32.0" layoutY="14.0" prefHeight="39.0" prefWidth="600.0" AnchorPane.bottomAnchor="366.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <items>
             <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancelOrder" text="Cancel" />
+            <Button fx:id="saveButton" mnemonicParsing="false" onAction="#cancelOrder" text="Save" />
+            <Button fx:id="saveButton1" mnemonicParsing="false" onAction="#cancelOrder" text="New Parcel" />
          </items>
       </ToolBar>
+      <SplitPane dividerPositions="0.29797979797979796" layoutY="35.0" prefHeight="366.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="35.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <children>
+                  <ListView layoutX="25.0" layoutY="22.0" prefHeight="364.0" prefWidth="175.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <children>
+                  <SplitPane dividerPositions="0.35082872928176795" orientation="VERTICAL" prefHeight="399.0" prefWidth="417.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <items>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="171.0" prefWidth="415.0" SplitPane.resizableWithParent="false">
+                           <children>
+                              <TextField layoutX="97.0" layoutY="14.0" maxHeight="-Infinity" prefHeight="29.0" prefWidth="122.0" />
+                              <TextField layoutX="97.0" layoutY="49.0" prefHeight="29.0" prefWidth="122.0" />
+                              <Label layoutX="15.0" layoutY="18.0" text="FIRST NAME:" />
+                              <Label layoutX="15.0" layoutY="53.0" text="LAST NAME:" />
+                              <Label layoutX="251.0" layoutY="21.0" text="RUT:" />
+                              <Label layoutX="14.0" layoutY="90.0" text="ADDRESS:" />
+                              <TextField layoutX="287.0" layoutY="17.0" maxHeight="-Infinity" prefHeight="29.0" prefWidth="122.0" />
+                              <TextField layoutX="97.0" layoutY="84.0" maxHeight="-Infinity" prefHeight="29.0" prefWidth="313.0" />
+                              <Label layoutX="243.0" layoutY="56.0" text="PHONE:" />
+                              <TextField layoutX="287.0" layoutY="52.0" maxHeight="-Infinity" prefHeight="29.0" prefWidth="122.0" />
+                           </children>
+                        </AnchorPane>
+                        <SplitPane dividerPositions="0.5" prefHeight="232.0" prefWidth="415.0">
+                          <items>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                 <children>
+                                    <Label layoutX="14.0" layoutY="52.0" prefHeight="17.0" prefWidth="109.0" text="ID Pedido" />
+                                    <Label layoutX="14.0" layoutY="90.0" prefHeight="17.0" prefWidth="109.0" text="Parcel Number" />
+                                    <Label layoutX="14.0" layoutY="14.0" prefHeight="17.0" prefWidth="109.0" text="Date" />
+                                    <Label layoutX="14.0" layoutY="194.0" prefHeight="17.0" prefWidth="109.0" text="Total" />
+                                    <Text layoutX="113.0" layoutY="211.0" strokeType="OUTSIDE" strokeWidth="0.0" text="parcel value" wrappingWidth="69.00000125169754" />
+                                    <Text fx:id="date_text" layoutX="48.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="parcel value" textAlignment="RIGHT" wrappingWidth="171.00001525878906" />
+                                    <Text layoutX="75.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="parcel value" textAlignment="RIGHT" wrappingWidth="145.0000126361847" />
+                                    <Text layoutX="147.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="parcel value" textAlignment="RIGHT" wrappingWidth="69.00000125169754" />
+                                 </children>
+                              </AnchorPane>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                 <children>
+                                    <Label layoutX="8.0" layoutY="41.0" text="DESTINY:" AnchorPane.rightAnchor="147.0" />
+                                    <Label layoutX="9.0" layoutY="72.0" text="WEIGHT:" AnchorPane.rightAnchor="148.0" />
+                                    <Label layoutX="12.0" layoutY="105.0" prefHeight="17.0" prefWidth="54.0" text="VOLUME:" AnchorPane.rightAnchor="138.0" />
+                                    <ChoiceBox layoutX="71.0" layoutY="37.0" prefHeight="25.0" prefWidth="122.0" AnchorPane.rightAnchor="11.0" />
+                                    <TextField layoutX="71.0" layoutY="68.0" maxHeight="-Infinity" prefHeight="25.0" prefWidth="122.0" AnchorPane.rightAnchor="11.0" />
+                                    <TextField layoutX="71.0" layoutY="101.0" prefHeight="25.0" prefWidth="122.0" AnchorPane.rightAnchor="11.0" />
+                                    <Text layoutX="124.0" layoutY="151.0" strokeType="OUTSIDE" strokeWidth="0.0" text="parcel value" wrappingWidth="69.00000125169754" AnchorPane.rightAnchor="21.99999874830246" />
+                                    <Label layoutX="57.0" layoutY="138.0" prefHeight="17.0" prefWidth="69.0" text="Subtotal" AnchorPane.rightAnchor="89.0" />
+                                    <Button layoutX="126.0" layoutY="181.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="66.0" text="Save" />
+                                    <Label layoutX="9.0" layoutY="7.0" text="ID PARCEL" AnchorPane.rightAnchor="139.0" />
+                                    <TextField editable="false" layoutX="71.0" layoutY="3.0" maxHeight="-Infinity" prefHeight="25.0" prefWidth="122.0" AnchorPane.rightAnchor="11.0" />
+                                 </children>
+                              </AnchorPane>
+                          </items>
+                        </SplitPane>
+                    </items>
+                  </SplitPane>
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
    </children>
 </AnchorPane>

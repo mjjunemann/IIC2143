@@ -10,7 +10,10 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
+import javafx.scene.control.*;
+import Backend.Order;
+import java.util.Date;
+import javafx.scene.text.Text;
 
 /**
  * FXML Controller class
@@ -25,10 +28,23 @@ public class CreateOrderViewFXMLController implements Initializable, iController
     ChilExploxApp main;
     @FXML
     private Button cancelButton;
+    @FXML
+    private Button saveButton;
+    @FXML
+    private Text date_text;
+    @FXML
+    private Text order_id;
+    @FXML
+    private Text parcel_number;
+
+    private Order order;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        Date date = new Date();
+        System.out.print(date.toString());
+        order = new Order(date);
+        date_text.setText(order.getSaleDate().toString());
     }   
     
     @Override
