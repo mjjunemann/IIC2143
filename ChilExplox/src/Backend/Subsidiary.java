@@ -86,4 +86,8 @@ public class Subsidiary implements java.io.Serializable
         v.sendBack();
     }
     
+    public Address getAddr()
+    {
+        return this.subsidiary_address;
+    }
 }
