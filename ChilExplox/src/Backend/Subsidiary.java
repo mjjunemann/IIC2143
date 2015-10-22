@@ -30,7 +30,11 @@ public class Subsidiary implements java.io.Serializable
     }
     
     public void addVehicle(ITransport v){
-        transport.put(v.license_plate,v);
+        transport.put(v.getPlate(),v);
+    }
+    
+    public Map<String,ITransport> getVehicles(){
+        return this.transport;
     }
     
     public String getAddress(){

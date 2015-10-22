@@ -47,19 +47,21 @@ public class LoginViewFXMLController implements Initializable, iController {
     }  
     
     public void setItemsListView(){
-        
-        
+        ObservableList<String> addressStringList = 
+                FXCollections.observableArrayList();
+        ArrayList<Address> subsidiariesAddress = 
+                this.main.getChilExplox().getSubsidiariesAddress();
+        for (Address address : subsidiariesAddress) {
+            addressStringList.add(address.getAddress());
+        }
+        addressList.setItems(addressStringList);  
     }
     
     @Override
     public void setChilExploxApp(ChilExploxApp main){
         this.main = main;
-        ObservableList<String> addressStringList = FXCollections.observableArrayList();
-        ArrayList<Address> subsidiariesAddress = this.main.getChilExplox().getSubsidiariesAddress();
-        for (Address address : subsidiariesAddress) {
-            addressStringList.add(address.getAddress());
-        }
-        addressList.setItems(addressStringList);
+        setItemsListView();
+        
     }
 
     @FXML

@@ -44,6 +44,12 @@ public class ChilExploxApp extends Application {
         chilexplox.addUser("fdoflorenzano", "Fernando", "blorg");
         chilexplox.addUser("admin", "Administrador", "admin");
         
+        Truck t1 = new Truck("ER-3434",45, chilexplox.getSubsidiary(addr));
+        chilexplox.getSubsidiary(addr).addVehicle(t1);
+        
+        Truck t2 = new Truck("FH-1288",60, chilexplox.getSubsidiary(addr2));
+        chilexplox.getSubsidiary(addr2).addVehicle(t2);
+        
         this.changeScene("LoginViewFXML.fxml", LoginViewFXMLController.class);
         // We log into the system in the first Subsidiary
         /*

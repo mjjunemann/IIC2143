@@ -31,6 +31,11 @@ public class User
     {
         return this.password;
     }
+    
+    public String getName(){
+        return this.name;
+    }
+    
     /**
      * Changes the user password
      * @param password receives the user new password

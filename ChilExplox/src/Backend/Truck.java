@@ -25,6 +25,15 @@ public class Truck extends ITransport implements java.io.Serializable{
         availability = State.Origin; /* Truck starts at origin.*/
         home_sub = sub;
     }
+    
+    public String getPlate(){
+        return this.license_plate;
+    }
+    
+    public State getAvaibility(){
+        return this.availability;
+    }
+    
     @Override
     public boolean loadParcel(Parcel parcel){
         if ( checkSpace() > 0){
@@ -58,7 +67,7 @@ public class Truck extends ITransport implements java.io.Serializable{
         this.availability = State.Origin; /*Truck goes back to origin */
     }
     @Override
-    protected int checkSpace(){
+    public int checkSpace(){
         return max_parcels - parcels.size();
     }
     

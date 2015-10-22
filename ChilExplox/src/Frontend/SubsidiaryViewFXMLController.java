@@ -31,8 +31,6 @@ public class SubsidiaryViewFXMLController implements Initializable, iController 
     @FXML 
     private Button logoutButton;
     @FXML 
-    private Button viewMessageButton;
-    @FXML 
     private Button viewOrdersButton;
     @FXML 
     private Button viewTrucksButton;
@@ -42,6 +40,8 @@ public class SubsidiaryViewFXMLController implements Initializable, iController 
     ChilExploxApp main;
     Subsidiary current_subsidiary;
     User logged_user;
+    @FXML
+    private Button viewMessagesButton;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -60,7 +60,7 @@ public class SubsidiaryViewFXMLController implements Initializable, iController 
         this.main = main;
         this.current_subsidiary = main.getChilExplox().getCurrentSubsidiary();
         this.logged_user = main.getChilExplox().getCurrentUser();
-        this.welcomeLabel.setText("Bienvenido "+this.logged_user.username
+        this.welcomeLabel.setText("Bienvenido "+this.logged_user.getName()
                                     + " \nHas ingresado via la sucursal en \n"
                                     + this.current_subsidiary.getAddress());
     }
@@ -69,7 +69,14 @@ public class SubsidiaryViewFXMLController implements Initializable, iController 
     private void logoutUser(ActionEvent event){
         main.changeScene("LoginViewFXML.fxml", LoginViewFXMLController.class);
     }
+
+    @FXML
+    private void watchTrucks(ActionEvent event) {
+        main.changeScene("WatchTrucksListFXML.fxml", WatchTrucksListFXMLController.class);
+
+    }
     
+
     
     
 }

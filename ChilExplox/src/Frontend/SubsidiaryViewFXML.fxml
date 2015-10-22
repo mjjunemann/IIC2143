@@ -11,8 +11,8 @@
       <Button fx:id="newOrderButton" layoutX="123.0" layoutY="149.0" mnemonicParsing="false" onAction="#createNewOrder" prefHeight="39.0" prefWidth="172.0" text="Nueva Orden" AnchorPane.leftAnchor="120.0" AnchorPane.topAnchor="150.0" />
       <Button fx:id="logoutButton" layoutX="499.0" layoutY="20.0" mnemonicParsing="false" onAction="#logoutUser" text="Logout" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0" />
       <Label fx:id="welcomeLabel" layoutX="35.0" layoutY="26.0" text="Bienvenido " AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="20.0" />
-      <Button fx:id="viewOrdersButton" layoutX="123.0" layoutY="200.0" mnemonicParsing="false" onAction="#createNewOrder" prefHeight="39.0" prefWidth="172.0" text="Ver Ordenes" AnchorPane.bottomAnchor="150.0" AnchorPane.leftAnchor="120.0" />
-      <Button fx:id="viewTrucksButton" layoutX="300.0" layoutY="149.0" mnemonicParsing="false" onAction="#createNewOrder" prefHeight="39.0" prefWidth="172.0" text="Ver Camiones" AnchorPane.rightAnchor="120.0" AnchorPane.topAnchor="150.0" />
+      <Button fx:id="viewOrdersButton" layoutX="123.0" layoutY="200.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="172.0" text="Ver Ordenes" AnchorPane.bottomAnchor="150.0" AnchorPane.leftAnchor="120.0" />
+      <Button fx:id="viewTrucksButton" layoutX="300.0" layoutY="149.0" mnemonicParsing="false" onAction="#watchTrucks" prefHeight="39.0" prefWidth="172.0" text="Ver Camiones" AnchorPane.rightAnchor="120.0" AnchorPane.topAnchor="150.0" />
       <Button fx:id="viewMessagesButton" layoutX="300.0" layoutY="200.0" mnemonicParsing="false" onAction="#createNewOrder" prefHeight="39.0" prefWidth="172.0" text="Ver Mensajes" AnchorPane.bottomAnchor="150.0" AnchorPane.rightAnchor="120.0" />
    </children>
 </AnchorPane>
