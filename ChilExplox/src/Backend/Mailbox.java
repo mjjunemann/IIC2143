@@ -29,6 +29,7 @@ public class Mailbox implements java.io.Serializable
      */
     public boolean sendMessage( Message message){
         sentMessages.add(message);
+        message.getDestinyMailbox().receiveMessage(message);
         return true;
     }
     
