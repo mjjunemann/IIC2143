@@ -7,15 +7,16 @@ package Frontend;
 
 import Backend.*;
 import java.net.URL;
-import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.cell.ComboBoxListCell;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -33,29 +34,44 @@ public class LoginViewFXMLController implements Initializable, iController {
     private TextField passwordTextField; 
     @FXML
     private TextField usernameTextField;
-
+    @FXML
+    private ListView<String> addressList = new ListView<String>();
     
     
     ChilExploxApp main;
+
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-    }   
+    }  
+    
+    public void setItemsListView(){
+        
+        
+    }
     
     @Override
     public void setChilExploxApp(ChilExploxApp main){
         this.main = main;
+        ObservableList<String> addressStringList = FXCollections.observableArrayList();
+        ArrayList<Address> subsidiariesAddress = this.main.getChilExplox().getSubsidiariesAddress();
+        for (Address address : subsidiariesAddress) {
+            addressStringList.add(address.getAddress());
+        }
+        addressList.setItems(addressStringList);
     }
 
     @FXML
     private void loginUser(ActionEvent event) {
         String username = usernameTextField.getText();
         String password = passwordTextField.getText();
-        Address address = new Address("Amapolas",1500,"Providencia","Santiago");
- 
-        if (main.getChilExplox().login(username, password, address)){
-            main.changeScene("SubsidiaryViewFXML.fxml", SubsidiaryViewFXMLController.class);
+        int positionSelected = addressList.getSelectionModel().getSelectedIndex();
+        if (positionSelected >= 0){
+            Address address = this.main.getChilExplox().getSubsidiariesAddress().get(positionSelected);
+            if (this.main.getChilExplox().login(username, password, address)){
+                this.main.changeScene("SubsidiaryViewFXML.fxml", SubsidiaryViewFXMLController.class);
+            }
         }
     }
     

@@ -63,6 +63,5 @@ public class Address implements java.io.Serializable
         return String.format("%1$s %2$s,%3$s,%4$s",street,number,neighborhood,city);
     }
     
-    
             
  }
