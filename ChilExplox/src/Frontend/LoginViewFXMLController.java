@@ -17,6 +17,9 @@ import javafx.scene.control.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.cell.ComboBoxListCell;
+import javafx.scene.input.KeyCode;
+import javafx.event.Event.*;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -26,14 +29,17 @@ import javafx.stage.Stage;
  * @author guillermofigueroa
  */
 public class LoginViewFXMLController implements Initializable, iController {
+
+    @FXML
+    private TextField usernameTextField;
     @FXML
     private Button loginButton;
+    
     private Backend.ChilExplox chilexplox = new Backend.ChilExplox();
     
     @FXML
     private TextField passwordTextField; 
-    @FXML
-    private TextField usernameTextField;
+
     @FXML
     private ListView<String> addressList = new ListView<String>();
     
@@ -65,8 +71,23 @@ public class LoginViewFXMLController implements Initializable, iController {
     }
 
     @FXML
-    private void loginUser(ActionEvent event) {
-        String username = usernameTextField.getText();
+    private void onEnter(KeyEvent e)
+    {
+     if(e.getCode().equals(KeyCode.ENTER))
+     {
+      this.login();
+     }
+    }
+    @FXML
+    private void loginUser(ActionEvent event)
+    {
+        this.login();
+    }
+    
+    
+    private void login()
+    {
+      String username = usernameTextField.getText();
         String password = passwordTextField.getText();
         int positionSelected = addressList.getSelectionModel().getSelectedIndex();
         if (positionSelected >= 0){
@@ -74,8 +95,7 @@ public class LoginViewFXMLController implements Initializable, iController {
             if (this.main.getChilExplox().login(username, password, address)){
                 this.main.changeScene("SubsidiaryViewFXML.fxml", SubsidiaryViewFXMLController.class);
             }
-        }
+        }  
     }
-    
     
 }
