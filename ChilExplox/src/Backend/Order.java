@@ -181,10 +181,16 @@ public class Order implements java.io.Serializable
         return max;
     }
     
+<<<<<<< HEAD
     public String peekId()
     {
         String id = orderId + String.valueOf(parcelIdCounter--);
         return id;
+=======
+    @Override
+    public String toString(){
+        return this.orderId + ", price: " + this.total_price;
+>>>>>>> 01a6dfe9d898a0b9fa5367c1874914e4cdeb4a52
     }
     
 }
