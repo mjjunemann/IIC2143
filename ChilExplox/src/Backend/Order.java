@@ -7,6 +7,11 @@ package Backend;
 
 import java.util.ArrayList;
 import java.util.Date;
+import javafx.beans.property.FloatProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleFloatProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
 
 /**
  *
@@ -15,22 +20,23 @@ import java.util.Date;
 public class Order implements java.io.Serializable
 {
     private ArrayList<Parcel> parcels;
-    private Date sales_date;
-    private Date delivery_date;
+    private SimpleObjectProperty<Date> sales_date;
+    private SimpleObjectProperty<Date> delivery_date;
     private boolean calculated;
-    private float total_price;
-    private Client client;
-    private State state;
-    private String orderId;
+    private SimpleFloatProperty total_price;
+    private SimpleObjectProperty<Client> client;
+    private SimpleObjectProperty<State> state;
+    private SimpleStringProperty orderId;
+    
     private int parcelIdCounter = 100;
     /*constructor para testear */
     public Order(String id)
     {
-        this.orderId = id;
+        setId(id);
         this.parcels = new ArrayList<>();
         this.calculated = false;
-        this.total_price = 0;
-        this.state = State.Origin;
+        setTotal(0);
+        setState(State.Origin);
     }
     
     /**
@@ -39,11 +45,11 @@ public class Order implements java.io.Serializable
      */
     public Order(Date date,String id)
     {
-        this.orderId = id;
+        setId(id);
         this.parcels = new ArrayList<>();
         this.calculated = false;
-        this.total_price = 0;
-        this.sales_date = date;
+        setTotal(0);
+        setSaleDate(date);
         this.client = null;
     }
     
@@ -56,9 +62,9 @@ public class Order implements java.io.Serializable
     {
         this.parcels = new ArrayList<>();
         this.calculated = false;
-        this.total_price = 0;
-        this.sales_date = date;
-        this.client = client;
+        setTotal(0);
+        setSaleDate(date);
+        setClient(client);
     }
     
     /**
@@ -80,14 +86,27 @@ public class Order implements java.io.Serializable
     {
         if (!this.calculated)
         {
-            this.total_price = BudgetCalculator.calculateTotal(this.parcels);
+            setTotal(BudgetCalculator.calculateTotal(getParcel()));
             this.calculated = true;
         }
-        return this.total_price;
+        return getTotalValue();
     }
     
+    public final float getTotalValue()
+    {
+        return totalProperty().get();
+    }
+    public final void setTotal(float amount)
+    {
+        totalProperty().set(amount);
+    }
+    
+    public void setId(String id)
+    {
+        orderIdProperty().set(id);
+    }
     public String getId(){
-         return this.orderId;
+         return orderIdProperty().get();
     }
     
     public void updateStatus()
@@ -125,13 +144,13 @@ public class Order implements java.io.Serializable
             }
         }
         if( !origin && !delivered && !destination ){
-            this.state = State.OnTransit;
+            setState(State.OnTransit);
         }else if (delivered){
-            this.state = State.Delivered;
+            setState(State.Delivered);
         }else if (destination){
-            this.state = State.Destination;
+            setState(State.Destination);
         }else{
-            this.state = State.Origin;
+            setState(State.Origin);
         }
     }
     
@@ -139,16 +158,16 @@ public class Order implements java.io.Serializable
      * Get the client who made the order
      * @return client
      */
+    public final void setClient(Client c)
+    {
+        clientProperty().set(c);
+    }
     public Client getClient(){
-        return this.client;
+        return clientProperty().get();
     }
     
-    public void setClient(Client client){
-        this.client = client;
-    }
-    
-    public void setDate(){
-        this.sales_date = new Date();
+    public void setSaleDate(Date date){
+        saleDateProperty().set(date);
     }
     
     /**
@@ -156,14 +175,19 @@ public class Order implements java.io.Serializable
      * @return 
      */
     public Date getSaleDate(){
-        return this.sales_date;
+        return saleDateProperty().get();
     }
     
-    public State getState(){
-        return this.state;
+    public final void setState(State s)
+    {
+        stateProperty().set(s);
     }
-    
-    public ArrayList<Parcel> getParcel(){
+    public final State getState(){
+        return stateProperty().get();
+    }
+
+    public final ArrayList<Parcel> getParcel()
+    {
         return this.parcels;
     }
     /*
@@ -184,7 +208,7 @@ public class Order implements java.io.Serializable
     
     public String peekId()
     {
-        String id = orderId + String.valueOf(parcelIdCounter);
+        String id = getId() + String.valueOf(parcelIdCounter);
         return id;
     }
     
@@ -192,5 +216,65 @@ public class Order implements java.io.Serializable
     public String toString(){
         return this.orderId + ", price: " + this.total_price;
     }
+    //<editor-fold desc="Properties">
+    /*
+    public final ObjectProperty<ArrayList<Parcel>> parcelProperty()
+    {
+        if(parcels == null)
+        {
+            parcels = new SimpleObjectProperty<ArrayList<Parcel>>();
+        }
+        return parcels;
+    }
+    */
+    public final ObjectProperty<Date> saleDateProperty()
+    {
+        if (sales_date == null)
+        {
+            sales_date = new SimpleObjectProperty<Date>();
+        }
+        return sales_date;
+    }
+    public final ObjectProperty<Date> deliveryDateProperty()
+    {
+        if (delivery_date == null)
+        {
+            delivery_date = new SimpleObjectProperty<Date>();
+        }
+        return delivery_date;
+    }
+    public final FloatProperty totalProperty()
+    {
+        if (total_price == null)
+        {
+            total_price = new SimpleFloatProperty();
+        }
+        return total_price;
+    }
+    public final ObjectProperty<Client> clientProperty()
+    {
+        if (client == null)
+        {
+            client = new SimpleObjectProperty<Client>();
+        }
+        return client;
+    }
+    public final SimpleObjectProperty<State> stateProperty()
+    {
+        if (state == null)
+        {
+            state = new SimpleObjectProperty<State>();
+        }
+        return state;
+    }
+    public final SimpleStringProperty orderIdProperty()
+    {
+        if (orderId == null)
+        {
+            orderId = new SimpleStringProperty();
+        }
+        return orderId;
+    }
+    //</editor-fold>
     
 }

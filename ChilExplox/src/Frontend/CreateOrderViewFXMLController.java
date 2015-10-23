@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 
 /**
@@ -98,7 +99,6 @@ public class CreateOrderViewFXMLController implements Initializable, iController
     listView.setCellFactory((ListView<Parcel> param) -> {
             return new ParcelCell();
     });
-        
     }
     
     @Override
@@ -155,8 +155,8 @@ public class CreateOrderViewFXMLController implements Initializable, iController
     
     private void changeTotals(Order o, Parcel p)
     {
-        subTotal.setText(String.format("$%d",(int)BudgetCalculator.calculateParcel(p)));
-        total.setText(String.format("$%d",(int)o.getTotal()));
+        this.setSubTotal(p);
+        this.setTotalOrder(o);
                  
     }
     private void addToListView()
@@ -212,7 +212,16 @@ public class CreateOrderViewFXMLController implements Initializable, iController
     {
         date_text.setText(o.getSaleDate().toString());
         order_id.setText(o.getId());
+        setTotalOrder(o);
+    }
+    public void setTotalOrder(Order o)
+    {
         total.setText(String.format("$%d",(int)o.getTotal()));
+
+    }
+    public void setSubTotal(Parcel p)
+    {
+         subTotal.setText(String.format("$%d",(int)BudgetCalculator.calculateParcel(p)));
     }
     public Client getClient()
     {
@@ -251,6 +260,24 @@ public class CreateOrderViewFXMLController implements Initializable, iController
     private boolean checkInputParcel()
     {
         return true;   
+    }
+    
+    public void setParcel(Parcel p)
+    {
+        parcel_id.setText(p.getId());
+        weight.setText(String.format("%f",p.getWeight()));
+        volume.setText(String.format("%f",p.getVolume()));
+        destinies.setValue(null);
+        this.setSubTotal(p);
+    }
+    @FXML
+    public void onMouseClickParcel(MouseEvent e)
+    {
+        Parcel p = listView.getSelectionModel().getSelectedItem();
+        if (p != null)
+        {
+            this.setParcel(p);
+        }
     }
 
 }
