@@ -8,6 +8,8 @@ package Frontend;
 import Backend.Truck;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
 /**
@@ -37,6 +39,10 @@ public class TruckDetailController implements Initializable, iController {
         this.truck = truck;
     }
     
+    @FXML
+    private void returnScene(ActionEvent event){
+        this.main.changeScene("WatchTrucksListFXML.fxml", WatchTrucksListFXMLController.class);
+    }
 
     
 }

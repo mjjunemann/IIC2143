@@ -187,6 +187,8 @@ public class WatchTrucksListFXMLController implements Initializable, iController
             controller.setChilExploxApp(this.main);
             controller.setTruck(truck);
             
+            this.main.changeSceneFromPage(page);
+            
         } catch(Exception ex) {
             Logger.getLogger(ChilExploxApp.class.getName()).log(Level.SEVERE, null, ex);
         }
