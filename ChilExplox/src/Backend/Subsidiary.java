@@ -23,6 +23,7 @@ public class Subsidiary implements java.io.Serializable
     public Subsidiary(Address addr){
         this.subsidiary_address = addr;
         this.mailbox = new Mailbox();
+        this.mailbox.setSubsidaryAddress(addr);
         this.orders = new HashMap();
         this.transport = new HashMap();
         this.arrived = new ArrayList<>(); 

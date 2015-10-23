@@ -189,6 +189,12 @@ public class ChilExploxApp extends Application {
         }
     }
     
+    public void changeSceneFromPage(AnchorPane page){
+        Scene sceneLogin = new Scene(page);
+        stage.setScene(sceneLogin);
+        stage.show();
+    }
+    
     public ChilExplox getChilExplox(){
         return this.chilexplox;
     }

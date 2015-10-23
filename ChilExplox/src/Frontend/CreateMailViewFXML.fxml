@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="Frontend.CreateMailViewFXMLController">
+   <children>
+      <AnchorPane layoutX="244.0" layoutY="110.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <BorderPane layoutX="225.0" layoutY="46.0" prefHeight="46.0" prefWidth="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <left>
+                  <Button fx:id="cancelMailButton" mnemonicParsing="false" onAction="#cancelMail" text="Cancel" BorderPane.alignment="CENTER">
+                     <BorderPane.margin>
+                        <Insets left="10.0" />
+                     </BorderPane.margin>
+                  </Button>
+               </left>
+               <right>
+                  <Button fx:id="sendMailButton" mnemonicParsing="false" onAction="#sendMail" prefHeight="27.0" prefWidth="72.0" text="Send" BorderPane.alignment="CENTER">
+                     <BorderPane.margin>
+                        <Insets right="10.0" />
+                     </BorderPane.margin>
+                  </Button>
+               </right>
+            </BorderPane>
+            <TextArea fx:id="contentTextArea" layoutX="16.0" layoutY="153.0" prefHeight="256.0" prefWidth="580.0" promptText="Content" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+            <TextField fx:id="subjectTextField" layoutX="10.0" layoutY="90.0" prefHeight="33.0" prefWidth="580.0" promptText="Subject" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+            <ChoiceBox fx:id="destinyChoiceBox" layoutX="10.0" layoutY="46.0" prefHeight="33.0" prefWidth="493.0" AnchorPane.leftAnchor="10.0" />
+            <CheckBox fx:id="errorCheckBox" layoutX="515.0" layoutY="54.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="71.0" text="Error" AnchorPane.rightAnchor="10.0" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

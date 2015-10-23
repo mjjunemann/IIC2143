@@ -137,7 +137,8 @@ public class CreateOrderViewFXMLController implements Initializable, iController
     }
     @FXML
     private void cancelOrder(ActionEvent event) {
-        main.changeScene("SubsidiaryViewFXML.fxml", SubsidiaryViewFXMLController.class);
+        main.changeScene("SubsidiaryViewFXML.fxml",
+                SubsidiaryViewFXMLController.class);
 
     }
 

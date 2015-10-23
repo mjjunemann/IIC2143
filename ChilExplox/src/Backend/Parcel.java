@@ -143,10 +143,10 @@ public class Parcel implements java.io.Serializable
           return priority;
       }
      //</editor-fold>
-      
+    /*  
     public static  Callback<Parcel,Observable[]> extractor()
     {
         return (Address p) -> new Observable[]{p.weightProperty(),p.volumeProperty(),p.priorityProperty()};
-    }
+    }*/
     
 }

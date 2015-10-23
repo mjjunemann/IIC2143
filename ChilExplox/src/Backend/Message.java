@@ -100,7 +100,14 @@ public final class Message implements java.io.Serializable {
     public boolean getSeen() {
         return this.seen;
     }
+    
+    public MessageType getMessageType(){
+        return this.type;
+    }
 
+    public boolean isErrorMessage(){
+        return this.type == MessageType.Error;
+    }
     /**
      * Set the content of the message
      * @param content 
