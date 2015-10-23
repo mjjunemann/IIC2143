@@ -160,14 +160,34 @@ public class WatchTrucksListFXMLController implements Initializable, iController
     }
     @FXML
     private void loadParcel(ActionEvent event){
-        if (muestraLocal) {
-            
+        int index = truckTable.getSelectionModel().getSelectedIndex();
+        if (muestraLocal&& index >-1) {
+            int cont = 0;
+           Truck truck = null;
+           for( String key: main.getChilExplox().getCurrentSubsidiary().getVehicles().keySet() ){
+               if (index == cont) {
+                   truck = (Truck) main.getChilExplox().getCurrentSubsidiary().getVehicles().get(key);
+                   break;
+               }
+               cont+=1;
+           }
+           changeSceneToLoadParcel(truck);
         }
     }
     @FXML
     private void unloadParcel(ActionEvent event){
-        if (!muestraLocal) {
-            
+        int index = truckTable.getSelectionModel().getSelectedIndex();
+        if (!muestraLocal&& index >-1) {
+           int cont = 0;
+           Truck truck = null;
+           for( String key: main.getChilExplox().getCurrentSubsidiary().getVehicles().keySet() ){
+               if (index == cont) {
+                   truck = (Truck) main.getChilExplox().getCurrentSubsidiary().getVehicles().get(key);
+                   break;
+               }
+               cont+=1;
+           }
+           changeSceneToUnloadParcel(truck);
         }
     }
     @FXML
@@ -184,6 +204,40 @@ public class WatchTrucksListFXMLController implements Initializable, iController
             AnchorPane page = (AnchorPane)loader.load();
 
             TruckDetailController controller = loader.getController();
+            controller.setChilExploxApp(this.main);
+            controller.setTruck(truck);
+            
+            this.main.changeSceneFromPage(page);
+            
+        } catch(Exception ex) {
+            Logger.getLogger(ChilExploxApp.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    public void changeSceneToLoadParcel(Truck truck){
+        
+        try{
+            FXMLLoader loader = new FXMLLoader(ChilExploxApp.class.
+                    getResource("loadParcelFXML.fxml"));
+            AnchorPane page = (AnchorPane)loader.load();
+
+            LoadParcelFXMLController controller = loader.getController();
+            controller.setChilExploxApp(this.main);
+            controller.setTruck(truck);
+            
+            this.main.changeSceneFromPage(page);
+            
+        } catch(Exception ex) {
+            Logger.getLogger(ChilExploxApp.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    public void changeSceneToUnloadParcel(Truck truck){
+        
+        try{
+            FXMLLoader loader = new FXMLLoader(ChilExploxApp.class.
+                    getResource("UnloadParcelFXML.fxml"));
+            AnchorPane page = (AnchorPane)loader.load();
+
+            UnloadParcelFXMLController controller = loader.getController();
             controller.setChilExploxApp(this.main);
             controller.setTruck(truck);
             
