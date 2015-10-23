@@ -19,7 +19,7 @@ public abstract class Notification
   public abstract void action();
 }
 */
-public class Notification
+public class Notification implements java.io.Serializable
 {
     private String content;
     private int initial_priority;

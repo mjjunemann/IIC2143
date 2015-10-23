@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.shape.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Frontend.WatchTrucksListFXMLController">
+   <children>
+      <SplitPane dividerPositions="0.4" layoutY="55.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="398.0" prefWidth="306.0">
+               <children>
+                  <ToolBar prefHeight="27.0" prefWidth="284.0">
+                    <items>
+                      <Button fx:id="localTruckButton" mnemonicParsing="false" onAction="#loadLocalTrucks" text="Locales" />
+                        <Button fx:id="arrivedTruckButton" mnemonicParsing="false" onAction="#loadArrivedTrucks" text="Arribados" />
+                        <Button fx:id="backButton" mnemonicParsing="false" onAction="#returnToSubsidary" text="Atras" />
+                    </items>
+                  </ToolBar>
+                  <Button fx:id="viewContentButton" layoutX="69.0" layoutY="113.0" mnemonicParsing="false" onAction="#seeContent" text="Ver contenido" />
+                  <Button fx:id="loadParcelButton" layoutX="41.0" layoutY="167.0" mnemonicParsing="false" onAction="#loadParcel" text="Cargar Encomienda" />
+                  <Button fx:id="unloadButton" layoutX="85.0" layoutY="265.0" mnemonicParsing="false" onAction="#unloadParcel" text="Descargar" />
+                  <Button fx:id="backTruckButton" layoutX="90.0" layoutY="313.0" mnemonicParsing="false" onAction="#backTruck" text="Devolver" />
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <children>
+                  <TableView fx:id="truckTable" layoutX="-48.0" layoutY="-117.0" prefHeight="398.0" prefWidth="294.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <columns>
+                      <TableColumn fx:id="idColumn" prefWidth="75.0" text="Patente" />
+                      <TableColumn fx:id="stateColumn" prefWidth="75.0" text="Estado" />
+                        <TableColumn fx:id="numberColumn" prefWidth="75.0" text="N° Encom." />
+                        <TableColumn fx:id="destinyColumn" prefWidth="75.0" text="Destino" />
+                    </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                  </TableView>
+               </children></AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>

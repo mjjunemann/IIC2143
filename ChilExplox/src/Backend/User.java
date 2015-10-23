@@ -9,7 +9,7 @@ package Backend;
  *
  * @author matia
  */
-public class User 
+public class User implements java.io.Serializable
 {
     public final String username;
     private String password;
@@ -31,6 +31,11 @@ public class User
     {
         return this.password;
     }
+    
+    public String getName(){
+        return this.name;
+    }
+    
     /**
      * Changes the user password
      * @param password receives the user new password

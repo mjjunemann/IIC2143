@@ -17,8 +17,11 @@ public class ChilExplox implements java.io.Serializable
     private Map<String,User> users;
     private ArrayList<Address> subsidiaries_addrs;
     private Map<Address,Subsidiary> subsidiaries;
-    public Subsidiary current_subsidiary;
+    private Subsidiary current_subsidiary;
+    private User current_user;
     public final Messaging messaging;
+    int idSubsidiaryCounter = 1000;
+    
     
     public ChilExplox()
     {
@@ -40,12 +43,17 @@ public class ChilExplox implements java.io.Serializable
      */
     public boolean login(String username, String password, Address subsidiary_addrs)
     {
+        User user = users.get(username);
+        if (user != null){
+
         if( this.subsidiaries_addrs.contains(subsidiary_addrs) 
-                && users.get(username).getPassword() == password){
+                && user.getPassword().equals(password)){
             this.current_subsidiary = this.subsidiaries.get(subsidiary_addrs);
+            this.current_user = user;
             System.out.print("Logged-in as: "+ username +" in "+ subsidiary_addrs.getAddress()+" \n");
             return true;
             }
+        }
         return false;
     }
     
@@ -54,18 +62,22 @@ public class ChilExplox implements java.io.Serializable
      * doesn't exist create one
      * @return ChilExplox instance
      */
-    public ChilExplox getInstance()
+    public static ChilExplox getInstance()
     {
-        if (instance != null)
+        if (instance == null)
         {
-            instance = new ChilExplox();
+            instance = Loader.loadApp();
+            if (instance == null)
+                instance = new ChilExplox();
         }
         return instance;
     }
     
     public void addSubsidary(Address address)
     {
-        Subsidiary s = new Subsidiary(address);
+        Subsidiary s = new Subsidiary(address, 
+                String.valueOf(idSubsidiaryCounter));
+        idSubsidiaryCounter++;
         this.subsidiaries_addrs.add(address);
         this.subsidiaries.put(address,s);
     }
@@ -83,5 +95,17 @@ public class ChilExplox implements java.io.Serializable
     }
     public Subsidiary getSubsidiary(Address address){
         return this.subsidiaries.get(address);
+    }
+    public Subsidiary getCurrentSubsidiary(){
+        return this.current_subsidiary;
+    }
+    public User getCurrentUser(){
+        return this.current_user;
+    }
+    
+    public void Exit() 
+    {
+        System.out.print("Closing Bitches Come Back Tomorrow");
+        Loader.saveApp(this);
     }
 }

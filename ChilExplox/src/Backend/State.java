@@ -9,4 +9,18 @@ package Backend;
  *
  * @author Fernando
  */
-public enum State {Origin,OnTransit,Destination,Delivered}
+public enum State {
+    Origin,OnTransit,Destination,Delivered;
+    
+    private String str;
+    static {
+        Origin.str = "Origin";
+        OnTransit.str = "On Transit";
+        Destination.str = "Destination";
+        Delivered.str = "Delivered";
+    }
+    public String toString(){
+        return str;
+    }
+
+}

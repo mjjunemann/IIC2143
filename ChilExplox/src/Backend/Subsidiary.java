@@ -19,10 +19,14 @@ public class Subsidiary implements java.io.Serializable
     private Map<String,ITransport> transport;
     private ArrayList<ITransport> arrived;
     private NotificationCenter notification_center;
+    private String subsidiaryId;
+    private int orderIdCounter = 1000;
     
-    public Subsidiary(Address addr){
+    public Subsidiary(Address addr, String id){
+        this.subsidiaryId = id;
         this.subsidiary_address = addr;
         this.mailbox = new Mailbox();
+        this.mailbox.setSubsidaryAddress(addr);
         this.orders = new HashMap();
         this.transport = new HashMap();
         this.arrived = new ArrayList<>(); 
@@ -30,7 +34,14 @@ public class Subsidiary implements java.io.Serializable
     }
     
     public void addVehicle(ITransport v){
-        transport.put(v.license_plate,v);
+        transport.put(v.getPlate(),v);
+    }
+    
+    public Map<String,ITransport> getVehicles(){
+        return this.transport;
+    }
+    public ArrayList<ITransport> getArrivedVehicles(){
+        return this.arrived;
     }
     
     public String getAddress(){
@@ -42,21 +53,22 @@ public class Subsidiary implements java.io.Serializable
     }
     
     public Order newOrder(){
-        Order o = new Order();
+        String id = subsidiaryId + String.valueOf(orderIdCounter);
+        orderIdCounter++;
+        Date date = new Date();
+        Order o = new Order(date,id);
         return o;
     }
     
     public float setOrder(Order order, Client client){
         order.setClient(client);
-        order.setDate();
         String rut = order.getClient().getRut();
         Date saleDate = order.getSaleDate();
         String date = String.valueOf(saleDate.getTime());
         
-        String id = rut + "-" + date;
         
-        this.orders.put(id, order);
-        this.notification_center.addOrderNotification(id,order);
+        this.orders.put(order.getId(), order);
+        this.notification_center.addOrderNotification(order.getId(),order);
         return order.getTotal();
     }
     public void editParcel(Parcel parcel,Address origin,Address destination){
@@ -82,4 +94,16 @@ public class Subsidiary implements java.io.Serializable
         v.sendBack();
     }
     
+    public Map<String,Order> getOrders(){
+        return this.orders;
+    }
+    
+    public Address getAddr()
+    {
+        return this.subsidiary_address;
+    }
+    
+    public String getId(){
+         return this.subsidiaryId;
+     }
 }

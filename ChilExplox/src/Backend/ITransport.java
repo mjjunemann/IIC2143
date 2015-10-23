@@ -21,6 +21,7 @@ public abstract class ITransport
     public abstract void send(Address addr);
     public abstract void sendBack();
     public abstract ArrayList<Parcel> unload();
+    public abstract String getPlate();
     protected abstract int checkSpace();
   
 }

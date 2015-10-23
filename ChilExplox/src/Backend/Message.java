@@ -10,7 +10,7 @@ package Backend;
  * @author guillermofigueroa
  */
 
-public final class Message {
+public final class Message implements java.io.Serializable {
     private Mailbox origin;
     private Mailbox destiny;
     private String subject;
@@ -100,7 +100,14 @@ public final class Message {
     public boolean getSeen() {
         return this.seen;
     }
+    
+    public MessageType getMessageType(){
+        return this.type;
+    }
 
+    public boolean isErrorMessage(){
+        return this.type == MessageType.Error;
+    }
     /**
      * Set the content of the message
      * @param content 

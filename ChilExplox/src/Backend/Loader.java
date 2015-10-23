@@ -68,6 +68,43 @@ public class Loader
         }
     }
     
+    static public void  saveApp(ChilExplox app)
+    {
+        try
+        {
+            FileOutputStream fileOut =
+         new FileOutputStream(String.format(path+"%s","Application"));
+         ObjectOutputStream out = new ObjectOutputStream(fileOut);
+         out.writeObject(app);
+        }catch(IOException i)
+                {
+                    i.printStackTrace();
+                }
+    }
+    
+    static public ChilExplox loadApp()
+    {
+        ChilExplox tmp = null;
+    
+        try
+        {
+            FileInputStream fileIn = new FileInputStream(String.format(path+"%s","Application"));
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            tmp = (ChilExplox)in.readObject();
+            return tmp;
+            
+        }catch(IOException i)
+        {
+            i.printStackTrace();
+            return tmp;
+        }
+        catch(ClassNotFoundException e)
+        {
+            e.printStackTrace();
+            return tmp;
+        }
+    }
+    
     /* load subsidiary from json
     static void loadSubsidiary(String path)
     {

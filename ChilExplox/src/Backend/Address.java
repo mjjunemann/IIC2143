@@ -5,7 +5,18 @@
  */
 package Backend;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+import javafx.beans.Observable;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.util.Callback;
 
 /**
  *
@@ -13,20 +24,99 @@ import java.util.Objects;
  */
 public class Address implements java.io.Serializable
 {
-    private final String city;
-    private final String neighborhood;
-    private final String street;
-    private final Integer number;
+    private transient StringProperty city;
+    private transient StringProperty neighborhood;
+    private transient StringProperty street;
+    private transient IntegerProperty number;
     
     public Address(String street, Integer number, String neighborhood, String city)
     {
-        this.city = city;
-        this.neighborhood = neighborhood;
-        this.street = street;
-        this.number = number;
+        setCity(city);
+        setNeighborhood(neighborhood);
+        setStreet(street);
+        setNumber(number);
     }
     
+    public Address()
+    {
+        setCity("");
+        setNeighborhood("");
+        setStreet("");
+        setNumber(0);
+    }
+    public final IntegerProperty numberProperty()
+    {
+        if (number == null)
+        {
+            number = new SimpleIntegerProperty();
+        }
+        return number;
+    }
+    public final void setNumber(int number)
+    {
+        numberProperty().set(number);
+    }
     
+    public final int getNumber()
+    {
+        return numberProperty().get();
+    }
+    public final StringProperty streetProperty()
+    {
+        if (street == null)
+        {
+            street = new SimpleStringProperty();
+        }
+        return street;
+    }
+    
+    public final void setStreet(String street)
+    {
+        streetProperty().set(street);
+    }
+    
+    public final String getStreet()
+    {
+        return streetProperty().get();
+    }
+    
+    public final StringProperty neighborhoodProperty()
+    {
+        if(neighborhood == null)
+        {
+            neighborhood = new SimpleStringProperty();
+        }
+        return neighborhood;
+    }
+    
+    public final void setNeighborhood(String neighborhood)
+    {
+        neighborhoodProperty().set(neighborhood);
+    }
+    
+    public final String getNeighborhood()
+    {
+        return neighborhoodProperty().get();
+    }
+    
+    public final StringProperty cityProperty()
+    {
+        if(city == null)
+        {
+            city = new SimpleStringProperty();
+        }
+        return city;
+    }
+    
+    public final void setCity(String city)
+    {
+        cityProperty().set(city);
+    }
+    
+    public final String getCity()
+    {
+        return cityProperty().get();
+    }
     /**
      * Check if two addresses are equal
      * @param obj
@@ -56,13 +146,44 @@ public class Address implements java.io.Serializable
     
     public String getMainStreet()
     {
-        return this.street+this.number;
+        return getStreet()+getNumber();
     }
     public String getAddress()
     {
-        return String.format("%1$s %2$s,%3$s,%4$s",street,number,neighborhood,city);
+        return String.format("%1$s %2$s,%3$s,%4$s",getStreet(),getNumber(),getNeighborhood(),getCity());
+    }
+    public String stringValue()
+    {
+        return String.format("%1$s %2$s,%3$s,%4$s",getStreet(),getNumber(),getNeighborhood(),getCity());
     }
     
+    public static Callback<Address,Observable[]> extractor()
+    {
+        return (Address addr) -> new Observable[]{addr.cityProperty(),addr.neighborhoodProperty(),addr.numberProperty(),addr.streetProperty()};
+    }
+
     
-            
- }
+    private void writeObject(ObjectOutputStream oos)
+    throws IOException
+    {
+      oos.defaultWriteObject();
+      List params = new ArrayList<>();
+      params.add(getStreet());
+      params.add(getNumber());
+      params.add(getNeighborhood());
+      params.add(getCity());
+      oos.writeObject(params);
+      }
+
+    private void readObject(ObjectInputStream ois)
+    throws ClassNotFoundException,IOException
+    {
+        ois.defaultReadObject();
+        List params = (List)ois.readObject();
+        this.setStreet((String) params.get(0));
+        this.setNumber((int) params.get(1));
+        this.setNeighborhood((String) params.get(2));
+        this.setCity((String) params.get(3));
+     
+    }
+}

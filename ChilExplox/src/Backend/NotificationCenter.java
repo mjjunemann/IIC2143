@@ -9,7 +9,7 @@ import java.util.*;
  *
  * @author matia
  */
-public class NotificationCenter 
+public class NotificationCenter implements java.io.Serializable
 {
     /*
   private Map<String,ArrayList<Notification>> notifications;
