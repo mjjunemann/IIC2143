@@ -174,6 +174,9 @@ public class CreateOrderViewFXMLController implements Initializable, iController
     
     public void initializeWithOrder(Order order){
         this.order = order;
+        this.parcels = FXCollections.observableArrayList(Parcel.extractor());
+        this.order.getParcel().stream().forEach( p -> this.parcels.add(p));
+        this.listView.setItems(this.parcels);
     }
 
         private boolean checkInputParcel()

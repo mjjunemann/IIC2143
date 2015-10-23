@@ -213,6 +213,7 @@ public class Parcel implements java.io.Serializable
       oos.writeObject(params);
       oos.writeObject(getOrigin());
       oos.writeObject(getDestination());
+      oos.writeObject(getId());
       }
 
     private void readObject(ObjectInputStream ois)
@@ -222,10 +223,12 @@ public class Parcel implements java.io.Serializable
         List params = (List)ois.readObject();
         Address origin = (Address)ois.readObject();
         Address destiny = (Address)ois.readObject();
+        String id = (String)ois.readObject();
         this.setWeight((float) params.get(0));
         this.setVolume((float) params.get(1));
         this.setPriority((int) params.get(2));     
         this.setOrigin(origin);
         this.setDestination(destiny);
+        this.setId(id);
     }
 }   
