@@ -158,7 +158,6 @@ public class MailboxViewFXMLController implements Initializable, iController {
     private void readMessage(MouseEvent event) {
         int messageSelected = messagesListView.getSelectionModel().
                 getSelectedIndex();
-
         if (actualButtonDefault == setReceivedMessagesButton){
             Message message = main.getChilExplox().getCurrentSubsidiary().
                 getMailbox().getReceivedMessages().get(messageSelected);

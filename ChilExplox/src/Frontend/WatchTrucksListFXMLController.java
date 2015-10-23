@@ -9,6 +9,8 @@ import Backend.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -139,5 +141,54 @@ public class WatchTrucksListFXMLController implements Initializable, iController
         truckTable.setItems(transportData);
         
         muestraLocal = !muestraLocal;
+    }
+    @FXML
+    private void seeContent(ActionEvent event){
+        int index = truckTable.getSelectionModel().getSelectedIndex();
+        if (muestraLocal && index >-1) {
+           int cont = 0;
+           Truck truck = null;
+           for( String key: main.getChilExplox().getCurrentSubsidiary().getVehicles().keySet() ){
+               if (index == cont) {
+                   truck = (Truck) main.getChilExplox().getCurrentSubsidiary().getVehicles().get(key);
+                   break;
+               }
+               cont+=1;
+           }
+            changeSceneToTruck(truck);
+        }
+    }
+    @FXML
+    private void loadParcel(ActionEvent event){
+        if (muestraLocal) {
+            
+        }
+    }
+    @FXML
+    private void unloadParcel(ActionEvent event){
+        if (!muestraLocal) {
+            
+        }
+    }
+    @FXML
+    private void backTruck(ActionEvent event){
+        if (!muestraLocal) {
+            
+        }
+    }
+    public void changeSceneToTruck(Truck truck){
+        
+        try{
+            FXMLLoader loader = new FXMLLoader(ChilExploxApp.class.
+                    getResource("TruckDetail.fxml"));
+            AnchorPane page = (AnchorPane)loader.load();
+
+            TruckDetailController controller = loader.getController();
+            controller.setChilExploxApp(this.main);
+            controller.setTruck(truck);
+            
+        } catch(Exception ex) {
+            Logger.getLogger(ChilExploxApp.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

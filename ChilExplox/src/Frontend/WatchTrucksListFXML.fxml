@@ -22,10 +22,10 @@
                         <Button fx:id="backButton" mnemonicParsing="false" onAction="#returnToSubsidary" text="Atras" />
                     </items>
                   </ToolBar>
-                  <Button fx:id="viewContentButton" layoutX="62.0" layoutY="112.0" mnemonicParsing="false" text="Ver contenido" />
-                  <Button fx:id="loadParcelButton" layoutX="41.0" layoutY="167.0" mnemonicParsing="false" text="Cargar Encomienda" />
-                  <Button fx:id="unloadButton" layoutX="85.0" layoutY="265.0" mnemonicParsing="false" text="Descargar" />
-                  <Button fx:id="backTruckButton" layoutX="90.0" layoutY="313.0" mnemonicParsing="false" text="Devolver" />
+                  <Button fx:id="viewContentButton" layoutX="69.0" layoutY="113.0" mnemonicParsing="false" onAction="#seeContent" text="Ver contenido" />
+                  <Button fx:id="loadParcelButton" layoutX="41.0" layoutY="167.0" mnemonicParsing="false" onAction="#loadParcel" text="Cargar Encomienda" />
+                  <Button fx:id="unloadButton" layoutX="85.0" layoutY="265.0" mnemonicParsing="false" onAction="#unloadParcel" text="Descargar" />
+                  <Button fx:id="backTruckButton" layoutX="90.0" layoutY="313.0" mnemonicParsing="false" onAction="#backTruck" text="Devolver" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
