@@ -79,7 +79,7 @@ public class CreateOrderViewFXMLController implements Initializable, iController
         this.initListView();
         saveParcel.setDisable(true);
     }   
-    void initListView()
+    public void initListView()
     {
     listView.setCellFactory((ListView<Parcel> param) -> {
             return new ParcelCell();
@@ -170,6 +170,10 @@ public class CreateOrderViewFXMLController implements Initializable, iController
         main.changeScene("SubsidiaryViewFXML.fxml",
                 SubsidiaryViewFXMLController.class);
 
+    }
+    
+    public void initializeWithOrder(Order order){
+        this.order = order;
     }
 
         private boolean checkInputParcel()

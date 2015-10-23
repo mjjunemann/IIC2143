@@ -146,6 +146,7 @@ public class MailboxViewFXMLController implements Initializable, iController {
             SeeMessageViewFXMLController controller = loader.getController();
             controller.setChilExploxApp(this.main);
             controller.setMessage(message);
+            
                 
             this.main.changeSceneFromPage(page);
         } catch(Exception ex) {

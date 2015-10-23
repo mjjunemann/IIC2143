@@ -9,6 +9,8 @@ import Backend.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -42,9 +44,10 @@ public class WatchOrdersViewFXMLController implements Initializable, iController
     private ListView<String> ordersListView;
     @FXML
     private Button returnToSubsidiaryButton;
+    
+    private ArrayList<Order> ordersShown;
 
-    private ObservableList<String> ordersList = 
-                FXCollections.observableArrayList();
+    private ObservableList<String> ordersList;
     @FXML
     private TextField searchTextField;
     @FXML
@@ -63,20 +66,20 @@ public class WatchOrdersViewFXMLController implements Initializable, iController
         this.initializeOrders();
     }
     
-
-
     @FXML
     private void returnTuSubsidiary(ActionEvent event) {
         main.changeScene("SubsidiaryViewFXML.fxml",SubsidiaryViewFXMLController.class);
     }
     
     private void initializeOrders(){
-        
+        ordersList = FXCollections.observableArrayList();
+        ordersShown = new ArrayList<Order>();
         for (String orderRepresentation: this.main.getChilExplox().
                 getCurrentSubsidiary().getOrders().keySet()){
             Order order = this.main.getChilExplox().
                 getCurrentSubsidiary().getOrders().get(orderRepresentation);
             ordersList.add(order.toString());
+            ordersShown.add(order);
         }
         ordersListView.setItems(ordersList);
     }
@@ -84,7 +87,7 @@ public class WatchOrdersViewFXMLController implements Initializable, iController
     @FXML
     private void searchId(ActionEvent event) {
         ordersList = FXCollections.observableArrayList();
-
+        ordersShown = new ArrayList<Order>();
         for (String orderRepresentation: this.main.getChilExplox().
                 getCurrentSubsidiary().getOrders().keySet()){
             Order order = this.main.getChilExplox().
@@ -92,9 +95,37 @@ public class WatchOrdersViewFXMLController implements Initializable, iController
             if (searchTextField.getText().equals(order.getId()) ||
                     searchTextField.getText().equals("")) {
                 ordersList.add(order.toString());
+                ordersShown.add(order);
             }
         }
         ordersListView.setItems(ordersList);
+    }
+    
+    @FXML
+    private void modifyOrder(MouseEvent event) {
+        int orderSelectedPosition = ordersListView.getSelectionModel().
+                getSelectedIndex();
+        Order orderSelected = ordersShown.get(orderSelectedPosition);
+        changeSceneToModifyOrder(orderSelected);
+        
+    }
+    
+    private void changeSceneToModifyOrder(Order order){
+        try{
+            FXMLLoader loader = new FXMLLoader(ChilExploxApp.class.
+                    getResource("CreateOrderViewFXML.fxml"));
+            AnchorPane page = (AnchorPane)loader.load();
+
+            CreateOrderViewFXMLController controller = loader.getController();
+            
+            controller.setChilExploxApp(this.main);
+            controller.initializeWithOrder(order);
+         
+        
+            this.main.changeSceneFromPage(page);
+        } catch(Exception ex) {
+            Logger.getLogger(ChilExploxApp.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     

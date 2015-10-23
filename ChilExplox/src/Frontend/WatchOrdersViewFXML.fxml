@@ -35,7 +35,7 @@
                   </TextField>
                </center>
             </BorderPane>
-            <ListView fx:id="ordersListView" layoutX="200.0" layoutY="45.0" prefHeight="355.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="45.0" />
+            <ListView fx:id="ordersListView" layoutX="200.0" layoutY="45.0" onMouseClicked="#modifyOrder" prefHeight="355.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="45.0" />
          </children>
       </AnchorPane>
    </children>
