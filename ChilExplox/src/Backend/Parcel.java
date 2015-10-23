@@ -28,6 +28,8 @@ public class Parcel implements java.io.Serializable
     private State state;
     private Order order;
     
+    private String parcelId;
+    
     /**
      * 
      * @param weight 
@@ -36,16 +38,17 @@ public class Parcel implements java.io.Serializable
      * @param origin
      * @param destination 
      */
-    public Parcel(float weight,float volume,int priority,Address origin,Address destination,Order order)
+    public Parcel(float weight,float volume,int priority,Address origin,Address destination,Order order, String id)
     {
         this.origin = origin;
         this.state = State.Origin;
-        
+        this.parcelId = id;
         this.destination = destination;
         setVolume(volume); 
         setWeight(weight);
         this.order = order;
     }
+ 
     
     public void updateStatus()
     {/*This method will only be called when status must change and it does
@@ -104,6 +107,10 @@ public class Parcel implements java.io.Serializable
      public final float getVolume()
      {
          return volumeProperty().get();
+     }
+     
+     public String getId(){
+         return this.parcelId;
      }
     //</editor-fold>
     

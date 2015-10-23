@@ -20,6 +20,8 @@ public class ChilExplox implements java.io.Serializable
     private Subsidiary current_subsidiary;
     private User current_user;
     public final Messaging messaging;
+    int idSubsidiaryCounter = 1000;
+    
     
     public ChilExplox()
     {
@@ -73,7 +75,9 @@ public class ChilExplox implements java.io.Serializable
     
     public void addSubsidary(Address address)
     {
-        Subsidiary s = new Subsidiary(address);
+        Subsidiary s = new Subsidiary(address, 
+                String.valueOf(idSubsidiaryCounter));
+        idSubsidiaryCounter++;
         this.subsidiaries_addrs.add(address);
         this.subsidiaries.put(address,s);
     }

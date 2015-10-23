@@ -21,9 +21,12 @@ public class Order implements java.io.Serializable
     private float total_price;
     private Client client;
     private State state;
+    private String orderId;
+    private int parcelIdCounter = 100;
     /*constructor para testear */
-    public Order()
+    public Order(String id)
     {
+        this.orderId = id;
         this.parcels = new ArrayList<>();
         this.calculated = false;
         this.total_price = 0;
@@ -58,11 +61,12 @@ public class Order implements java.io.Serializable
     
     /**
      * Add a parcel to the order.
-     * @param parcel 
-     */
-    public void addParcel(Parcel parcel)
-    {
+     */    
+    public void addParcel(float weight,float volume,int priority,Address origin,Address destination){
         this.calculated = false;
+        String id = orderId + String.valueOf(parcelIdCounter);
+        parcelIdCounter++;
+        Parcel parcel = new Parcel(weight, volume, priority, origin, destination, this, id);
         this.parcels.add(parcel);
     }
     /**
@@ -78,6 +82,11 @@ public class Order implements java.io.Serializable
         }
         return this.total_price;
     }
+    
+    public String getId(){
+         return this.orderId;
+    }
+    
     public void updateStatus()
     {
         /*This method updates the status of the Order. Since an order is the sum

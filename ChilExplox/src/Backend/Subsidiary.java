@@ -19,8 +19,11 @@ public class Subsidiary implements java.io.Serializable
     private Map<String,ITransport> transport;
     private ArrayList<ITransport> arrived;
     private NotificationCenter notification_center;
+    private String subsidiaryId;
+    private int orderIdCounter = 1000;
     
-    public Subsidiary(Address addr){
+    public Subsidiary(Address addr, String id){
+        this.subsidiaryId = id;
         this.subsidiary_address = addr;
         this.mailbox = new Mailbox();
         this.mailbox.setSubsidaryAddress(addr);
@@ -47,7 +50,9 @@ public class Subsidiary implements java.io.Serializable
     }
     
     public Order newOrder(){
-        Order o = new Order();
+        String id = subsidiaryId + String.valueOf(orderIdCounter);
+        orderIdCounter++;
+        Order o = new Order(id);
         return o;
     }
     
@@ -91,4 +96,8 @@ public class Subsidiary implements java.io.Serializable
     {
         return this.subsidiary_address;
     }
+    
+    public String getId(){
+         return this.subsidiaryId;
+     }
 }
