@@ -44,6 +44,7 @@ public class Order implements java.io.Serializable
         this.calculated = false;
         this.total_price = 0;
         this.sales_date = date;
+        this.client = null;
     }
     
     

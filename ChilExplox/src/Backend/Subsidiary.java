@@ -59,7 +59,6 @@ public class Subsidiary implements java.io.Serializable
     
     public float setOrder(Order order, Client client){
         order.setClient(client);
-        order.setDate();
         String rut = order.getClient().getRut();
         Date saleDate = order.getSaleDate();
         String date = String.valueOf(saleDate.getTime());

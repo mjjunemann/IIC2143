@@ -37,16 +37,16 @@
                                 <items>
                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="171.0" prefWidth="415.0" SplitPane.resizableWithParent="false">
                                        <children>
-                                          <TextField layoutX="130.0" layoutY="21.0" maxHeight="-Infinity" prefHeight="29.0" prefWidth="122.0" AnchorPane.leftAnchor="130.0" />
+                                          <TextField fx:id="firstName" layoutX="130.0" layoutY="21.0" maxHeight="-Infinity" prefHeight="29.0" prefWidth="122.0" AnchorPane.leftAnchor="130.0" />
                                           <TextField layoutX="130.0" layoutY="71.0" prefHeight="29.0" prefWidth="122.0" AnchorPane.leftAnchor="130.0" />
                                           <Label layoutX="15.0" layoutY="27.0" text="FIRST NAME:" AnchorPane.leftAnchor="15.0" />
                                           <Label layoutX="17.0" layoutY="77.0" text="LAST NAME:" AnchorPane.leftAnchor="15.0" />
                                           <Label layoutX="276.0" layoutY="27.0" text="RUT:" />
                                           <Label layoutX="272.0" layoutY="77.0" text="PHONE:" />
                                           <Label layoutX="19.0" layoutY="130.0" text="ADDRESS:" AnchorPane.leftAnchor="15.0" />
-                                          <TextField layoutX="357.0" layoutY="21.0" maxHeight="-Infinity" prefHeight="29.0" prefWidth="122.0" AnchorPane.leftAnchor="360.0" />
-                                          <TextField layoutX="357.0" layoutY="71.0" maxHeight="-Infinity" prefHeight="29.0" prefWidth="122.0" AnchorPane.leftAnchor="360.0" />
-                                          <TextField layoutX="130.0" layoutY="124.0" maxHeight="-Infinity" prefHeight="39.0" prefWidth="347.0" AnchorPane.leftAnchor="130.0" />
+                                          <TextField fx:id="rut" layoutX="357.0" layoutY="21.0" maxHeight="-Infinity" prefHeight="29.0" prefWidth="122.0" AnchorPane.leftAnchor="360.0" />
+                                          <TextField fx:id="phoneNumber" layoutX="357.0" layoutY="71.0" maxHeight="-Infinity" prefHeight="29.0" prefWidth="122.0" AnchorPane.leftAnchor="360.0" />
+                                          <TextField fx:id="addressField" layoutX="130.0" layoutY="124.0" maxHeight="-Infinity" prefHeight="39.0" prefWidth="347.0" AnchorPane.leftAnchor="130.0" />
                                        </children>
                                     </AnchorPane>
                                     <SplitPane dividerPositions="0.5217391304347826" prefHeight="232.0" prefWidth="415.0">

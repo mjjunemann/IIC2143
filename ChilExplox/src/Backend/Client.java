@@ -26,6 +26,9 @@ public class Client implements java.io.Serializable {
      this.setPhone(phone_number);
     }
 
+    public Client() {
+    }
+
     
    // <editor-fold desc="Setters & Getters">
     /**
@@ -41,7 +44,7 @@ public class Client implements java.io.Serializable {
      * Set the name of the client
      * @param name  new name of the client
      */
-    private void setName(String name)
+    public void setName(String name)
     {
         this.name = name;
     }
@@ -58,7 +61,7 @@ public class Client implements java.io.Serializable {
      * Set de client address
      * @param address new address of the client
      */
-    private void setAddress(String address)
+    public void setAddress(String address)
     {
         this.address = address;
     }
@@ -75,7 +78,7 @@ public class Client implements java.io.Serializable {
      * Set the client phone number.
      * @param number contact number of the client.
      */
-    private void setPhone(String number)
+    public void setPhone(String number)
     {
         this.phone_number = number;   
     }
@@ -91,7 +94,7 @@ public class Client implements java.io.Serializable {
      * Set the national identification number of the client
      * @param rut national identification number of the client
      */
-    private void setRut(String rut)
+    public void setRut(String rut)
     {
         this.rut = rut;
     }

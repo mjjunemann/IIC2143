@@ -112,7 +112,6 @@ public class CreateOrderViewFXMLController implements Initializable, iController
     
     @FXML
     private void newParcel(ActionEvent event) {
-        //String tmpID = this.subsidiary.nextId();
         String peekID = this.order.peekId();
         destinies.setDisable(false);
         weight.setText(null);
@@ -147,12 +146,7 @@ public class CreateOrderViewFXMLController implements Initializable, iController
     @FXML
     private void saveOrder(ActionEvent event)
     {
-        String name = "Juan";
-        String lastname = "Jones";
-        String rut = "99J";
-        String addr = "Narnia";
-        String phone = "Papelito";
-        Client c = new Client(name,addr,rut,phone);
+        Client c = getClient();
         this.subsidiary.setOrder(this.order,c);
         main.changeScene("SubsidiaryViewFXML.fxml",
                 SubsidiaryViewFXMLController.class);
@@ -179,8 +173,8 @@ public class CreateOrderViewFXMLController implements Initializable, iController
     public void initializeWithOrder(Order order){
         this.initializeMin();
         this.order = order;
-        date_text.setText(order.getSaleDate().toString());
-
+        this.setClient(order.getClient());
+        this.setOrderInfo(this.order);
         this.order.getParcel().stream().forEach( p -> this.parcels.add(p));
         this.listView.setItems(this.parcels);
     }
@@ -189,12 +183,19 @@ public class CreateOrderViewFXMLController implements Initializable, iController
     {
         this.initializeMin();
         this.order = this.subsidiary.newOrder();
-        date_text.setText(order.getSaleDate().toString());
+        this.setOrderInfo(this.order);
     }
     
     public void initializeMin()
     {
-                
+        destinies.setDisable(true);
+        weight.setText(null);
+        volume.setText(null);
+        weight.setDisable(true);
+        volume.setDisable(true);
+        destinies.setValue(null);
+        saveParcel.setDisable(true);
+        
         ArrayList<String> tmp = new ArrayList();
         destinies.setDisable(true);
         for (Address addr: this.app.getSubsidiariesAddress())
@@ -205,6 +206,47 @@ public class CreateOrderViewFXMLController implements Initializable, iController
         this.parcels = FXCollections.observableArrayList(Parcel.extractor());
         listView.setItems(this.parcels);
         destinies.setItems(list);
+    }
+    
+    public void setOrderInfo(Order o)
+    {
+        date_text.setText(o.getSaleDate().toString());
+        order_id.setText(o.getId());
+        total.setText(String.format("$%d",(int)o.getTotal()));
+    }
+    public Client getClient()
+    {
+        Client c = null;
+        if (this.order.getClient() != null)
+        {
+            c = this.order.getClient();
+            this.editClient(c);
+        }
+        else{
+            c = new Client();
+            editClient(c);
+        }
+        return c;
+    }
+    public void editClient(Client c)
+    {
+        String name =  firstName.getText();
+        String addr =  addressField.getText();
+        String client_rut =  this.rut.getText();
+        String phone=  phoneNumber.getText();
+        // Validate inputs //
+        c.setName(name);
+        c.setAddress(addr);
+        c.setPhone(phone);
+        c.setRut(client_rut);
+
+    }
+    public void setClient(Client c)
+    {
+        firstName.setText(c.getName());
+        addressField.setText(c.getAddress());
+        rut.setText(c.getRut());
+        phoneNumber.setText(c.getPhone());
     }
     private boolean checkInputParcel()
     {
