@@ -17,12 +17,12 @@
                <children>
                   <ToolBar prefHeight="27.0" prefWidth="284.0">
                     <items>
-                      <Button fx:id="localTruckButton" mnemonicParsing="false" text="Locales" />
-                        <Button fx:id="arrivedTruckButton" mnemonicParsing="false" text="Arribados" />
+                      <Button fx:id="localTruckButton" mnemonicParsing="false" onAction="#loadLocalTrucks" text="Locales" />
+                        <Button fx:id="arrivedTruckButton" mnemonicParsing="false" onAction="#loadArrivedTrucks" text="Arribados" />
                         <Button fx:id="backButton" mnemonicParsing="false" onAction="#returnToSubsidary" text="Atras" />
                     </items>
                   </ToolBar>
-                  <Button fx:id="viewContentButton" layoutX="69.0" layoutY="120.0" mnemonicParsing="false" text="Ver contenido" />
+                  <Button fx:id="viewContentButton" layoutX="62.0" layoutY="112.0" mnemonicParsing="false" text="Ver contenido" />
                   <Button fx:id="loadParcelButton" layoutX="41.0" layoutY="167.0" mnemonicParsing="false" text="Cargar Encomienda" />
                   <Button fx:id="unloadButton" layoutX="85.0" layoutY="265.0" mnemonicParsing="false" text="Descargar" />
                   <Button fx:id="backTruckButton" layoutX="90.0" layoutY="313.0" mnemonicParsing="false" text="Devolver" />

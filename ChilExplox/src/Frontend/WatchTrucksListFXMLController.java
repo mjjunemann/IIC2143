@@ -66,6 +66,8 @@ public class WatchTrucksListFXMLController implements Initializable, iController
     @FXML
     private TableColumn<Truck,String> destinyColumn;
     
+    private boolean muestraLocal = true;
+    
     
     private ObservableList<Truck> transportData = FXCollections.observableArrayList();
     /*@FXML
@@ -102,4 +104,40 @@ public class WatchTrucksListFXMLController implements Initializable, iController
         
         truckTable.setItems(transportData);
     }   
+    @FXML
+    private void loadLocalTrucks(ActionEvent event ){
+        transportData = FXCollections.observableArrayList();
+        Map<String,ITransport> transports = 
+                this.main.getChilExplox().getCurrentSubsidiary().getVehicles();
+        for (String key: transports.keySet()){
+            Truck transport = (Truck) transports.get(key);
+            transportData.add(transport);
+        }
+        idColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPlate()));
+        stateColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getState().toString()));
+        numberColumn.setCellValueFactory(cellData -> new SimpleIntegerProperty( cellData.getValue().getParcels().size()));
+        destinyColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDestinyString()));
+        
+        truckTable.setItems(transportData);
+        
+        muestraLocal = !muestraLocal;
+    }
+    @FXML
+    private void loadArrivedTrucks(ActionEvent event ){
+        transportData = FXCollections.observableArrayList();
+        ArrayList<ITransport> transports = 
+                this.main.getChilExplox().getCurrentSubsidiary().getArrivedVehicles();
+        for (ITransport transport: transports){
+            Truck truck = (Truck) transport;
+            transportData.add(truck);
+        }
+        idColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPlate()));
+        stateColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getState().toString()));
+        numberColumn.setCellValueFactory(cellData -> new SimpleIntegerProperty( cellData.getValue().getParcels().size()));
+        destinyColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDestinyString()));
+        
+        truckTable.setItems(transportData);
+        
+        muestraLocal = !muestraLocal;
+    }
 }

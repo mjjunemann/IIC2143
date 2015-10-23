@@ -40,6 +40,9 @@ public class Subsidiary implements java.io.Serializable
     public Map<String,ITransport> getVehicles(){
         return this.transport;
     }
+    public ArrayList<ITransport> getArrivedVehicles(){
+        return this.arrived;
+    }
     
     public String getAddress(){
         return subsidiary_address.getAddress();
