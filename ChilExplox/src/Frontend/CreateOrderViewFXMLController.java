@@ -16,6 +16,7 @@ import javafx.scene.control.*;
 import Backend.Order;
 import Backend.Parcel;
 import Backend.Subsidiary;
+import Frontend.Cells.AddressCell;
 import java.util.ArrayList;
 import java.util.Date;
 import javafx.collections.FXCollections;
@@ -35,6 +36,8 @@ public class CreateOrderViewFXMLController implements Initializable, iController
     ChilExploxApp main;
     ChilExplox app;
     Subsidiary subsidiary;
+    ArrayList<String> parcelArray;
+    ObservableList<Address> parcels;
     @FXML
     private Button cancelButton;
     @FXML
@@ -56,17 +59,25 @@ public class CreateOrderViewFXMLController implements Initializable, iController
     @FXML
     private TextField weight;
     @FXML
-    private ListView<String> listView;
+    private ListView<Address> listView;
     
     private Order order;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        this.initListView();
         Date date = new Date();
         System.out.print(date.toString());
         order = new Order(date);
         date_text.setText(order.getSaleDate().toString());
     }   
+    void initListView()
+    {
+    listView.setCellFactory((ListView<Address> param) -> {
+            return new AddressCell();
+    });
+        
+    }
     
     @Override
     public void setChilExploxApp(ChilExploxApp main){
@@ -80,6 +91,8 @@ public class CreateOrderViewFXMLController implements Initializable, iController
             tmp.add(addr.getMainStreet());
         }
         ObservableList<String> list = FXCollections.observableArrayList(tmp);
+        this.parcels = FXCollections.observableArrayList(Address.extractor());
+        listView.setItems(this.parcels);
         destinies.setItems(list);
 
     }
@@ -108,10 +121,11 @@ public class CreateOrderViewFXMLController implements Initializable, iController
             weight.setDisable(true);
             volume.setDisable(true);
             destinies.setDisable(true);
-            float p_weight = Float.parseFloat(weight.getText());
-            float p_volume = Float.parseFloat(volume.getText());
+//            float p_weight = Float.parseFloat(weight.getText());
+//            float p_volume = Float.parseFloat(volume.getText());
             Address addr1 = this.subsidiary.getAddr();
-            Parcel p = new Parcel(p_weight,p_volume,0,addr1,addr1,this.order);
+            parcels.add(addr1);
+//            Parcel p = new Parcel(p_weight,p_volume,0,addr1,addr1,this.order);
 
         }
         
@@ -119,7 +133,7 @@ public class CreateOrderViewFXMLController implements Initializable, iController
     }
     private void addToListView()
     {
-        
+        //listView.
     }
     @FXML
     private void cancelOrder(ActionEvent event) {

@@ -5,6 +5,14 @@
  */
 package Backend;
 
+import javafx.beans.Observable;
+import javafx.beans.property.FloatProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleFloatProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.util.Callback;
+
 /**
  *
  * @author matia
@@ -12,9 +20,9 @@ package Backend;
 
 public class Parcel implements java.io.Serializable
 {
-    private float weight;
-    private float volume;
-    private int priority;
+    private transient SimpleFloatProperty weight;
+    private transient SimpleFloatProperty volume;
+    private transient SimpleIntegerProperty priority;
     public Address origin;
     public Address destination;
     private State state;
@@ -34,8 +42,8 @@ public class Parcel implements java.io.Serializable
         this.state = State.Origin;
         
         this.destination = destination;
-        this.volume = volume; 
-        this.weight = weight;
+        setVolume(volume); 
+        setWeight(weight);
         this.order = order;
     }
     
@@ -73,18 +81,72 @@ public class Parcel implements java.io.Serializable
      {
          return this.state;
      }
-     public int getPriority()
+     public final void setPriority(int priority)
      {
-         return this.priority;
+         priorityProperty().set(priority);
      }
-     public float getWeight()
+     public final int getPriority()
      {
-         return this.weight;
+         return priorityProperty().get();
      }
-     public float getVolume()
+     public final void setWeight(float weight)
      {
-         return this.volume;
+         weightProperty().set(weight);
+     }
+     public final float getWeight()
+     {
+         return weightProperty().get();
+     }
+     public final void setVolume(float volume)
+     {
+         volumeProperty().set(volume);
+     }
+     public final float getVolume()
+     {
+         return volumeProperty().get();
      }
     //</editor-fold>
+    
+     //<editor-fold desc="Properties">
+      public final FloatProperty weightProperty()
+      {
+          if (weight == null)
+          {
+              weight = new SimpleFloatProperty();
+          }
+          return weight;
+      }
+      /*
+      public final ObjectProperty<Address> addressProperty()
+      {
+          if (destination == null)
+          {
+              destination = new Address();
+          }
+          return destination;
+      }
+      */
+      public final FloatProperty volumeProperty()
+      {
+          if(volume == null)
+          {
+              volume = new SimpleFloatProperty();
+          }
+          return volume;
+      }
+      public final IntegerProperty priorityProperty()
+      {
+          if(priority == null)
+          {
+              priority = new SimpleIntegerProperty();
+          }
+          return priority;
+      }
+     //</editor-fold>
+      
+    public static  Callback<Parcel,Observable[]> extractor()
+    {
+        return (Address p) -> new Observable[]{p.weightProperty(),p.volumeProperty(),p.priorityProperty()};
+    }
     
 }
