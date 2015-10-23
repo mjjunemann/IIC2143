@@ -39,13 +39,21 @@ public class WatchTrucksListFXMLController implements Initializable, iController
     
     ChilExploxApp main;
     @FXML
-    private Button returnButton;
+    private Button backButton;
     @FXML
-    private TilePane arrivedTruckTile;
+    private Button localTruckButton;
     @FXML
-    private TilePane ownTruckTile;
+    private Button arrivedTruckButton;
     @FXML
-    private AnchorPane gridAnchor;
+    private Button viewContentButton;
+    @FXML
+    private Button loadParcelButton;
+    @FXML
+    private Button unloadParcelButton;
+    @FXML
+    private Button backTruckButton;
+    @FXML
+    private TableView truckTable;
     /*@FXML
     private ListView<String> trucksListView;*/
     /**
