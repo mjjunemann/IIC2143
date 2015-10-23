@@ -41,6 +41,8 @@ public class CreateOrderViewFXMLController implements Initializable, iController
     Subsidiary subsidiary;
     ArrayList<String> parcelArray;
     ObservableList<Parcel> parcels;
+    
+    //<editor-fold desc="FXML">
     @FXML
     private Button cancelButton;
     @FXML
@@ -71,12 +73,24 @@ public class CreateOrderViewFXMLController implements Initializable, iController
     private Label total;
     @FXML
     private Button saveOrder;
-        
+    @FXML
+    private TextField firstName;
+    @FXML
+    private TextField lastName;
+    @FXML
+    private TextField addressField;
+    @FXML 
+    private TextField phoneNumber;
+    @FXML
+    private TextField rut;
+    //</editor-fold>
+    
     private Order order;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         this.initListView();
+
         saveParcel.setDisable(true);
     }   
     public void initListView()
@@ -92,22 +106,9 @@ public class CreateOrderViewFXMLController implements Initializable, iController
         this.main = main;
         this.app = main.getChilExplox();
         this.subsidiary = this.app.getCurrentSubsidiary();
-        
-        order = subsidiary.newOrder();
-        date_text.setText(order.getSaleDate().toString());
-        ArrayList<String> tmp = new ArrayList();
-        destinies.setDisable(true);
-        for (Address addr: this.app.getSubsidiariesAddress())
-        {
-            tmp.add(addr.getMainStreet());
-        }
-        ObservableList<String> list = FXCollections.observableArrayList(tmp);
-        this.parcels = FXCollections.observableArrayList(Parcel.extractor());
-        listView.setItems(this.parcels);
-        destinies.setItems(list);
+
 
     }
-
     
     @FXML
     private void newParcel(ActionEvent event) {
@@ -136,7 +137,7 @@ public class CreateOrderViewFXMLController implements Initializable, iController
             float p_volume = Float.parseFloat(volume.getText());
             Address addr1 = this.subsidiary.getAddr();
             Parcel p = this.order.addParcel(p_weight,p_volume,0,addr1,addr1);
-            parcels.add(p);
+            this.parcels.add(p);
             changeTotals(this.order,p);
             saveParcel.setDisable(true);
         }
@@ -153,6 +154,9 @@ public class CreateOrderViewFXMLController implements Initializable, iController
         String phone = "Papelito";
         Client c = new Client(name,addr,rut,phone);
         this.subsidiary.setOrder(this.order,c);
+        main.changeScene("SubsidiaryViewFXML.fxml",
+                SubsidiaryViewFXMLController.class);
+
     }
     
     private void changeTotals(Order o, Parcel p)
@@ -173,15 +177,38 @@ public class CreateOrderViewFXMLController implements Initializable, iController
     }
     
     public void initializeWithOrder(Order order){
+        this.initializeMin();
         this.order = order;
-        this.parcels = FXCollections.observableArrayList(Parcel.extractor());
+        date_text.setText(order.getSaleDate().toString());
+
         this.order.getParcel().stream().forEach( p -> this.parcels.add(p));
         this.listView.setItems(this.parcels);
     }
-
-        private boolean checkInputParcel()
+    
+    public void initializeWithoutOrder()
+    {
+        this.initializeMin();
+        this.order = this.subsidiary.newOrder();
+        date_text.setText(order.getSaleDate().toString());
+    }
+    
+    public void initializeMin()
+    {
+                
+        ArrayList<String> tmp = new ArrayList();
+        destinies.setDisable(true);
+        for (Address addr: this.app.getSubsidiariesAddress())
         {
-         return true;   
+            tmp.add(addr.getMainStreet());
         }
+        ObservableList<String> list = FXCollections.observableArrayList(tmp);
+        this.parcels = FXCollections.observableArrayList(Parcel.extractor());
+        listView.setItems(this.parcels);
+        destinies.setItems(list);
+    }
+    private boolean checkInputParcel()
+    {
+        return true;   
+    }
 
 }

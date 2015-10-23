@@ -51,8 +51,26 @@ public class SubsidiaryViewFXMLController implements Initializable, iController 
     @FXML
     private void createNewOrder(ActionEvent event) {
         System.out.println("New order created");
-        main.changeScene("CreateOrderViewFXML.fxml", CreateOrderViewFXMLController.class);
+        this.changeSceneWithOutOrder();
+        
 
+    }
+    
+     private void changeSceneWithOutOrder(){
+        try{
+            FXMLLoader loader = new FXMLLoader(ChilExploxApp.class.
+                    getResource("CreateOrderViewFXML.fxml"));
+            AnchorPane page = (AnchorPane)loader.load();
+
+            CreateOrderViewFXMLController controller = loader.getController();
+            
+            controller.setChilExploxApp(this.main);
+            controller.initializeWithoutOrder();
+         
+            this.main.changeSceneFromPage(page);
+        } catch(Exception ex) {
+            Logger.getLogger(ChilExploxApp.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     @Override

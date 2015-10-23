@@ -118,17 +118,17 @@ public class Parcel implements java.io.Serializable
      }
      public final float getVolume()
      {
-         return volumeProperty().get();
+         return this.volumeProperty().get();
      }
      
      public final String getId()
      {
-         return idProperty().get();
+         return this.idProperty().get();
      }
      
      public final void setId(String id)
      {
-         idProperty().set(id);
+         this.idProperty().set(id);
      }
     //</editor-fold>
     

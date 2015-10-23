@@ -54,7 +54,6 @@ public class Subsidiary implements java.io.Serializable
         orderIdCounter++;
         Date date = new Date();
         Order o = new Order(date,id);
-        this.orders.put(id, o);
         return o;
     }
     
@@ -65,10 +64,9 @@ public class Subsidiary implements java.io.Serializable
         Date saleDate = order.getSaleDate();
         String date = String.valueOf(saleDate.getTime());
         
-        String id = rut + "-" + date;
         
-        this.orders.put(id, order);
-        this.notification_center.addOrderNotification(id,order);
+        this.orders.put(order.getId(), order);
+        this.notification_center.addOrderNotification(order.getId(),order);
         return order.getTotal();
     }
     public void editParcel(Parcel parcel,Address origin,Address destination){

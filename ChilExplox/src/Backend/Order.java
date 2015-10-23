@@ -183,7 +183,7 @@ public class Order implements java.io.Serializable
     
     public String peekId()
     {
-        String id = orderId + String.valueOf(parcelIdCounter--);
+        String id = orderId + String.valueOf(parcelIdCounter);
         return id;
     }
     
