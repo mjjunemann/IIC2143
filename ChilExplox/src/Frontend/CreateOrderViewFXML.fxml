@@ -16,7 +16,7 @@
                   <ToolBar prefHeight="94.0" prefWidth="158.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <items>
                         <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancelOrder" text="Cancel" />
-                        <Button fx:id="saveOrder" mnemonicParsing="false" onAction="#cancelOrder" text="Save" />
+                        <Button fx:id="saveOrder" mnemonicParsing="false" onAction="#saveOrder" text="Save" />
                         <Button fx:id="newParcelButton" mnemonicParsing="false" onAction="#newParcel" text="New Parcel" />
                      </items>
                   </ToolBar>

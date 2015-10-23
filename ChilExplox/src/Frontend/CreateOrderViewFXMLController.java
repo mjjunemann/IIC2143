@@ -8,6 +8,7 @@ package Frontend;
 import Backend.Address;
 import Backend.BudgetCalculator;
 import Backend.ChilExplox;
+import Backend.Client;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -70,7 +71,7 @@ public class CreateOrderViewFXMLController implements Initializable, iController
     private Label total;
     @FXML
     private Button saveOrder;
-    
+        
     private Order order;
     
     @Override
@@ -141,6 +142,17 @@ public class CreateOrderViewFXMLController implements Initializable, iController
         }
         
         
+    }
+    @FXML
+    private void saveOrder(ActionEvent event)
+    {
+        String name = "Juan";
+        String lastname = "Jones";
+        String rut = "99J";
+        String addr = "Narnia";
+        String phone = "Papelito";
+        Client c = new Client(name,addr,rut,phone);
+        this.subsidiary.setOrder(this.order,c);
     }
     
     private void changeTotals(Order o, Parcel p)

@@ -39,6 +39,7 @@ public class ChilExploxApp extends Application {
         
         /*
         //We add two Subsidiaries to ChilExplox and a User
+        */
         Address addr = new Address("Amapolas",1500,"Providencia","Santiago");
         Address addr2 = new Address("Hernando de Aguirre",1133,
                 "Providencia","Santiago");
@@ -60,7 +61,6 @@ public class ChilExploxApp extends Application {
         order2.addParcel(50, 20, 1, addr2, addr);
         
         this.changeScene("LoginViewFXML.fxml", LoginViewFXMLController.class);
-        */
         // We log into the system in the first Subsidiary
         /*
         if(chilexplox.login("fdoflorenzano", "blorg", addr)){
