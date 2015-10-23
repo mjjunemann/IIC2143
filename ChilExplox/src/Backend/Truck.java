@@ -17,6 +17,7 @@ public class Truck extends ITransport implements java.io.Serializable{
     State availability;
     ArrayList<Parcel> parcels;
     Subsidiary home_sub;
+    Address destiny;
     
     public Truck (String S, int max, Subsidiary sub) {
         license_plate = S;
@@ -24,6 +25,7 @@ public class Truck extends ITransport implements java.io.Serializable{
         parcels = new ArrayList<>();
         availability = State.Origin; /* Truck starts at origin.*/
         home_sub = sub;
+        destiny = null;
     }
     
     public String getPlate(){
@@ -33,14 +35,29 @@ public class Truck extends ITransport implements java.io.Serializable{
     public State getAvaibility(){
         return this.availability;
     }
-    
+    public String getDestinyString(){
+        if (destiny == null) {
+            return "-";
+        }else{
+            return destiny.stringValue();
+        }
+    }
+    public boolean canParcelLoad(Parcel parcel){
+        if (destiny == null) {
+            return true;
+        }else if(checkSpace() > 0){
+            return destiny.equals(parcel.destination);
+        }else{
+            return false;
+        }
+    }
     @Override
     public boolean loadParcel(Parcel parcel){
-        if ( checkSpace() > 0){
-            parcels.add(parcel);
-            return true;
+        parcels.add(parcel);
+        if (destiny == null) {
+            destiny = parcel.getDestination();
         }
-        return false;
+        return true;
     }
     @Override
     public void send(Address addr){
