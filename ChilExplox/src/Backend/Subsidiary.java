@@ -53,6 +53,7 @@ public class Subsidiary implements java.io.Serializable
         String id = subsidiaryId + String.valueOf(orderIdCounter);
         orderIdCounter++;
         Order o = new Order(id);
+        this.orders.put(id, o);
         return o;
     }
     
@@ -90,6 +91,10 @@ public class Subsidiary implements java.io.Serializable
     public void sendBack(ITransport v){
         this.arrived.remove(v);
         v.sendBack();
+    }
+    
+    public Map<String,Order> getOrders(){
+        return this.orders;
     }
     
     public Address getAddr()

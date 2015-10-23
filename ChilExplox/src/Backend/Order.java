@@ -179,4 +179,9 @@ public class Order implements java.io.Serializable
         return max;
     }
     
+    @Override
+    public String toString(){
+        return this.orderId + ", price: " + this.total_price;
+    }
+    
 }

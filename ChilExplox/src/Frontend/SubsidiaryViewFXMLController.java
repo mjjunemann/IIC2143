@@ -81,6 +81,10 @@ public class SubsidiaryViewFXMLController implements Initializable, iController 
         main.changeScene("MailboxViewFXML.fxml", MailboxViewFXMLController.class);
     }
 
+    @FXML
+    private void viewOrders(ActionEvent event){
+        main.changeScene("WatchOrdersViewFXML.fxml", WatchOrdersViewFXMLController.class);
+    }
     
     
 }

@@ -36,6 +36,7 @@ public class ChilExploxApp extends Application {
         this.stage = primaryStage;
         this.stage.setOnCloseRequest(e->chilexplox.Exit());
 
+        
         /*
         //We add two Subsidiaries to ChilExplox and a User
         Address addr = new Address("Amapolas",1500,"Providencia","Santiago");
@@ -51,8 +52,15 @@ public class ChilExploxApp extends Application {
         
         Truck t2 = new Truck("FH-1288",60, chilexplox.getSubsidiary(addr2));
         chilexplox.getSubsidiary(addr2).addVehicle(t2);
-        */
+        
+        Order order = chilexplox.getSubsidiary(addr).newOrder();
+        order.addParcel(100, 100, 3, addr, addr2);
+        
+        Order order2 = chilexplox.getSubsidiary(addr2).newOrder();
+        order2.addParcel(50, 20, 1, addr2, addr);
+        
         this.changeScene("LoginViewFXML.fxml", LoginViewFXMLController.class);
+        */
         // We log into the system in the first Subsidiary
         /*
         if(chilexplox.login("fdoflorenzano", "blorg", addr)){
