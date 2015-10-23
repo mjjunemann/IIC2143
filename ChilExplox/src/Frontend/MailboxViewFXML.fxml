@@ -35,7 +35,7 @@
                      <children>
                         <Button fx:id="setReceivedMessagesButton" defaultButton="true" layoutX="-2.0" layoutY="-1.0" mnemonicParsing="false" onAction="#setReceivedMessages" prefHeight="27.0" prefWidth="103.0" text="Recieved" />
                         <Button fx:id="setSentMessagesButton" layoutX="-1.0" layoutY="26.0" mnemonicParsing="false" onAction="#setSentMessages" prefHeight="27.0" prefWidth="103.0" text="Sent" />
-                        <Button fx:id="setErrorMessagesButton" disable="true" layoutX="-1.0" layoutY="53.0" mnemonicParsing="false" onAction="#setErrorMessages" prefHeight="27.0" prefWidth="103.0" text="Error" />
+                        <Button fx:id="setErrorMessagesButton" disable="true" layoutX="-1.0" layoutY="53.0" mnemonicParsing="false" onAction="#setErrorMessages" prefHeight="27.0" prefWidth="103.0" text="Error" visible="false" />
                      </children>
                   </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="242.0" prefWidth="253.0">
