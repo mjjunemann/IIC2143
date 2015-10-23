@@ -32,8 +32,8 @@ public class Parcel implements java.io.Serializable
     private transient SimpleFloatProperty volume;
     private transient SimpleIntegerProperty priority;
     private transient SimpleStringProperty parcelId;
-    public ObjectProperty<Address> origin;
-    public ObjectProperty<Address> destination;
+    public transient SimpleObjectProperty<Address> origin;
+    public transient SimpleObjectProperty<Address> destination;
     private State state;
     private Order order;
     
