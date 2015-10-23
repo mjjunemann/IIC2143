@@ -37,8 +37,9 @@ public class Order implements java.io.Serializable
      * Constructor receive a date.
      * @param date of the sale
      */
-    public Order(Date date)
+    public Order(Date date,String id)
     {
+        this.orderId = id;
         this.parcels = new ArrayList<>();
         this.calculated = false;
         this.total_price = 0;
@@ -62,12 +63,13 @@ public class Order implements java.io.Serializable
     /**
      * Add a parcel to the order.
      */    
-    public void addParcel(float weight,float volume,int priority,Address origin,Address destination){
+    public Parcel addParcel(float weight,float volume,int priority,Address origin,Address destination){
         this.calculated = false;
         String id = orderId + String.valueOf(parcelIdCounter);
         parcelIdCounter++;
         Parcel parcel = new Parcel(weight, volume, priority, origin, destination, this, id);
         this.parcels.add(parcel);
+        return parcel;
     }
     /**
      * Get the total price of the order
@@ -177,6 +179,12 @@ public class Order implements java.io.Serializable
             }
         }
         return max;
+    }
+    
+    public String peekId()
+    {
+        String id = orderId + String.valueOf(parcelIdCounter--);
+        return id;
     }
     
 }

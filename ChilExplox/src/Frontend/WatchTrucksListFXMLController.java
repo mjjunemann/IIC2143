@@ -59,14 +59,14 @@ public class WatchTrucksListFXMLController implements Initializable, iController
     @Override
     public void setChilExploxApp(ChilExploxApp main){
         this.main = main;
-        initializeListView();
+        //initializeListView();
     }
 
     @FXML
     private void returnToSubsidary(ActionEvent event) {
         main.changeScene("SubsidiaryViewFXML.fxml", SubsidiaryViewFXMLController.class);
     }
-    
+    /*
     private void initializeListView(){
         Map<String,ITransport> transports = 
                 this.main.getChilExplox().getCurrentSubsidiary().getVehicles();
@@ -81,7 +81,7 @@ public class WatchTrucksListFXMLController implements Initializable, iController
             }
         }
         
-        /*trucksListView.setItems(trucksStringList);*/
+        //trucksListView.setItems(trucksStringList);//
         Image im;
         ImageView imV ;
         for (int i=0; i < 3 ; i++){
@@ -91,7 +91,6 @@ public class WatchTrucksListFXMLController implements Initializable, iController
             imV.setFitWidth(75);
             /*
             imV.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
             @Override
             public void handle(MouseEvent event) {
                 // TODO Auto-generated method stub
@@ -101,7 +100,7 @@ public class WatchTrucksListFXMLController implements Initializable, iController
                 stage.setTitle("My New Stage Title");
                 stage.setScene(new Scene(root, 450, 450));
                 stage.show();
-            }*/
+            }* /
             });
             imV.setPreserveRatio(true);
             imV.setSmooth(true);
@@ -117,8 +116,7 @@ public class WatchTrucksListFXMLController implements Initializable, iController
             imV.setSmooth(true);
             imV.setCache(true);
             ownTruckTile.getChildren().add(imV);
-        }
+        }*/
         
     }
     
-}

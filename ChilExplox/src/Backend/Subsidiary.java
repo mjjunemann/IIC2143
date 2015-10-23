@@ -52,7 +52,8 @@ public class Subsidiary implements java.io.Serializable
     public Order newOrder(){
         String id = subsidiaryId + String.valueOf(orderIdCounter);
         orderIdCounter++;
-        Order o = new Order(id);
+        Date date = new Date();
+        Order o = new Order(date,id);
         return o;
     }
     

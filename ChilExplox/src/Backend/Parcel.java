@@ -5,12 +5,20 @@
  */
 package Backend;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.beans.Observable;
 import javafx.beans.property.FloatProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.util.Callback;
 
 /**
@@ -23,12 +31,12 @@ public class Parcel implements java.io.Serializable
     private transient SimpleFloatProperty weight;
     private transient SimpleFloatProperty volume;
     private transient SimpleIntegerProperty priority;
-    public Address origin;
-    public Address destination;
+    private transient SimpleStringProperty parcelId;
+    public ObjectProperty<Address> origin;
+    public ObjectProperty<Address> destination;
     private State state;
     private Order order;
     
-    private String parcelId;
     
     /**
      * 
@@ -40,10 +48,10 @@ public class Parcel implements java.io.Serializable
      */
     public Parcel(float weight,float volume,int priority,Address origin,Address destination,Order order, String id)
     {
-        this.origin = origin;
+        setOrigin(origin);
         this.state = State.Origin;
-        this.parcelId = id;
-        this.destination = destination;
+        setId(id);
+        setDestination(destination);
         setVolume(volume); 
         setWeight(weight);
         this.order = order;
@@ -68,17 +76,21 @@ public class Parcel implements java.io.Serializable
         order.updateStatus();
     }
     //<editor-fold desc="Setter&Getters">
-     public Address getDestination()
+     public final Address getDestination()
      {
-         return this.destination;
+         return destinationProperty().get();
      }
-     public void setDestination(Address subsidiary)
+     public final void setDestination(Address subsidiary)
      {
-         this.destination = subsidiary;
+         destinationProperty().set(subsidiary);
      }
-     public void setOrigin(Address subsidiary)
+     public final Address getOrigin()
      {
-         this.origin = subsidiary;
+         return originProperty().get();
+     }
+     public final void setOrigin(Address subsidiary)
+     {
+         originProperty().set(subsidiary);
      }
      public State getState()
      {
@@ -109,8 +121,14 @@ public class Parcel implements java.io.Serializable
          return volumeProperty().get();
      }
      
-     public String getId(){
-         return this.parcelId;
+     public final String getId()
+     {
+         return idProperty().get();
+     }
+     
+     public final void setId(String id)
+     {
+         idProperty().set(id);
      }
     //</editor-fold>
     
@@ -133,6 +151,22 @@ public class Parcel implements java.io.Serializable
           return destination;
       }
       */
+      public final ObjectProperty<Address> originProperty()
+      {
+          if (origin == null)
+          {
+              origin = new SimpleObjectProperty<Address>();
+          }
+          return origin;
+      }
+      public final ObjectProperty<Address> destinationProperty()
+      {
+          if (destination == null)
+          {
+              destination = new SimpleObjectProperty<Address>();
+          }
+          return destination;
+      }
       public final FloatProperty volumeProperty()
       {
           if(volume == null)
@@ -149,11 +183,43 @@ public class Parcel implements java.io.Serializable
           }
           return priority;
       }
+      public final StringProperty idProperty()
+      {
+          if (parcelId == null)
+          {
+              parcelId = new SimpleStringProperty();
+          }
+          return parcelId;
+      }
      //</editor-fold>
-    /*  
+     
     public static  Callback<Parcel,Observable[]> extractor()
     {
-        return (Address p) -> new Observable[]{p.weightProperty(),p.volumeProperty(),p.priorityProperty()};
-    }*/
+        return (Parcel p) -> new Observable[]{p.weightProperty(),p.volumeProperty(),
+            p.priorityProperty(),p.originProperty(),
+            p.destinationProperty(),p.idProperty()
+        };
+    }
     
-}
+    
+    private void writeObject(ObjectOutputStream oos)
+    throws IOException
+    {
+      oos.defaultWriteObject();
+      List params = new ArrayList<>();
+      params.add(getWeight());
+      params.add(getVolume());
+      params.add(getPriority());
+      oos.writeObject(params);
+      }
+
+    private void readObject(ObjectInputStream ois)
+    throws ClassNotFoundException,IOException
+    {
+        ois.defaultReadObject();
+        List params = (List)ois.readObject();
+        this.setWeight((float) params.get(0));
+        this.setVolume((float) params.get(1));
+        this.setPriority((int) params.get(2));     
+    }
+}   

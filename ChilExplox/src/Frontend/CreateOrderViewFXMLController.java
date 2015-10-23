@@ -6,6 +6,7 @@
 package Frontend;
 
 import Backend.Address;
+import Backend.BudgetCalculator;
 import Backend.ChilExplox;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -17,6 +18,7 @@ import Backend.Order;
 import Backend.Parcel;
 import Backend.Subsidiary;
 import Frontend.Cells.AddressCell;
+import Frontend.Cells.ParcelCell;
 import java.util.ArrayList;
 import java.util.Date;
 import javafx.collections.FXCollections;
@@ -37,7 +39,7 @@ public class CreateOrderViewFXMLController implements Initializable, iController
     ChilExplox app;
     Subsidiary subsidiary;
     ArrayList<String> parcelArray;
-    ObservableList<Address> parcels;
+    ObservableList<Parcel> parcels;
     @FXML
     private Button cancelButton;
     @FXML
@@ -59,22 +61,27 @@ public class CreateOrderViewFXMLController implements Initializable, iController
     @FXML
     private TextField weight;
     @FXML
-    private ListView<Address> listView;
+    private ListView<Parcel> listView;
+    @FXML
+    private Button saveParcel;
+    @FXML
+    private Label subTotal;
+    @FXML
+    private Label total;
+    @FXML
+    private Button saveOrder;
     
     private Order order;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         this.initListView();
-        Date date = new Date();
-        System.out.print(date.toString());
-        order = new Order(date);
-        date_text.setText(order.getSaleDate().toString());
+        saveParcel.setDisable(true);
     }   
     void initListView()
     {
-    listView.setCellFactory((ListView<Address> param) -> {
-            return new AddressCell();
+    listView.setCellFactory((ListView<Parcel> param) -> {
+            return new ParcelCell();
     });
         
     }
@@ -84,6 +91,9 @@ public class CreateOrderViewFXMLController implements Initializable, iController
         this.main = main;
         this.app = main.getChilExplox();
         this.subsidiary = this.app.getCurrentSubsidiary();
+        
+        order = subsidiary.newOrder();
+        date_text.setText(order.getSaleDate().toString());
         ArrayList<String> tmp = new ArrayList();
         destinies.setDisable(true);
         for (Address addr: this.app.getSubsidiariesAddress())
@@ -91,7 +101,7 @@ public class CreateOrderViewFXMLController implements Initializable, iController
             tmp.add(addr.getMainStreet());
         }
         ObservableList<String> list = FXCollections.observableArrayList(tmp);
-        this.parcels = FXCollections.observableArrayList(Address.extractor());
+        this.parcels = FXCollections.observableArrayList(Parcel.extractor());
         listView.setItems(this.parcels);
         destinies.setItems(list);
 
@@ -101,17 +111,17 @@ public class CreateOrderViewFXMLController implements Initializable, iController
     @FXML
     private void newParcel(ActionEvent event) {
         //String tmpID = this.subsidiary.nextId();
-        //String peekID = this.subsidiary.peekId();
+        String peekID = this.order.peekId();
         destinies.setDisable(false);
         weight.setText(null);
         volume.setText(null);
         weight.setDisable(false);
         volume.setDisable(false);
-        parcel_id.setText("ID Parcel");
+        parcel_id.setText(peekID);
         destinies.setValue(null);
-        
-
+        saveParcel.setDisable(false);
     }
+    
     @FXML
     private void saveParcel(ActionEvent event)
     {
@@ -121,15 +131,23 @@ public class CreateOrderViewFXMLController implements Initializable, iController
             weight.setDisable(true);
             volume.setDisable(true);
             destinies.setDisable(true);
-//            float p_weight = Float.parseFloat(weight.getText());
-//            float p_volume = Float.parseFloat(volume.getText());
+            float p_weight = Float.parseFloat(weight.getText());
+            float p_volume = Float.parseFloat(volume.getText());
             Address addr1 = this.subsidiary.getAddr();
-            parcels.add(addr1);
-//            Parcel p = new Parcel(p_weight,p_volume,0,addr1,addr1,this.order);
-
+            Parcel p = this.order.addParcel(p_weight,p_volume,0,addr1,addr1);
+            parcels.add(p);
+            changeTotals(this.order,p);
+            saveParcel.setDisable(true);
         }
         
         
+    }
+    
+    private void changeTotals(Order o, Parcel p)
+    {
+        subTotal.setText(String.format("$%d",(int)BudgetCalculator.calculateParcel(p)));
+        total.setText(String.format("$%d",(int)o.getTotal()));
+                 
     }
     private void addToListView()
     {
