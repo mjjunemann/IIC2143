@@ -5,9 +5,13 @@
  */
 package Frontend;
 
+import Backend.Order;
 import Backend.Parcel;
 import Backend.Truck;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -61,6 +65,7 @@ public class TruckDetailController implements Initializable, iController {
     @Override
     public void setChilExploxApp(ChilExploxApp main){
         this.main = main;
+       
     }
     
     public void setTruck(Truck truck){

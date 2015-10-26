@@ -42,6 +42,7 @@ public class CreateOrderViewFXMLController implements Initializable, iController
     Subsidiary subsidiary;
     ArrayList<String> parcelArray;
     ObservableList<Parcel> parcels;
+    Parcel current_parcel;
     
     //<editor-fold desc="FXML">
     @FXML
@@ -84,6 +85,8 @@ public class CreateOrderViewFXMLController implements Initializable, iController
     private TextField phoneNumber;
     @FXML
     private TextField rut;
+    @FXML
+    private Label parcel_state;
     //</editor-fold>
     
     private Order order;

@@ -48,6 +48,7 @@ public class ChilExploxApp extends Application {
         chilexplox.addUser("admin", "Administrador", "admin");
         
         Truck t1 = new Truck("ER-3434",45, chilexplox.getSubsidiary(addr));
+        
         chilexplox.getSubsidiary(addr).addVehicle(t1);
         
         Truck t2 = new Truck("FH-1288",60, chilexplox.getSubsidiary(addr2));
@@ -58,7 +59,7 @@ public class ChilExploxApp extends Application {
         
         Order order2 = chilexplox.getSubsidiary(addr2).newOrder();
         order2.addParcel(50, 20, 1, addr2, addr);
-        */
+        */  
         
         this.changeScene("LoginViewFXML.fxml", LoginViewFXMLController.class);
         // We log into the system in the first Subsidiary

@@ -72,7 +72,7 @@ public class Order implements java.io.Serializable
      */    
     public Parcel addParcel(float weight,float volume,int priority,Address origin,Address destination){
         this.calculated = false;
-        String id = orderId + String.valueOf(parcelIdCounter);
+        String id = getId() + String.valueOf(parcelIdCounter);
         parcelIdCounter++;
         Parcel parcel = new Parcel(weight, volume, priority, origin, destination, this, id);
         this.parcels.add(parcel);
@@ -214,7 +214,7 @@ public class Order implements java.io.Serializable
     
     @Override
     public String toString(){
-        return this.orderId + ", price: " + this.total_price;
+        return this.getId() + ", price: " + this.getTotal();
     }
     //<editor-fold desc="Properties">
     /*
