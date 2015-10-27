@@ -5,13 +5,19 @@
  */
 package Backend;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import javafx.beans.Observable;
 import javafx.beans.property.FloatProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.util.Callback;
 
 /**
  *
@@ -19,21 +25,21 @@ import javafx.beans.property.SimpleStringProperty;
  */
 public class Order implements java.io.Serializable
 {
-    private ArrayList<Parcel> parcels;
-    private SimpleObjectProperty<Date> sales_date;
-    private SimpleObjectProperty<Date> delivery_date;
+    private transient SimpleObjectProperty<ArrayList<Parcel>> parcels;
+    private transient SimpleObjectProperty<Date> sales_date;
+    private transient SimpleObjectProperty<Date> delivery_date;
     private boolean calculated;
-    private SimpleFloatProperty total_price;
-    private SimpleObjectProperty<Client> client;
-    private SimpleObjectProperty<State> state;
-    private SimpleStringProperty orderId;
+    private transient SimpleFloatProperty total_price;
+    private transient SimpleObjectProperty<Client> client;
+    private transient SimpleObjectProperty<State> state;
+    private transient SimpleStringProperty orderId;
     
     private int parcelIdCounter = 100;
     /*constructor para testear */
     public Order(String id)
     {
         setId(id);
-        this.parcels = new ArrayList<>();
+        this.setParcels(new ArrayList<>());
         this.calculated = false;
         setTotal(0);
         setState(State.Origin);
@@ -46,7 +52,7 @@ public class Order implements java.io.Serializable
     public Order(Date date,String id)
     {
         setId(id);
-        this.parcels = new ArrayList<>();
+        this.setParcels( new ArrayList<>());
         this.calculated = false;
         setTotal(0);
         setSaleDate(date);
@@ -60,7 +66,7 @@ public class Order implements java.io.Serializable
      */
     public Order(Client client, Date date)
     {
-        this.parcels = new ArrayList<>();
+        this.setParcels(new ArrayList<>());
         this.calculated = false;
         setTotal(0);
         setSaleDate(date);
@@ -75,7 +81,7 @@ public class Order implements java.io.Serializable
         String id = getId() + String.valueOf(parcelIdCounter);
         parcelIdCounter++;
         Parcel parcel = new Parcel(weight, volume, priority, origin, destination, this, id);
-        this.parcels.add(parcel);
+        this.getParcel().add(parcel);
         return parcel;
     }
     /**
@@ -123,7 +129,7 @@ public class Order implements java.io.Serializable
         Boolean origin = true;
         Boolean destination = true;
         Boolean delivered = true;
-        for( Parcel p : this.parcels){
+        for( Parcel p : this.getParcel()){
             State s = p.getState();
             if ( s == State.OnTransit){
                 origin = false;
@@ -170,6 +176,16 @@ public class Order implements java.io.Serializable
         saleDateProperty().set(date);
     }
     
+    
+    public final void setParcels(ArrayList<Parcel> parcels)
+    {
+        parcelProperty().set(parcels);
+    }
+    
+    public final ArrayList<Parcel> getParcel()
+    {
+        return parcelProperty().get();
+    }
     /**
      * Get the date of the sale
      * @return 
@@ -186,18 +202,23 @@ public class Order implements java.io.Serializable
         return stateProperty().get();
     }
 
-    public final ArrayList<Parcel> getParcel()
+    
+    public final void setDeliveryDate(Date delivery)
     {
-        return this.parcels;
+        deliveryDateProperty().set(delivery);
+    }
+    public final Date getDeliveryDate()
+    {
+        return deliveryDateProperty().get();
     }
     /*
     We define - for now - the prioriy of an order as the max priority of the 
     parcels that make up the order.
     */
     public int getPriority(){
-        int max = this.parcels.get(0).getPriority();
+        int max = this.getParcel().get(0).getPriority();
         int n;
-        for( Parcel p : this.parcels){
+        for( Parcel p : this.getParcel()){
             n = p.getPriority();
             if (n>max){
                 max = n;
@@ -217,7 +238,7 @@ public class Order implements java.io.Serializable
         return this.getId() + ", price: " + this.getTotal();
     }
     //<editor-fold desc="Properties">
-    /*
+    
     public final ObjectProperty<ArrayList<Parcel>> parcelProperty()
     {
         if(parcels == null)
@@ -226,7 +247,7 @@ public class Order implements java.io.Serializable
         }
         return parcels;
     }
-    */
+    
     public final ObjectProperty<Date> saleDateProperty()
     {
         if (sales_date == null)
@@ -276,5 +297,49 @@ public class Order implements java.io.Serializable
         return orderId;
     }
     //</editor-fold>
+    
+    public static  Callback<Order,Observable[]> extractor()
+    {
+        return (Order o) -> new Observable[]
+        {
+         o.saleDateProperty(),o.clientProperty(),o.deliveryDateProperty(),o.stateProperty(),
+            o.totalProperty(),o.orderIdProperty()
+        };
+    }
+    
+     private void writeObject(ObjectOutputStream oos)
+    throws IOException
+    {
+      oos.defaultWriteObject();
+      oos.writeObject(this.getId());
+      oos.writeObject(this.getParcel());
+      
+      oos.writeObject(this.getSaleDate());
+      oos.writeObject(this.getDeliveryDate());
+      
+      oos.writeObject(this.getClient());
+      oos.writeObject(this.getTotal());
+      oos.writeObject(this.getState());
+      
+      
+      }
+
+    private void readObject(ObjectInputStream ois)
+    throws ClassNotFoundException,IOException
+    {
+        
+        // deliveryDate
+        // parcels cambiar 
+        ois.defaultReadObject();
+        this.setId((String)ois.readObject());
+        this.setParcels((ArrayList<Parcel>) ois.readObject());
+        
+        this.setSaleDate((Date)ois.readObject());
+        this.setDeliveryDate((Date)ois.readObject());
+        
+        this.setClient((Client)ois.readObject());
+        this.setTotal((Float)ois.readObject());
+        this.setState((State)ois.readObject());
+    }
     
 }

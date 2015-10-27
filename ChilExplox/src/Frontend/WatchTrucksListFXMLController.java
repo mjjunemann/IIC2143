@@ -217,7 +217,7 @@ public class WatchTrucksListFXMLController implements Initializable, iController
         
         try{
             FXMLLoader loader = new FXMLLoader(ChilExploxApp.class.
-                    getResource("loadParcelFXML.fxml"));
+                    getResource("LoadParcelFXML.fxml"));
             AnchorPane page = (AnchorPane)loader.load();
 
             LoadParcelFXMLController controller = loader.getController();

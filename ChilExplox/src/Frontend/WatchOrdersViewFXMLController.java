@@ -70,7 +70,12 @@ public class WatchOrdersViewFXMLController implements Initializable, iController
     private void returnTuSubsidiary(ActionEvent event) {
         main.changeScene("SubsidiaryViewFXML.fxml",SubsidiaryViewFXMLController.class);
     }
-    
+    /*
+    private void initializeOrders()
+    {
+        
+    }
+    */
     private void initializeOrders(){
         ordersList = FXCollections.observableArrayList();
         ordersShown = new ArrayList<Order>();
