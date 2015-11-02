@@ -110,7 +110,7 @@ public class Order implements java.io.Serializable
     {
         if (!this.calculated)
         {
-            setTotal(BudgetCalculator.calculateTotal(getParcel()));
+            setTotal(BudgetCalculator.calculateTotal(getParcels()));
             this.calculated = true;
         }
         return getTotalValue();

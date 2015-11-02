@@ -65,7 +65,7 @@
                         </ScrollPane>
                      </children>
                   </AnchorPane>
-                  <TableView fx:id="orderTable" nodeOrientation="LEFT_TO_RIGHT" onDragExited="#onDragExited" onDragOver="#onDragOver" onMouseClicked="#modifyOrder" prefHeight="364.0" prefWidth="526.0" style="-fx-border-width: 2; -fx-border-color: transparent; -fx-border-style: solid;">
+                  <TableView fx:id="orderTable" nodeOrientation="LEFT_TO_RIGHT" onDragDropped="#onDragDropped" onDragExited="#onDragExited" onDragOver="#onDragOver" onMouseClicked="#modifyOrder" prefHeight="364.0" prefWidth="526.0" style="-fx-border-width: 2; -fx-border-color: transparent; -fx-border-style: solid;">
                     <columns>
                       <TableColumn fx:id="orderId" prefWidth="100.0" text="ORDER ID" />
                         <TableColumn fx:id="orderName" prefWidth="75.0" text="NAME" />

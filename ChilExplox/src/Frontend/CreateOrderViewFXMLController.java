@@ -153,7 +153,7 @@ public class CreateOrderViewFXMLController implements Initializable, iController
     @FXML
     private void saveOrder(ActionEvent event)
     {
-        if (!parcels.isEmpty())
+        if (!parcels.isEmpty() && completeClient())
         {
             Client c = getClient();
             this.order.saveParcels();
@@ -324,5 +324,17 @@ public class CreateOrderViewFXMLController implements Initializable, iController
             parcels.remove(p);
             this.order.deleteParcel(p);
         }
+    }
+    
+    private boolean completeClient()
+    {
+        if (!firstName.getText().isEmpty()
+                && !rut.getText().isEmpty()
+                && !phoneNumber.getText().isEmpty()
+                && !addressField.getText().isEmpty())
+        {
+            return true;
+        }
+        return false;
     }
 }

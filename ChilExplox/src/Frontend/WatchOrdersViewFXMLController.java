@@ -12,6 +12,8 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.animation.TranslateTransition;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -69,7 +71,10 @@ public class WatchOrdersViewFXMLController implements Initializable, iController
     @FXML
     private TableColumn<Order,String> orderRut;
     @FXML
+    private TableColumn<Order,Integer> orderQuantity;
+    @FXML
     private ListView<String> ordersListView;
+    
     @FXML
     private Button returnToSubsidiaryButton;
     @FXML
@@ -109,7 +114,7 @@ public class WatchOrdersViewFXMLController implements Initializable, iController
         orderState.setCellValueFactory(i->i.getValue().stateProperty());
         orderName.setCellValueFactory(i->i.getValue().getClient().nameProperty());
         orderRut.setCellValueFactory(i->i.getValue().getClient().rutProperty());
-        
+        //orderQuantity.setCellValueFactory(i->i.getValue().parcelProperty());
         
         subsidiaryOrders = FXCollections.observableArrayList(Order.extractor());
         filteredOrders = new FilteredList<>(subsidiaryOrders,p->true);
