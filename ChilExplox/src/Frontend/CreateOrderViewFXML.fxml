@@ -18,6 +18,11 @@
                         <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancelOrder" text="Cancel" />
                         <Button fx:id="saveOrder" mnemonicParsing="false" onAction="#saveOrder" text="Save" />
                         <Button fx:id="newParcelButton" mnemonicParsing="false" onAction="#newParcel" text="New Parcel" />
+                        <BorderPane prefHeight="47.0" prefWidth="606.0">
+                           <right>
+                              <Button fx:id="deleteParcelButton" mnemonicParsing="false" onAction="#deleteParcel" prefWidth="61.0" text="Remove" BorderPane.alignment="CENTER" />
+                           </right>
+                        </BorderPane>
                      </items>
                   </ToolBar>
                </children>
@@ -44,7 +49,7 @@
                                           <Label layoutX="276.0" layoutY="27.0" text="RUT:" />
                                           <Label layoutX="272.0" layoutY="77.0" text="PHONE:" />
                                           <Label layoutX="19.0" layoutY="130.0" text="ADDRESS:" AnchorPane.leftAnchor="15.0" />
-                                          <TextField fx:id="rut" layoutX="357.0" layoutY="21.0" maxHeight="-Infinity" prefHeight="29.0" prefWidth="122.0" AnchorPane.leftAnchor="360.0" />
+                                          <TextField fx:id="rut" layoutX="357.0" layoutY="21.0" maxHeight="-Infinity" onKeyPressed="#autoFillClient" prefHeight="29.0" prefWidth="122.0" AnchorPane.leftAnchor="360.0" />
                                           <TextField fx:id="phoneNumber" layoutX="357.0" layoutY="71.0" maxHeight="-Infinity" prefHeight="29.0" prefWidth="122.0" AnchorPane.leftAnchor="360.0" />
                                           <TextField fx:id="addressField" layoutX="130.0" layoutY="124.0" maxHeight="-Infinity" prefHeight="39.0" prefWidth="347.0" AnchorPane.leftAnchor="130.0" />
                                        </children>
@@ -58,7 +63,7 @@
                                                 <Label layoutX="14.0" layoutY="14.0" prefHeight="17.0" prefWidth="109.0" text="Date" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0" />
                                                 <Label layoutX="14.0" layoutY="207.0" prefHeight="17.0" prefWidth="109.0" text="Total" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="200.0" />
                                                 <Text fx:id="date_text" layoutX="82.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="parcel value" textAlignment="RIGHT" wrappingWidth="187.0" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="15.0" />
-                                                <Text fx:id="order_id" layoutX="115.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="parcel value" textAlignment="RIGHT" wrappingWidth="148.0" AnchorPane.leftAnchor="115.0" AnchorPane.topAnchor="65.0" />
+                                                <Text fx:id="order_id" layoutX="100.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="parcel value" textAlignment="RIGHT" wrappingWidth="148.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="65.05078125" />
                                                 <Text fx:id="parcel_number" layoutX="147.0" layoutY="143.0" strokeType="OUTSIDE" strokeWidth="0.0" text="parcel value" textAlignment="RIGHT" wrappingWidth="122.0" AnchorPane.leftAnchor="145.0" AnchorPane.topAnchor="120.0" />
                                                 <Label fx:id="total" layoutX="200.0" layoutY="206.0" prefHeight="17.0" prefWidth="69.0" text="\$0" textAlignment="RIGHT" />
                                              </children>

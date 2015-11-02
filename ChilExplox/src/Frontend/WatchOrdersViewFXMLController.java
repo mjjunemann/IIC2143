@@ -11,9 +11,12 @@ import java.net.URL;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
@@ -24,13 +27,20 @@ import javafx.scene.Scene;
 import javafx.scene.control.cell.ComboBoxListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.Dragboard;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.shape.Box;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.KeyCode;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 /**
  * FXML Controller class
  *
@@ -40,31 +50,73 @@ public class WatchOrdersViewFXMLController implements Initializable, iController
 
     
     ChilExploxApp main;
+    private ArrayList<Order> ordersShown;
+    private ObservableList<Order> subsidiaryOrders;
+    private FilteredList<Order> filteredOrders;
+    
+    private ObservableList<String> ordersList;
+    //<editor-fold desc="FXML">
+    @FXML
+    private TableView<Order> orderTable;
+    @FXML
+    private TableColumn<Order,String> orderId;
+    @FXML
+    private TableColumn<Order,Float> orderTotal;
+    @FXML
+    private TableColumn<Order,State> orderState;
+    @FXML
+    private TableColumn<Order,String> orderName;
+    @FXML
+    private TableColumn<Order,String> orderRut;
     @FXML
     private ListView<String> ordersListView;
     @FXML
     private Button returnToSubsidiaryButton;
-    
-    private ArrayList<Order> ordersShown;
-
-    private ObservableList<String> ordersList;
     @FXML
     private TextField searchTextField;
     @FXML
     private Button searchButton;
-    /**
-     * Initializes the controller class.
-     */
+    @FXML
+    private AnchorPane pane;
+    //</editor-fold>
+
+    private TranslateTransition transition;
+    private static final Duration TRANSLATE_DURATION      = Duration.seconds(0.25);
+    private TranslateTransition createTranslateTransition(final Rectangle rectangle) 
+    {
+    final TranslateTransition transition = new TranslateTransition(TRANSLATE_DURATION, rectangle);
+
+    return transition;
+    }
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        this.initializeTable();
     }    
     
     @Override
     public void setChilExploxApp(ChilExploxApp main){
         this.main = main;
         this.initializeOrders();
+
+       
     }
+    
+    private void initializeTable()
+    {
+        
+        orderId.setCellValueFactory(i->i.getValue().orderIdProperty());
+        orderTotal.setCellValueFactory(i->i.getValue().totalProperty().asObject());
+        orderState.setCellValueFactory(i->i.getValue().stateProperty());
+        orderName.setCellValueFactory(i->i.getValue().getClient().nameProperty());
+        orderRut.setCellValueFactory(i->i.getValue().getClient().rutProperty());
+        
+        
+        subsidiaryOrders = FXCollections.observableArrayList(Order.extractor());
+        filteredOrders = new FilteredList<>(subsidiaryOrders,p->true);
+        
+        orderTable.setItems(filteredOrders);
+    }
+    
     
     @FXML
     private void returnTuSubsidiary(ActionEvent event) {
@@ -77,6 +129,11 @@ public class WatchOrdersViewFXMLController implements Initializable, iController
     }
     */
     private void initializeOrders(){
+        
+        //this.main.getChilExplox().getCurrentSubsidiary().getOrders();
+        ArrayList<Order> orders = new ArrayList<>(this.main.getChilExplox().getCurrentSubsidiary().getOrders().values());
+        orders.stream().forEach(order-> subsidiaryOrders.add(order));        
+        /*
         ordersList = FXCollections.observableArrayList();
         ordersShown = new ArrayList<Order>();
         for (String orderRepresentation: this.main.getChilExplox().
@@ -87,12 +144,13 @@ public class WatchOrdersViewFXMLController implements Initializable, iController
             ordersShown.add(order);
         }
         ordersListView.setItems(ordersList);
+                */
     }
 
     @FXML
     private void searchId(ActionEvent event) {
         ordersList = FXCollections.observableArrayList();
-        ordersShown = new ArrayList<Order>();
+        ordersShown = new ArrayList<>();
         for (String orderRepresentation: this.main.getChilExplox().
                 getCurrentSubsidiary().getOrders().keySet()){
             Order order = this.main.getChilExplox().
@@ -108,11 +166,11 @@ public class WatchOrdersViewFXMLController implements Initializable, iController
     
     @FXML
     private void modifyOrder(MouseEvent event) {
-        int orderSelectedPosition = ordersListView.getSelectionModel().
-                getSelectedIndex();
-        Order orderSelected = ordersShown.get(orderSelectedPosition);
-        changeSceneToModifyOrder(orderSelected);
-        
+        if (event.getClickCount() == 2)
+        {
+            Order orderSelected = orderTable.getSelectionModel().getSelectedItem();
+            changeSceneToModifyOrder(orderSelected);
+        }
     }
     
     private void changeSceneToModifyOrder(Order order){
@@ -131,6 +189,101 @@ public class WatchOrdersViewFXMLController implements Initializable, iController
         } catch(Exception ex) {
             Logger.getLogger(ChilExploxApp.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        
+    }
+   
+    @FXML
+    public void onDragDetected(MouseEvent event)
+    {
+        Dragboard db = ((Rectangle) event.getSource()).startDragAndDrop(TransferMode.ANY);
+        
+        ClipboardContent cb = new ClipboardContent();
+        cb.putString("hello");
+        db.setContent(cb);
+        
+        event.consume();
+    }
+    
+    @FXML
+    public void onDragOver(DragEvent event)
+    {
+        if (event.getSource() != event.getTarget() && event.getDragboard().hasString())
+        {
+            event.acceptTransferModes(TransferMode.MOVE);
+            orderTable.setStyle(
+            "-fx-border-color: tomato;"
+                    + "-fx-border-width:2;"
+                    + "-fx-border-style:solid;");
+        }
+        event.consume();
+    }
+    
+    @FXML
+    public void onDragDropped(DragEvent event)
+    {
+        System.out.print("Dropped Event");
+        
+    }
+    
+    @FXML
+    public void onDragExited(DragEvent event)
+    {
+        orderTable.setStyle("-fx-border-color: transparent;"
+                    + "-fx-border-width:2;"
+                    + "-fx-border-style:solid;");
+    }
+    
+    @FXML
+    public void onDragDrop(DragEvent event)
+    {
+        //Todo
+    }
+    
+    @FXML
+    private void onEnter(KeyEvent e)
+    {
+     if(e.getCode().equals(KeyCode.ENTER))
+     {
+         search();
+     } 
+    }
+    
+    public void search()
+    {
+        Map<String,String> filtros;
+        String input = searchTextField.getText();
+        filtros = new HashMap();
+        /*
+        String[] input2 =  input.split(" ");
+        for (String filter: input2)
+        {
+           switch(filter)
+           {
+               
+               case "id":
+                  break;
+               case "total":
+                  break;
+               case "state":
+                  break;
+               case "quantity":
+                  break;
+               case "name":
+                   break;
+               case default:
+                    break;
+           }
+        }*/
+        filteredOrders.setPredicate((Order order)->
+            {
+                if (input == null || input.isEmpty())
+                      return true;
+                else
+                {
+                    return false; 
+                }
+            });
     }
     
     

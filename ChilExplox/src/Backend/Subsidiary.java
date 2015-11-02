@@ -18,6 +18,7 @@ public class Subsidiary implements java.io.Serializable
     private Mailbox mailbox;
     private Map<String,ITransport> transport;
     private ArrayList<ITransport> arrived;
+    private Map<String,Client> clients;
     private NotificationCenter notification_center;
     private String subsidiaryId;
     private int orderIdCounter = 1000;
@@ -28,6 +29,7 @@ public class Subsidiary implements java.io.Serializable
         this.mailbox = new Mailbox();
         this.mailbox.setSubsidaryAddress(addr);
         this.orders = new HashMap();
+        this.clients = new HashMap();
         this.transport = new HashMap();
         this.arrived = new ArrayList<>(); 
         this.notification_center = new NotificationCenter();
@@ -65,10 +67,9 @@ public class Subsidiary implements java.io.Serializable
         String rut = order.getClient().getRut();
         Date saleDate = order.getSaleDate();
         String date = String.valueOf(saleDate.getTime());
-        
-        
+        this.addClient(client);
         this.orders.put(order.getId(), order);
-        this.notification_center.addOrderNotification(order.getId(),order);
+        this.notification_center.addOrderNotification(order);
         return order.getTotal();
     }
     public void editParcel(Parcel parcel,Address origin,Address destination){
@@ -106,4 +107,19 @@ public class Subsidiary implements java.io.Serializable
     public String getId(){
          return this.subsidiaryId;
      }
+    
+    public Client getClient(String rut)
+    {
+        return this.clients.get(rut);
+    }
+
+    public boolean addClient(Client c)
+    {
+        if (!this.clients.containsKey(c.getRut()))
+        {     
+            this.clients.put(c.getRut(),c);
+            return true;
+        }
+        return false;
+    }
 }

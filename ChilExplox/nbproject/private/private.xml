@@ -4,17 +4,10 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/matia/Desktop/Repositorios/Software2/ChilExplox/src/Frontend/CreateOrderViewFXMLController.java</file>
-            <file>file:/C:/Users/matia/Desktop/Repositorios/Software2/ChilExplox/src/Backend/Parcel.java</file>
-            <file>file:/C:/Users/matia/Desktop/Repositorios/Software2/ChilExplox/src/Frontend/Cells/AddressCell.java</file>
-            <file>file:/C:/Users/matia/Desktop/Repositorios/Software2/ChilExplox/src/Frontend/SubsidiaryViewFXMLController.java</file>
             <file>file:/C:/Users/matia/Desktop/Repositorios/Software2/ChilExplox/src/Backend/Order.java</file>
-            <file>file:/C:/Users/matia/Desktop/Repositorios/Software2/ChilExplox/src/Frontend/WatchOrdersViewFXMLController.java</file>
-            <file>file:/C:/Users/matia/Desktop/Repositorios/Software2/ChilExplox/src/Frontend/LoadParcelFXMLController.java</file>
-            <file>file:/C:/Users/matia/Desktop/Repositorios/Software2/ChilExplox/src/Frontend/TruckDetailController.java</file>
             <file>file:/C:/Users/matia/Desktop/Repositorios/Software2/ChilExplox/src/Frontend/ChilExploxApp.java</file>
-            <file>file:/C:/Users/matia/Desktop/Repositorios/Software2/ChilExplox/src/Frontend/iController.java</file>
-            <file>file:/C:/Users/matia/Desktop/Repositorios/Software2/ChilExplox/src/Frontend/Cells/ParcelCell.java</file>
-            <file>file:/C:/Users/matia/Desktop/Repositorios/Software2/ChilExplox/src/Frontend/WatchTrucksListFXMLController.java</file>
+            <file>file:/C:/Users/matia/Desktop/Repositorios/Software2/ChilExplox/src/Backend/NotificationCenter.java</file>
+            <file>file:/C:/Users/matia/Desktop/Repositorios/Software2/ChilExplox/src/Backend/Subsidiary.java</file>
         </group>
     </open-files>
 </project-private>

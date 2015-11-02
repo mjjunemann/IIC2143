@@ -26,11 +26,16 @@ import javafx.scene.Scene;
 import javafx.scene.control.cell.ComboBoxListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.shape.Box;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 /**
@@ -247,4 +252,8 @@ public class WatchTrucksListFXMLController implements Initializable, iController
             Logger.getLogger(ChilExploxApp.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    
+    
+
 }

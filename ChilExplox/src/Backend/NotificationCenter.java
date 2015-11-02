@@ -33,11 +33,15 @@ public class NotificationCenter implements java.io.Serializable
   
   }*/
   
-  /*Add a notification for every order*/
-  public void addOrderNotification(String id, Order o)
+  
+  /**
+   * Add a notification for every order
+   * @param o 
+   */
+  public void addOrderNotification(Order o)
   {
-      Notification n = new Notification("Must send Order: "+id,o.getPriority());
-      unsolved_notifications.add(n);
+      Notification n = new Notification("Must send Order: "+o.getId(),o.getPriority());
+      this.unsolved_notifications.add(n);
       /* Maybe add a notification for each parcel?
       for(Parcel p: o.getParcel()){
           n = new Notification("Must send Parcel: "+id,p.getPriority());

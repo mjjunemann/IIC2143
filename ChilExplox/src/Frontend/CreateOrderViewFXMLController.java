@@ -24,6 +24,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 
@@ -75,6 +77,8 @@ public class CreateOrderViewFXMLController implements Initializable, iController
     private Label total;
     @FXML
     private Button saveOrder;
+    @FXML
+    private Button deleteParcelButton;
     @FXML
     private TextField firstName;
     @FXML
@@ -149,11 +153,22 @@ public class CreateOrderViewFXMLController implements Initializable, iController
     @FXML
     private void saveOrder(ActionEvent event)
     {
-        Client c = getClient();
-        this.subsidiary.setOrder(this.order,c);
-        main.changeScene("SubsidiaryViewFXML.fxml",
-                SubsidiaryViewFXMLController.class);
-
+        if (!parcels.isEmpty())
+        {
+            Client c = getClient();
+            this.order.saveParcels();
+            this.subsidiary.setOrder(this.order,c);
+            main.changeScene("SubsidiaryViewFXML.fxml",
+                    SubsidiaryViewFXMLController.class);
+        }/*
+        else
+        {
+            Client c = getClient();
+            this.subsidiary.setOrder(this.order,c);
+            main.changeScene("SubsidiaryViewFXML.fxml",
+                    SubsidiaryViewFXMLController.class);
+        }
+        */
     }
     
     private void changeTotals(Order o, Parcel p)
@@ -168,6 +183,7 @@ public class CreateOrderViewFXMLController implements Initializable, iController
     }
     @FXML
     private void cancelOrder(ActionEvent event) {
+        order.cancelSave();
         main.changeScene("SubsidiaryViewFXML.fxml",
                 SubsidiaryViewFXMLController.class);
 
@@ -244,7 +260,7 @@ public class CreateOrderViewFXMLController implements Initializable, iController
     {
         String name =  firstName.getText();
         String addr =  addressField.getText();
-        String client_rut =  this.rut.getText();
+        String client_rut = rut.getText();
         String phone=  phoneNumber.getText();
         // Validate inputs //
         c.setName(name);
@@ -276,11 +292,37 @@ public class CreateOrderViewFXMLController implements Initializable, iController
     @FXML
     public void onMouseClickParcel(MouseEvent e)
     {
+        if(e.getClickCount() == 2)
+        {
+            Parcel p = listView.getSelectionModel().getSelectedItem();
+            if (p != null)
+            {
+                this.setParcel(p);
+            }
+        }
+    }
+    
+    @FXML
+    private void autoFillClient(KeyEvent e)
+    {
+     if(e.getCode().equals(KeyCode.ENTER))
+     {
+         if (rut.getText() != null)
+         {
+            System.out.print(rut.getText());
+            setClient(this.subsidiary.getClient(rut.getText()));
+            
+        } 
+     }
+    }
+    @FXML
+    private void deleteParcel(ActionEvent event)
+    {
         Parcel p = listView.getSelectionModel().getSelectedItem();
         if (p != null)
         {
-            this.setParcel(p);
+            parcels.remove(p);
+            this.order.deleteParcel(p);
         }
     }
-
 }
