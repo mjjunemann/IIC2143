@@ -26,11 +26,12 @@
                   <Button fx:id="loadParcelButton" layoutX="41.0" layoutY="167.0" mnemonicParsing="false" onAction="#loadParcel" text="Cargar Encomienda" />
                   <Button fx:id="unloadButton" layoutX="85.0" layoutY="265.0" mnemonicParsing="false" onAction="#unloadParcel" text="Descargar" />
                   <Button fx:id="backTruckButton" layoutX="90.0" layoutY="313.0" mnemonicParsing="false" onAction="#backTruck" text="Devolver" />
+                  <TextArea fx:id="truckInfo" layoutX="89.0" layoutY="87.0" prefHeight="200.0" prefWidth="200.0" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <TableView fx:id="truckTable" layoutX="-48.0" layoutY="-117.0" prefHeight="398.0" prefWidth="294.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <TableView fx:id="truckTable" layoutX="-48.0" layoutY="-117.0" prefHeight="248.0" prefWidth="414.0" AnchorPane.bottomAnchor="150.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columns>
                       <TableColumn fx:id="idColumn" prefWidth="75.0" text="Patente" />
                       <TableColumn fx:id="stateColumn" prefWidth="75.0" text="Estado" />
@@ -41,6 +42,7 @@
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                   </TableView>
+                  <TilePane fx:id="TruckTile" prefHeight="398.0" prefWidth="412.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="0.0" />
                </children></AnchorPane>
         </items>
       </SplitPane>

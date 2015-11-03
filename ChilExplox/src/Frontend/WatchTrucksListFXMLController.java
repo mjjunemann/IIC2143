@@ -72,7 +72,10 @@ public class WatchTrucksListFXMLController implements Initializable, iController
     private TableColumn<Truck,Number> numberColumn;
     @FXML
     private TableColumn<Truck,String> destinyColumn;
-    
+    @FXML
+    private TilePane TruckTile;
+    @FXML
+    private TextArea truckInfo;
     private boolean muestraLocal = true;
     
     
@@ -110,6 +113,30 @@ public class WatchTrucksListFXMLController implements Initializable, iController
         destinyColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDestinyString()));
         
         truckTable.setItems(transportData);
+        
+        TruckTile.setHgap(5);
+        TruckTile.setVgap(5);
+        TruckTile.setPrefRows(3);
+        Image im = new Image("images/truck.png",120,120,false,false);
+        final ImageView m = new ImageView(im);
+        m.setOnMouseEntered(new EventHandler<MouseEvent>(){
+              @Override
+              public void handle(MouseEvent t){
+                  truckInfo.appendText("Buena!\n");
+                  truckInfo.setLayoutX(100);
+              }
+            });
+        m.setOnMouseExited(new EventHandler<MouseEvent>(){
+              @Override
+              public void handle(MouseEvent t){
+                  truckInfo.appendText("Hola!\n");
+                  truckInfo.setLayoutX(50);
+              }
+            });
+        for (int i = 0; i < 1; i++) {
+            TruckTile.getChildren().add(m);
+        }
+
     }   
     @FXML
     private void loadLocalTrucks(ActionEvent event ){
@@ -146,6 +173,7 @@ public class WatchTrucksListFXMLController implements Initializable, iController
         truckTable.setItems(transportData);
         
         muestraLocal = !muestraLocal;
+        
     }
     @FXML
     private void seeContent(ActionEvent event){
