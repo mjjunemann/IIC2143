@@ -6,6 +6,7 @@
 package Frontend;
 
 import Backend.*;
+import Frontend.Cells.AddressCellTable;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
@@ -55,6 +56,7 @@ public class WatchOrdersViewFXMLController implements Initializable, iController
     private ArrayList<Order> ordersShown;
     private ObservableList<Order> subsidiaryOrders;
     private FilteredList<Order> filteredOrders;
+    private ObservableList<Parcel> subsidiaryParcels;
     
     private ObservableList<String> ordersList;
     //<editor-fold desc="FXML">
@@ -72,6 +74,22 @@ public class WatchOrdersViewFXMLController implements Initializable, iController
     private TableColumn<Order,String> orderRut;
     @FXML
     private TableColumn<Order,Integer> orderQuantity;
+    @FXML
+    private TableView<Parcel> parcelTable;
+    @FXML
+    private TableColumn<Parcel,String> parcelId;
+    @FXML
+    private TableColumn<Parcel,String> parcelOrderId;
+    @FXML
+    private TableColumn<Parcel,State> parcelState;
+    @FXML
+    private TableColumn<Parcel,Type> parcelType;
+    @FXML
+    private TableColumn<Parcel,Address> parcelDestination;
+    @FXML
+    private TableColumn<Parcel,Float> parcelWeight;
+    @FXML
+    private TableColumn<Parcel,Float> parcelVolume;
     @FXML
     private ListView<String> ordersListView;
     
@@ -95,7 +113,8 @@ public class WatchOrdersViewFXMLController implements Initializable, iController
     }
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        this.initializeTable();
+        this.initializeOrderTable();
+        this.initializeParcelTable();
     }    
     
     @Override
@@ -106,7 +125,7 @@ public class WatchOrdersViewFXMLController implements Initializable, iController
        
     }
     
-    private void initializeTable()
+    private void initializeOrderTable()
     {
         
         orderId.setCellValueFactory(i->i.getValue().orderIdProperty());
@@ -120,6 +139,20 @@ public class WatchOrdersViewFXMLController implements Initializable, iController
         filteredOrders = new FilteredList<>(subsidiaryOrders,p->true);
         
         orderTable.setItems(filteredOrders);
+    }
+    private void initializeParcelTable()
+    {
+        parcelOrderId.setCellValueFactory(i->i.getValue().orderProperty().getValue().orderIdProperty());
+        parcelId.setCellValueFactory(i->i.getValue().idProperty());
+        parcelState.setCellValueFactory(i->i.getValue().stateProperty());
+        parcelType.setCellValueFactory(i->i.getValue().typeProperty());
+        parcelWeight.setCellValueFactory(i->i.getValue().weightProperty().asObject());
+        parcelVolume.setCellValueFactory(i->i.getValue().volumeProperty().asObject());
+        parcelDestination.setCellValueFactory(i->i.getValue().destinationProperty());
+        
+        parcelDestination.setCellFactory(c-> new AddressCellTable());
+        subsidiaryParcels = FXCollections.observableArrayList(Parcel.extractor());
+        parcelTable.setItems(subsidiaryParcels);
     }
     
     
@@ -137,7 +170,8 @@ public class WatchOrdersViewFXMLController implements Initializable, iController
         
         //this.main.getChilExplox().getCurrentSubsidiary().getOrders();
         ArrayList<Order> orders = new ArrayList<>(this.main.getChilExplox().getCurrentSubsidiary().getOrders().values());
-        orders.stream().forEach(order-> subsidiaryOrders.add(order));        
+        orders.stream().forEach(order-> subsidiaryOrders.add(order));    
+        orders.stream().forEach(order->subsidiaryParcels.addAll(order.getParcel()));
         /*
         ordersList = FXCollections.observableArrayList();
         ordersShown = new ArrayList<Order>();
@@ -289,6 +323,10 @@ public class WatchOrdersViewFXMLController implements Initializable, iController
                     return false; 
                 }
             });
+    }
+
+    private void AddressCellTable() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     

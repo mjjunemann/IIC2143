@@ -25,7 +25,6 @@ import javafx.util.Callback;
  *
  * @author matia
  */
-
 public class Parcel implements java.io.Serializable
 {
     private transient SimpleFloatProperty weight;
@@ -34,46 +33,50 @@ public class Parcel implements java.io.Serializable
     private transient SimpleStringProperty parcelId;
     public transient SimpleObjectProperty<Address> origin;
     public transient SimpleObjectProperty<Address> destination;
-    private State state;
-    private Order order;
-    
+    private transient SimpleObjectProperty<State> state;
+    private transient SimpleObjectProperty<Type> type;
+    private transient SimpleObjectProperty<Order> order;
+
     
     /**
      * 
+     * @param type
      * @param weight 
      * @param volume
      * @param priority
      * @param origin
      * @param destination 
      */
-    public Parcel(float weight,float volume,int priority,Address origin,Address destination,Order order, String id)
+    public Parcel(Type type,float weight,float volume,int priority,Address origin,Address destination,Order order, String id)
     {
         setOrigin(origin);
-        this.state = State.Origin;
+        setType(type);
+        setState(State.Origin);
         setId(id);
         setDestination(destination);
         setVolume(volume); 
         setWeight(weight);
-        this.order = order;
+        setOrder(order);
     }
  
     
     public void updateStatus()
     {/*This method will only be called when status must change and it does
         so without checking correctness, must be carefull when called.*/
-        if (this.state == State.Origin){
-            this.state = State.OnTransit;
-        }else if (this.state == state.OnTransit){
-            this.state = State.Destination;
+        State tmp_state = getState();
+        if (tmp_state == State.Origin){
+            setState(State.OnTransit);
+        }else if (tmp_state == State.OnTransit){
+            setState(State.Destination);
         }else{
-            this.state = State.Delivered;
+            setState(State.Delivered);
         }
         /*Every time a parcel changes status, the whole order may change
         status. Example: one parcel was missing from being delivered, once is 
         delivered, the whole order is delivered.
         So It calls the update Status from Order.
         */
-        order.updateStatus();
+        getOrder().updateStatus();
     }
     //<editor-fold desc="Setter&Getters">
      public final Address getDestination()
@@ -84,6 +87,14 @@ public class Parcel implements java.io.Serializable
      {
          destinationProperty().set(subsidiary);
      }
+     public Order getOrder()
+     {
+         return orderProperty().get();
+     }
+     public void setOrder(Order o)
+     {
+         orderProperty().set(o);
+     }
      public final Address getOrigin()
      {
          return originProperty().get();
@@ -91,10 +102,6 @@ public class Parcel implements java.io.Serializable
      public final void setOrigin(Address subsidiary)
      {
          originProperty().set(subsidiary);
-     }
-     public State getState()
-     {
-         return this.state;
      }
      public final void setPriority(int priority)
      {
@@ -129,6 +136,22 @@ public class Parcel implements java.io.Serializable
      public final void setId(String id)
      {
          this.idProperty().set(id);
+     }
+     public final void setState(State s)
+     {
+         this.stateProperty().set(s);
+     }
+     public State getState()
+     {
+         return this.stateProperty().get();
+     }
+     public final void setType(Type t)
+     {
+         this.typeProperty().set(t);
+     }
+     public Type getType()
+     {
+         return this.typeProperty().get();
      }
     //</editor-fold>
     
@@ -191,13 +214,39 @@ public class Parcel implements java.io.Serializable
           }
           return parcelId;
       }
+      
+      public final ObjectProperty<Type> typeProperty()
+      {
+          if (type == null)
+          {
+              type = new SimpleObjectProperty();
+          }
+          return type;
+      }
+      public final ObjectProperty<State> stateProperty()
+      {
+          if (state == null)
+          {
+              state = new SimpleObjectProperty();
+          }
+          return state;
+      }
+      public final ObjectProperty<Order> orderProperty()
+      {
+          if (order == null)
+          {
+              order = new SimpleObjectProperty();
+          }
+          return order;
+      }
      //</editor-fold>
      
     public static  Callback<Parcel,Observable[]> extractor()
     {
         return (Parcel p) -> new Observable[]{p.weightProperty(),p.volumeProperty(),
             p.priorityProperty(),p.originProperty(),
-            p.destinationProperty(),p.idProperty()
+            p.destinationProperty(),p.idProperty(),
+            p.stateProperty(),p.typeProperty(),p.orderProperty()
         };
     }
     
@@ -214,6 +263,9 @@ public class Parcel implements java.io.Serializable
       oos.writeObject(getOrigin());
       oos.writeObject(getDestination());
       oos.writeObject(getId());
+      oos.writeObject(getState());
+      oos.writeObject(getType());
+      oos.writeObject(getOrder());
       }
 
     private void readObject(ObjectInputStream ois)
@@ -230,5 +282,8 @@ public class Parcel implements java.io.Serializable
         this.setOrigin(origin);
         this.setDestination(destiny);
         this.setId(id);
+        this.setState((State) ois.readObject());
+        this.setType((Type) ois.readObject());
+        this.setOrder((Order) ois.readObject());
     }
 }   

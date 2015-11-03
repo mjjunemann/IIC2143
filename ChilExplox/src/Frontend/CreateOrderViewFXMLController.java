@@ -9,6 +9,8 @@ import Backend.Address;
 import Backend.BudgetCalculator;
 import Backend.ChilExplox;
 import Backend.Client;
+import Backend.State;
+import Backend.Type;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -64,6 +66,8 @@ public class CreateOrderViewFXMLController implements Initializable, iController
     @FXML
     private ChoiceBox destinies;
     @FXML
+    private ChoiceBox parcel_types;
+    @FXML
     private TextField volume;
     @FXML
     private TextField weight;
@@ -75,6 +79,8 @@ public class CreateOrderViewFXMLController implements Initializable, iController
     private Label subTotal;
     @FXML
     private Label total;
+    @FXML
+    private Text parcelState;
     @FXML
     private Button saveOrder;
     @FXML
@@ -119,33 +125,42 @@ public class CreateOrderViewFXMLController implements Initializable, iController
     
     @FXML
     private void newParcel(ActionEvent event) {
+        this.current_parcel = null;
         String peekID = this.order.peekId();
-        destinies.setDisable(false);
+        enableEditParcel();
+        
         weight.setText(null);
         volume.setText(null);
-        weight.setDisable(false);
-        volume.setDisable(false);
+        
+        parcelSetState(State.Origin);
         parcel_id.setText(peekID);
+        
+        parcel_types.setValue(null);
         destinies.setValue(null);
-        saveParcel.setDisable(false);
+        
     }
     
     @FXML
     private void saveParcel(ActionEvent event)
     {
         boolean succesful = this.checkInputParcel();
-        if (succesful)
+        if (succesful && this.current_parcel == null)
         {
-            weight.setDisable(true);
-            volume.setDisable(true);
-            destinies.setDisable(true);
+            disableEditParcel();
             float p_weight = Float.parseFloat(weight.getText());
             float p_volume = Float.parseFloat(volume.getText());
+            Type p_type = (Type) parcel_types.getSelectionModel().getSelectedItem();
             Address addr1 = this.subsidiary.getAddr();
-            Parcel p = this.order.addParcel(p_weight,p_volume,0,addr1,addr1);
+            Address addr2 = (Address) destinies.getSelectionModel().getSelectedItem();
+            Parcel p = this.order.addParcel(p_type,p_weight,p_volume,0,addr1,addr2);
             this.parcels.add(p);
             changeTotals(this.order,p);
             saveParcel.setDisable(true);
+        }
+        else if (succesful)
+        {
+            disableEditParcel();
+            editParcel(this.current_parcel);
         }
         
         
@@ -194,7 +209,7 @@ public class CreateOrderViewFXMLController implements Initializable, iController
         this.order = order;
         this.setClient(order.getClient());
         this.setOrderInfo(this.order);
-        this.order.getParcel().stream().forEach( p -> this.parcels.add(p));
+        this.order.getParcels().stream().forEach( p -> this.parcels.add(p));
         this.listView.setItems(this.parcels);
     }
     
@@ -215,16 +230,17 @@ public class CreateOrderViewFXMLController implements Initializable, iController
         destinies.setValue(null);
         saveParcel.setDisable(true);
         
-        ArrayList<String> tmp = new ArrayList();
         destinies.setDisable(true);
-        for (Address addr: this.app.getSubsidiariesAddress())
-        {
-            tmp.add(addr.getMainStreet());
-        }
-        ObservableList<String> list = FXCollections.observableArrayList(tmp);
+        parcel_types.setDisable(true);
+        
+        ObservableList<Address> list = FXCollections.observableArrayList(this.app.getSubsidiariesAddress());
+        ObservableList<Type> typesArray = FXCollections.observableArrayList(Type.values());
         this.parcels = FXCollections.observableArrayList(Parcel.extractor());
         listView.setItems(this.parcels);
+        parcel_types.setItems(typesArray);
         destinies.setItems(list);
+        
+        
     }
     
     public void setOrderInfo(Order o)
@@ -269,12 +285,30 @@ public class CreateOrderViewFXMLController implements Initializable, iController
         c.setRut(client_rut);
 
     }
+    
+    public void editParcel(Parcel p)
+    {
+        float p_weight = Float.parseFloat(weight.getText());
+        float p_volume = Float.parseFloat(volume.getText());
+        Type p_type = (Type) parcel_types.getSelectionModel().getSelectedItem();
+        System.out.print(p_type);
+        Address addr2 = (Address) destinies.getSelectionModel().getSelectedItem();
+        p.setWeight(p_weight);
+        p.setVolume(p_volume);
+        p.setType(p_type);
+        p.setDestination(addr2);
+        changeTotals(this.order,p);
+
+    }
     public void setClient(Client c)
     {
-        firstName.setText(c.getName());
-        addressField.setText(c.getAddress());
-        rut.setText(c.getRut());
-        phoneNumber.setText(c.getPhone());
+        if (c != null)
+        {
+            firstName.setText(c.getName());
+            addressField.setText(c.getAddress());
+            rut.setText(c.getRut());
+            phoneNumber.setText(c.getPhone());
+        }
     }
     private boolean checkInputParcel()
     {
@@ -283,10 +317,20 @@ public class CreateOrderViewFXMLController implements Initializable, iController
     
     public void setParcel(Parcel p)
     {
+        this.current_parcel = p;
+        
         parcel_id.setText(p.getId());
         weight.setText(String.format("%f",p.getWeight()));
         volume.setText(String.format("%f",p.getVolume()));
-        destinies.setValue(null);
+        
+        parcelSetState(p.getState());
+        System.out.print(p.getType());
+        
+        parcel_types.setValue(p.getType());
+        
+        destinies.setValue(p.getDestination());
+        //destinies.setValue(null);
+        //enableEditParcel();
         this.setSubTotal(p);
     }
     @FXML
@@ -309,7 +353,6 @@ public class CreateOrderViewFXMLController implements Initializable, iController
      {
          if (rut.getText() != null)
          {
-            System.out.print(rut.getText());
             setClient(this.subsidiary.getClient(rut.getText()));
             
         } 
@@ -336,5 +379,49 @@ public class CreateOrderViewFXMLController implements Initializable, iController
             return true;
         }
         return false;
+    }
+    private void validateClient()
+    {
+        
+    }
+    public void parcelSetState(Backend.State s)
+    {
+        switch(s)
+        {
+            case Origin:
+                parcelState.setStyle("-fx-fill:green;");
+                break;
+            case OnTransit:
+                parcelState.setStyle("-fx-fill:green;");
+                break;
+            case Destination:
+                parcelState.setStyle("-fx-fill:red;");
+                break;
+            case Delivered:
+                parcelState.setStyle("-fx-fill:red;");
+                break;
+                
+        }
+        parcelState.setText(s.toString());
+
+    }
+    
+    public void disableEditParcel()
+    {
+        weight.setDisable(true);
+        volume.setDisable(true);
+        destinies.setDisable(true);
+        parcel_types.setDisable(true);
+        saveParcel.setDisable(true);
+
+    }
+    @FXML
+    public void enableEditParcel()
+    {
+        parcel_types.setDisable(false);
+        destinies.setDisable(false);
+        weight.setDisable(false);
+        volume.setDisable(false);
+        saveParcel.setDisable(false);
     }
 }

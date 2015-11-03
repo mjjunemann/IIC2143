@@ -55,10 +55,10 @@ public class ChilExploxApp extends Application {
         chilexplox.getSubsidiary(addr2).addVehicle(t2);
         
         Order order = chilexplox.getSubsidiary(addr).newOrder();
-        order.addParcel(100, 100, 3, addr, addr2);
+        order.addParcel(Type.Normal,100, 100, 3, addr, addr2);
         
         Order order2 = chilexplox.getSubsidiary(addr2).newOrder();
-        order2.addParcel(50, 20, 1, addr2, addr);
+        order2.addParcel(Type.Normal,50, 20, 1, addr2, addr);
         */  
         
         this.changeScene("LoginViewFXML.fxml", LoginViewFXMLController.class);

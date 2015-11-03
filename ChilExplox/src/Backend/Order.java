@@ -82,6 +82,7 @@ public class Order implements java.io.Serializable
     
     /**
      * 
+     * @param type
      * @param weight
      * @param volume
      * @param priority
@@ -89,11 +90,11 @@ public class Order implements java.io.Serializable
      * @param destination
      * @return 
      */
-    public Parcel addParcel(float weight,float volume,int priority,Address origin,Address destination){
+    public Parcel addParcel(Type type,float weight,float volume,int priority,Address origin,Address destination){
         this.calculated = false;
         String id = getId() + String.valueOf(parcelIdCounter);
         parcelIdCounter++;
-        Parcel parcel = new Parcel(weight, volume, priority, origin, destination, this, id);
+        Parcel parcel = new Parcel(type,weight, volume, priority, origin, destination, this, id);
         this.getParcels().add(parcel);
         return parcel;
     }
