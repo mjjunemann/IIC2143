@@ -20,6 +20,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.TilePane;
 
 /**
@@ -90,6 +92,26 @@ public class TruckDetailController implements Initializable, iController {
     private void returnScene(ActionEvent event){
         this.main.changeScene("WatchTrucksListFXML.fxml", WatchTrucksListFXMLController.class);
     }
-
+    
+    @FXML
+    public void onDragEntered(DragEvent event)
+    {
+        if (event.getSource() != event.getTarget() && event.getDragboard().hasString())
+        {
+            event.acceptTransferModes(TransferMode.MOVE);
+            truckTile.setStyle(
+            "-fx-border-color: tomato;"
+                    + "-fx-border-width:2;"
+                    + "-fx-border-style:solid;");
+        }
+        event.consume();
+    }
+    @FXML
+    public void onDragExited(DragEvent event)
+    {
+        truckTile.setStyle("-fx-border-color: transparent;"
+                    + "-fx-border-width:2;"
+                    + "-fx-border-style:solid;");
+    }
     
 }
