@@ -98,8 +98,10 @@ public class TruckDetailController implements Initializable, iController {
     {
         if (event.getSource() != event.getTarget() && event.getDragboard().hasString())
         {
+            TilePane pane = (TilePane) event.getGestureTarget();
+            
             event.acceptTransferModes(TransferMode.MOVE);
-            truckTile.setStyle(
+            pane.setStyle(
             "-fx-border-color: tomato;"
                     + "-fx-border-width:2;"
                     + "-fx-border-style:solid;");
@@ -109,9 +111,11 @@ public class TruckDetailController implements Initializable, iController {
     @FXML
     public void onDragExited(DragEvent event)
     {
-        truckTile.setStyle("-fx-border-color: transparent;"
+        TilePane pane = (TilePane) event.getGestureTarget();
+        pane.setStyle("-fx-border-color: transparent;"
                     + "-fx-border-width:2;"
                     + "-fx-border-style:solid;");
+        event.consume();
     }
     
 }
