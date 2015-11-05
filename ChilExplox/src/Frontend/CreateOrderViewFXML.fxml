@@ -19,14 +19,14 @@
                            <children>
                               <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancelOrder" text="Cancel" />
                               <Button fx:id="saveOrder" mnemonicParsing="false" onAction="#saveOrder" text="Save" />
-                              <Button fx:id="newParcelButton" mnemonicParsing="false" onAction="#newParcel" text="New Parcel" />
+                              <Button fx:id="deleteParcelButton" mnemonicParsing="false" onAction="#deleteParcel" prefWidth="61.0" text="Remove" />
                            </children>
                         </HBox>
                         <HBox prefHeight="47.0" prefWidth="368.0" />
                         <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="8.0">
                            <children>
                               <Button mnemonicParsing="false" onAction="#enableEditParcel" text="Edit" />
-                              <Button fx:id="deleteParcelButton" mnemonicParsing="false" onAction="#deleteParcel" prefWidth="61.0" text="Remove" />
+                              <Button fx:id="newParcelButton" mnemonicParsing="false" onAction="#newParcel" text="New Parcel" />
                            </children>
                         </HBox>
                      </items>

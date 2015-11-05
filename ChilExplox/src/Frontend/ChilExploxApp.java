@@ -28,14 +28,13 @@ public class ChilExploxApp extends Application {
     
     private static ChilExplox chilexplox;
     private Subsidiary actual;
-    
+    public FXMLLoader loader;
     private Stage stage;
     
     @Override
     public void start(Stage primaryStage) {
         this.stage = primaryStage;
         this.stage.setOnCloseRequest(e->chilexplox.Exit());
-
         
         /*
         //We add two Subsidiaries to ChilExplox and a User
@@ -183,7 +182,9 @@ public class ChilExploxApp extends Application {
     public void changeScene(String fxmlName, Class className){
         
         try{
-            FXMLLoader loader = new FXMLLoader(ChilExploxApp.class.getResource(fxmlName));
+            loader = new FXMLLoader();
+            loader.setLocation(ChilExploxApp.class.getResource(fxmlName));
+            //FXMLLoader loader = new FXMLLoader(ChilExploxApp.class.getResource(fxmlName));
             AnchorPane page = (AnchorPane)loader.load();
             iController controller = (iController)className.newInstance();
             controller = loader.getController();

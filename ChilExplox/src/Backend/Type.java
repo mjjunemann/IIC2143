@@ -22,6 +22,18 @@ public enum Type {
     public String toString(){
         return str;
     }
+    
+    public static Type lookup(String param)
+    {
+        for(Type type :Type.values())
+        {
+            if (type.str.toLowerCase() == param.toLowerCase())
+            {
+                return type;
+            }
+        }
+        return null;
+    }
 
 }
 

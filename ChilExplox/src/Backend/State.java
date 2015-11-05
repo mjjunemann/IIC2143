@@ -22,5 +22,16 @@ public enum State {
     public String toString(){
         return str;
     }
-
+    public static State lookup(String param)
+        {
+            for(State state :State.values())
+            {
+                if (state.toString().equalsIgnoreCase(param.trim()))
+                {
+                    return state;
+                }
+            }
+            return null;
+            
+        }
 }

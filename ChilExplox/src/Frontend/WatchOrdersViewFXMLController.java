@@ -6,7 +6,12 @@
 package Frontend;
 
 import Backend.*;
+import Backend.Filter.FilterOrderID;
+import Backend.Filter.FilterOrderState;
+import Backend.Filter.FilterOrderTotal;
+import Backend.Filter.FilterRut;
 import Frontend.Cells.AddressCellTable;
+import Frontend.Cells.VisualFilter;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
@@ -15,6 +20,8 @@ import java.util.logging.Logger;
 import javafx.animation.TranslateTransition;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -41,6 +48,7 @@ import javafx.scene.layout.TilePane;
 import javafx.scene.shape.Box;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -92,7 +100,8 @@ public class WatchOrdersViewFXMLController implements Initializable, iController
     private TableColumn<Parcel,Float> parcelVolume;
     @FXML
     private ListView<String> ordersListView;
-    
+    @FXML
+    private VBox FilterBox;
     @FXML
     private Button returnToSubsidiaryButton;
     @FXML
@@ -115,6 +124,7 @@ public class WatchOrdersViewFXMLController implements Initializable, iController
     public void initialize(URL url, ResourceBundle rb) {
         this.initializeOrderTable();
         this.initializeParcelTable();
+        this.initializeFilters();
     }    
     
     @Override
@@ -125,6 +135,48 @@ public class WatchOrdersViewFXMLController implements Initializable, iController
        
     }
     
+    private void initializeFilters()
+    {
+        //ToggleGroup group = new ToggleGroup();
+        ArrayList<VisualFilter> selectedToggles = new ArrayList<>();
+        /*
+        group.selectedToggleProperty().addListener(
+                new ChangeListener<Toggle>()
+                {
+                @Override
+                public void changed(ObservableValue<? extends Toggle> observable,
+                        Toggle oldValue, Toggle newValue) {
+                    if (newValue == null)
+                    {
+                        group.selectToggle(oldValue);
+                    }
+                    else
+                    {
+                        group.selectToggle(newValue);
+                        System.out.print("old Value"+oldValue+"\n");
+                        System.out.print("new Value"+newValue+"\n");
+                    }
+                    
+                }
+                });*/
+        iFilter tmp = new FilterRut();
+        iFilter tmp2 = new FilterOrderID();
+        iFilter tmp3 = new FilterOrderState();
+        iFilter tmp4 = new FilterOrderTotal();
+        VisualFilter tmp_1 = new VisualFilter(tmp,filteredOrders,selectedToggles);
+        VisualFilter tmp_2 = new VisualFilter(tmp2,filteredOrders,selectedToggles);
+        VisualFilter tmp_3 = new VisualFilter(tmp3,filteredOrders,selectedToggles);
+        VisualFilter tmp_4 = new VisualFilter(tmp4,filteredOrders,selectedToggles);
+        /*
+        tmp_1.setToggleGroup(group);
+        tmp_2.setToggleGroup(group);
+        tmp_3.setToggleGroup(group);
+        */
+        FilterBox.getChildren().add(tmp_1);
+        FilterBox.getChildren().add(tmp_2);
+        FilterBox.getChildren().add(tmp_3);
+        FilterBox.getChildren().add(tmp_4);
+    }
     private void initializeOrderTable()
     {
         
@@ -208,7 +260,8 @@ public class WatchOrdersViewFXMLController implements Initializable, iController
         if (event.getClickCount() == 2)
         {
             Order orderSelected = orderTable.getSelectionModel().getSelectedItem();
-            changeSceneToModifyOrder(orderSelected);
+            if (orderSelected != null)
+                changeSceneToModifyOrder(orderSelected);
         }
     }
     
@@ -325,9 +378,6 @@ public class WatchOrdersViewFXMLController implements Initializable, iController
             });
     }
 
-    private void AddressCellTable() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
     
     
 }

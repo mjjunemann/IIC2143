@@ -1,0 +1,13 @@
+.toggle-button {
+  -fx-width: 120px;
+  -fx-height: 60px;
+  -fx-background-radius: 10px;
+  -fx-background-color: #dddddd;
+  -fx-border-radius: 60px;
+  -fx-border-width: 2px;
+  -fx-border-color: black;
+}
+.toggle-button::selection
+{
+  -fx-background-color: #fff;
+}
