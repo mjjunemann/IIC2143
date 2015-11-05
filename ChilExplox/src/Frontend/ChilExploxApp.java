@@ -35,7 +35,6 @@ public class ChilExploxApp extends Application {
     public void start(Stage primaryStage) {
         this.stage = primaryStage;
         this.stage.setOnCloseRequest(e->chilexplox.Exit());
-        
         /*
         //We add two Subsidiaries to ChilExplox and a User
         Address addr = new Address("Amapolas",1500,"Providencia","Santiago");

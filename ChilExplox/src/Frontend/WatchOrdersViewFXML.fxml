@@ -46,6 +46,7 @@
                               <VBox fx:id="FilterBox" accessibleRole="SCROLL_BAR" maxWidth="140.0" minWidth="140.0" prefHeight="630.0" prefWidth="133.0">
                                  <children>
                                     <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="42.0" onDragDetected="#onDragDetected" stroke="BLACK" strokeType="INSIDE" width="140.0" />
+                                    <ToggleButton mnemonicParsing="false" stylesheets="@../../css/style.css" text="ToggleButton" />
                                  </children>
                               </VBox>
                            </content>

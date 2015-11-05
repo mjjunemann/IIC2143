@@ -5,24 +5,28 @@
         <group>
             <file>file:/C:/Users/matia/Desktop/Repositorios/Software2/ChilExplox/src/Frontend/CreateOrderViewFXMLController.java</file>
             <file>file:/C:/Users/matia/Desktop/Repositorios/Software2/ChilExplox/src/Frontend/UnloadParcelFXMLController.java</file>
-            <file>file:/C:/Users/matia/Desktop/Repositorios/Software2/ChilExplox/src/Backend/Parcel.java</file>
-            <file>file:/C:/Users/matia/Desktop/Repositorios/Software2/ChilExplox/src/Backend/Filter/FilterOrderID.java</file>
-            <file>file:/C:/Users/matia/Desktop/Repositorios/Software2/ChilExplox/src/Backend/Type.java</file>
-            <file>file:/C:/Users/matia/Desktop/Repositorios/Software2/ChilExplox/src/Backend/Subsidiary.java</file>
-            <file>file:/C:/Users/matia/Desktop/Repositorios/Software2/ChilExplox/src/Frontend/iController.java</file>
-            <file>file:/C:/Users/matia/Desktop/Repositorios/Software2/ChilExplox/src/Backend/Filter/FilterOrderTotal.java</file>
-            <file>file:/C:/Users/matia/Desktop/Repositorios/Software2/ChilExplox/src/Backend/Address.java</file>
-            <file>file:/C:/Users/matia/Desktop/Repositorios/Software2/ChilExplox/src/Frontend/SubsidiaryViewFXMLController.java</file>
+            <file>file:/C:/Users/matia/Desktop/Repositorios/Software2/ChilExplox/src/Backend/State.java</file>
             <file>file:/C:/Users/matia/Desktop/Repositorios/Software2/ChilExplox/src/Backend/Order.java</file>
+            <file>file:/C:/Users/matia/Desktop/Repositorios/Software2/ChilExplox/src/Backend/Parcel.java</file>
+            <file>file:/C:/Users/matia/Desktop/Repositorios/Software2/ChilExplox/src/Backend/Address.java</file>
+            <file>file:/C:/Users/matia/Desktop/Repositorios/Software2/ChilExplox/src/Frontend/ChilExploxApp.java</file>
+            <file>file:/C:/Users/matia/Desktop/Repositorios/Software2/ChilExplox/src/Backend/Subsidiary.java</file>
             <file>file:/C:/Users/matia/Desktop/Repositorios/Software2/ChilExplox/src/Frontend/WatchOrdersViewFXMLController.java</file>
             <file>file:/C:/Users/matia/Desktop/Repositorios/Software2/ChilExplox/src/Backend/iFilter.java</file>
             <file>file:/C:/Users/matia/Desktop/Repositorios/Software2/ChilExplox/src/Backend/Filter/FilterParcelID.java</file>
-            <file>file:/C:/Users/matia/Desktop/Repositorios/Software2/ChilExplox/src/Backend/State.java</file>
-            <file>file:/C:/Users/matia/Desktop/Repositorios/Software2/ChilExplox/src/Frontend/ChilExploxApp.java</file>
-            <file>file:/C:/Users/matia/Desktop/Repositorios/Software2/ChilExplox/src/Frontend/Cells/VisualFilter.java</file>
+            <file>file:/C:/Users/matia/Desktop/Repositorios/Software2/ChilExplox/src/Backend/Filter/FilterOrderID.java</file>
             <file>file:/C:/Users/matia/Desktop/Repositorios/Software2/ChilExplox/src/Backend/Filter/FilterOrderState.java</file>
             <file>file:/C:/Users/matia/Desktop/Repositorios/Software2/ChilExplox/src/Backend/Filter/FilterRut.java</file>
+            <file>file:/C:/Users/matia/Desktop/Repositorios/Software2/ChilExplox/src/Frontend/Cells/VisualFilter.java</file>
+            <file>file:/C:/Users/matia/Desktop/Repositorios/Software2/ChilExplox/src/Backend/Type.java</file>
+            <file>file:/C:/Users/matia/Desktop/Repositorios/Software2/ChilExplox/src/Frontend/iController.java</file>
+            <file>file:/C:/Users/matia/Desktop/Repositorios/Software2/ChilExplox/src/Frontend/SubsidiaryViewFXMLController.java</file>
+            <file>file:/C:/Users/matia/Desktop/Repositorios/Software2/ChilExplox/src/Backend/Filter/FilterOrderTotal.java</file>
             <file>file:/C:/Users/matia/Desktop/Repositorios/Software2/ChilExplox/src/Backend/InputValidator.java</file>
+            <file>jar:file:/C:/Users/matia/Desktop/Repositorios/Software2/ChilExplox/css/controlsfx-samples-8.40.9.jar!/META-INF/services/fxsampler.FXSamplerProject</file>
+            <file>jar:file:/C:/Users/matia/Desktop/Repositorios/Software2/ChilExplox/css/controlsfx-samples-8.40.9.jar!/org/controlsfx/ControlsFXSampler.java</file>
+            <file>jar:file:/C:/Users/matia/Desktop/Repositorios/Software2/ChilExplox/css/controlsfx-samples-8.40.9.jar!/org/controlsfx/ControlsFXSample.java</file>
+            <file>jar:file:/C:/Users/matia/Desktop/Repositorios/Software2/ChilExplox/css/controlsfx-samples-8.40.9.jar!/org/controlsfx/samples/button/HelloSegmentedButton.java</file>
         </group>
     </open-files>
 </project-private>

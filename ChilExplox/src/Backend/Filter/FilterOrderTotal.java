@@ -21,7 +21,7 @@ public class FilterOrderTotal implements iFilter<Order,String>{
     Pattern regex = Pattern.compile(pattern);
     String last_param;
     Matcher m;
-    @Override
+    @Override   
     public ObservableList Filter(FilteredList<Order> list, String param) {
             
             m = regex.matcher(param);
