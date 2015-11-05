@@ -67,8 +67,8 @@ public class WatchTrucksListFXMLController implements Initializable, iController
     
     private boolean muestraLocal = true;
     public Truck selectedTruck;
-    private TruckImage[] localTrucksImgs;
-    private TruckImage[] arrivedTrucksImgs;
+    private ArrayList<TruckImage> localTrucksImgs;
+    private ArrayList<TruckImage> arrivedTrucksImgs;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {}    
@@ -76,12 +76,12 @@ public class WatchTrucksListFXMLController implements Initializable, iController
     @Override
     public void setChilExploxApp(ChilExploxApp main){
         this.main = main;
-        initializeListView();
+        initializeTile();
     }
     @FXML
     private void returnToSubsidary(ActionEvent event) { main.changeScene("SubsidiaryViewFXML.fxml", SubsidiaryViewFXMLController.class); }
     
-    private void initializeListView(){
+    private void initializeTile(){
         TruckTile.setHgap(5);
         TruckTile.setVgap(5);
         selectedTruck = null;
@@ -91,18 +91,15 @@ public class WatchTrucksListFXMLController implements Initializable, iController
         ArrayList<ITransport> arrived = 
                 this.main.getChilExplox().getCurrentSubsidiary().getArrivedVehicles();
         
-        localTrucksImgs = new TruckImage[local.size()];
-        arrivedTrucksImgs = new TruckImage[arrived.size()];
+        localTrucksImgs = new ArrayList();
+        arrivedTrucksImgs = new ArrayList();
         
-        int index = 0;
         for (String key: local.keySet()){
             Truck transport = (Truck) local.get(key);
-            localTrucksImgs[index] = new TruckImage(transport,this);
-            index += 1;
+            localTrucksImgs.add(new TruckImage(transport,this));
         }
         for (ITransport t: arrived){
-            arrivedTrucksImgs[index] = new TruckImage((Truck) t,this);
-            index += 1;
+            arrivedTrucksImgs.add(new TruckImage((Truck) t,this));
         }
         loadLocalTrucks(new ActionEvent());
 
@@ -110,9 +107,8 @@ public class WatchTrucksListFXMLController implements Initializable, iController
     @FXML
     private void loadLocalTrucks(ActionEvent event ){
         TruckTile.getChildren().clear();
-        for (int index = 0 ; index < localTrucksImgs.length ; index++){
-            TruckTile.getChildren().add(localTrucksImgs[index].view);
-            index += 1;
+        for (TruckImage ti: localTrucksImgs ){
+            TruckTile.getChildren().add(ti.view);
         }
         muestraLocal = true;
         clearLabels();
@@ -120,9 +116,8 @@ public class WatchTrucksListFXMLController implements Initializable, iController
     @FXML
     private void loadArrivedTrucks(ActionEvent event ){
         TruckTile.getChildren().clear();
-        for (int index = 0 ; index < arrivedTrucksImgs.length ; index++){
-            TruckTile.getChildren().add(arrivedTrucksImgs[index].view);
-            index += 1;
+        for (TruckImage ti:  arrivedTrucksImgs){
+            TruckTile.getChildren().add(ti.view);
         }
         muestraLocal = false;
         clearLabels();
@@ -181,7 +176,6 @@ public class WatchTrucksListFXMLController implements Initializable, iController
             FXMLLoader loader = new FXMLLoader(ChilExploxApp.class.
                     getResource("TruckDetail.fxml"));
             AnchorPane page = (AnchorPane)loader.load();
-
             TruckDetailController controller = loader.getController();
             controller.setChilExploxApp(this.main);
             controller.setTruck(truck);

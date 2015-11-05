@@ -20,6 +20,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.layout.TilePane;
 
 /**
  * FXML Controller class
@@ -28,38 +29,50 @@ import javafx.scene.control.TableView;
  */
 public class TruckDetailController implements Initializable, iController {
 
+    @FXML
+    TilePane truckTile;
+    @FXML
+    TilePane restTile;
     
     ChilExploxApp main;
     Truck truck;
-    private ObservableList<Parcel> parcels;
+    private ArrayList<ParcelImage> trucksParcelsImgs = new ArrayList();
+    private ArrayList<ParcelImage> restOfParcelsImgs = new ArrayList();
+    private Parcel selectedParcel;
     //<editor-fold desc="FXML">
-    @FXML
-    private TableView<Parcel> truckContent;
-    @FXML
-    private TableColumn<Parcel,String> parcel_id;
-    @FXML
-    private TableColumn<Parcel,Float> volume;
-    @FXML
-    private TableColumn<Parcel,Float> weight;
-    @FXML
-    private TableColumn<Parcel,String> destination;
+    
     //</editor-fold>
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        initTableView();
     }
     public void initTableView()
     {
-        parcel_id.setCellValueFactory(i->i.getValue().idProperty());
-        volume.setCellValueFactory(i->i.getValue().volumeProperty().asObject());
-        weight.setCellValueFactory(i->i.getValue().weightProperty().asObject());
-        // FALTA DESTINATION
+        truckTile.setHgap(5);
+        truckTile.setVgap(5);
+        restTile.setHgap(5);
+        restTile.setVgap(5);
+        selectedParcel = null;
         
-        parcels = FXCollections.observableArrayList(Parcel.extractor());
-        truckContent.setItems(parcels);
+        for(Parcel p: this.truck.getParcels()){
+            trucksParcelsImgs.add(new ParcelImage(p,this));
+        }
+        
+        Map<String,Order> subOrders = this.main.getChilExplox().getCurrentSubsidiary().getOrders();
+        for (String key: subOrders.keySet()){
+            for(Parcel p: subOrders.get(key).getParcels()){
+                restOfParcelsImgs.add(new ParcelImage(p,this));
+            }
+        }
+
+        for (ParcelImage pi: trucksParcelsImgs ){
+            truckTile.getChildren().add(pi.view);
+        }
+        for (ParcelImage pi: restOfParcelsImgs ){
+            restTile.getChildren().add(pi.view);
+        }
 
     }
     @Override
@@ -70,7 +83,7 @@ public class TruckDetailController implements Initializable, iController {
     
     public void setTruck(Truck truck){
         this.truck = truck;
-        this.truck.getParcels().stream().forEach(p-> parcels.add(p));
+        initTableView();
     }
     
     @FXML
