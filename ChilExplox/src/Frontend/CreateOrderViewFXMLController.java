@@ -9,6 +9,7 @@ import Backend.Address;
 import Backend.BudgetCalculator;
 import Backend.ChilExplox;
 import Backend.Client;
+import Backend.InputValidator;
 import Backend.State;
 import Backend.Type;
 import java.net.URL;
@@ -31,11 +32,15 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 
+
+
 /**
  * FXML Controller class
  *
  * @author guillermofigueroa
  */
+import javafx.scene.control.Alert.AlertType;
+import org.controlsfx.control.textfield.TextFields;
 public class CreateOrderViewFXMLController implements Initializable, iController {
 
     /**
@@ -104,7 +109,6 @@ public class CreateOrderViewFXMLController implements Initializable, iController
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         this.initListView();
-
         saveParcel.setDisable(true);
     }   
     public void initListView()
@@ -119,6 +123,7 @@ public class CreateOrderViewFXMLController implements Initializable, iController
         this.main = main;
         this.app = main.getChilExplox();
         this.subsidiary = this.app.getCurrentSubsidiary();
+        TextFields.bindAutoCompletion(rut, this.subsidiary.getClients().keySet());
 
 
     }
@@ -127,7 +132,11 @@ public class CreateOrderViewFXMLController implements Initializable, iController
     private void newParcel(ActionEvent event) {
         this.current_parcel = null;
         String peekID = this.order.peekId();
-        enableEditParcel();
+        parcel_types.setDisable(false);
+        destinies.setDisable(false);
+        weight.setDisable(false);
+        volume.setDisable(false);
+        saveParcel.setDisable(false);
         
         weight.setText(null);
         volume.setText(null);
@@ -146,9 +155,20 @@ public class CreateOrderViewFXMLController implements Initializable, iController
         boolean succesful = this.checkInputParcel();
         if (succesful && this.current_parcel == null)
         {
+            float p_weight = 0;
+            float p_volume = 0;
             disableEditParcel();
-            float p_weight = Float.parseFloat(weight.getText());
-            float p_volume = Float.parseFloat(volume.getText());
+            try
+            {
+                InputValidator.IsFloat(volume.getText());
+                InputValidator.IsFloat(weight.getText());
+                p_weight = Float.parseFloat(weight.getText());
+                p_volume = Float.parseFloat(volume.getText());
+            }
+            catch (Exception e)
+            {
+             createAlert(e);   
+            }
             Type p_type = (Type) parcel_types.getSelectionModel().getSelectedItem();
             Address addr1 = this.subsidiary.getAddr();
             Address addr2 = (Address) destinies.getSelectionModel().getSelectedItem();
@@ -164,6 +184,13 @@ public class CreateOrderViewFXMLController implements Initializable, iController
         }
         
         
+    }
+    private void createAlert(Exception e)
+    {
+         Alert dlg = new Alert(AlertType.WARNING);
+         dlg.setTitle("Warning");
+         dlg.setContentText(e.toString());
+         dlg.showAndWait();   
     }
     @FXML
     private void saveOrder(ActionEvent event)
@@ -418,10 +445,20 @@ public class CreateOrderViewFXMLController implements Initializable, iController
     @FXML
     public void enableEditParcel()
     {
-        parcel_types.setDisable(false);
-        destinies.setDisable(false);
-        weight.setDisable(false);
-        volume.setDisable(false);
-        saveParcel.setDisable(false);
+        if (this.current_parcel != null)
+        {
+            parcel_types.setDisable(false);
+            destinies.setDisable(false);
+            weight.setDisable(false);
+            volume.setDisable(false);
+            saveParcel.setDisable(false);
+        }
+        else
+        {
+         Alert dlg = new Alert(AlertType.WARNING);
+         dlg.setTitle("Warning");
+         dlg.setContentText("Please set a parcel to continue");
+         dlg.showAndWait();
+        }
     }
 }

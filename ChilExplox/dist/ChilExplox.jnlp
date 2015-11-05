@@ -8,7 +8,11 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="ChilExplox.jar" size="104243" download="eager" />
+    <jar href="ChilExplox.jar" size="129025" download="eager" />
+    <jar href="lib\controlsfx-8.40.9.jar" size="1016589" download="eager" />
+    <jar href="lib\controlsfx-samples-8.40.9.jar" size="658853" download="eager" />
+    <jar href="lib\fxsampler-1.0.8.jar" size="30432" download="eager" />
+    <jar href="lib\openjfx-dialogs-1.0.3.jar" size="149178" download="eager" />
   </resources>
   <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="ChilExplox" >
     <param name="requiredFXVersion" value="8.0+"/>

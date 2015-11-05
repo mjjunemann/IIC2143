@@ -108,6 +108,10 @@ public class Subsidiary implements java.io.Serializable
          return this.subsidiaryId;
      }
     
+    public Map<String,Client> getClients()
+    {
+        return this.clients;
+    }
     public Client getClient(String rut)
     {
         return this.clients.get(rut);
