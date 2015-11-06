@@ -20,7 +20,7 @@ public abstract class ITransport
     public abstract boolean loadParcel(Parcel parcel);
     public abstract void send(Address addr);
     public abstract void sendBack();
-    public abstract ArrayList<Parcel> unload();
+    public abstract ArrayList<Parcel> unloadAll();
     public abstract String getPlate();
     protected abstract int checkSpace();
   

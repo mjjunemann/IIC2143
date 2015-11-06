@@ -87,7 +87,7 @@ public class Subsidiary implements java.io.Serializable
     }
     
     public void receivesParcels(ITransport from){
-        from.unload();
+        from.unloadAll();
     }
     
     public void sendBack(ITransport v){

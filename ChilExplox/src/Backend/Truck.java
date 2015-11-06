@@ -35,21 +35,37 @@ public class Truck extends ITransport implements java.io.Serializable{
     public State getAvaibility(){
         return this.availability;
     }
+    public Address getDestiny(){
+        return this.destiny;
+    }
+    public void hey(){
+        
+    }
     public String getDestinyString(){
         if (destiny == null) {
             return "-";
         }else{
-            return destiny.stringValue();
+            return destiny.toString();
         }
     }
     public boolean canParcelLoad(Parcel parcel){
         if (destiny == null) {
             return true;
         }else if(checkSpace() > 0){
-            return destiny.equals(parcel.destination);
+            return destiny.equals(parcel.getDestination());
         }else{
             return false;
         }
+    }
+    public boolean unload(Parcel parcel){
+        if (parcels.contains(parcel)) {
+            parcels.remove(parcel);
+            if(parcels.size()==0){
+                destiny = null;
+            }
+            return true;
+        }
+        return false;
     }
     @Override
     public boolean loadParcel(Parcel parcel){
@@ -68,8 +84,20 @@ public class Truck extends ITransport implements java.io.Serializable{
         this.availability = State.OnTransit;/* Truck on transit.*/
         this.availability = State.Destination;/* Arrives immediately.*/
     }
+    public Parcel unloadArrived(Parcel p){
+        if (parcels.contains(p)) {
+            p.updateStatus();
+            parcels.remove(p);
+            if (parcels.size()==0) {
+                this.availability = State.Delivered;
+                this.destiny = null;
+            }
+            return p;
+        }
+        return null;
+    }
     @Override
-    public ArrayList<Parcel> unload(){
+    public ArrayList<Parcel> unloadAll(){
         ArrayList<Parcel> arrived = new ArrayList<>();
         for(Parcel p: this.parcels){
             p.updateStatus();/* Delivered.*/
@@ -90,6 +118,9 @@ public class Truck extends ITransport implements java.io.Serializable{
     
     public State getState(){
         return this.availability;
+    }
+    public int getMaxParcels(){
+        return this.max_parcels;
     }
     public ArrayList<Parcel> getParcels(){
         return this.parcels;

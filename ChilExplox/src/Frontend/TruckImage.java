@@ -42,7 +42,7 @@ public class TruckImage {
             img = new Image("images/truck.png",120,120,false,false);
         }
         else{
-            img = new Image("images/red_truck.png",120,120,false,false);
+            img = new Image("images/truck_red.png",120,120,false,false);
         }
     }
 }

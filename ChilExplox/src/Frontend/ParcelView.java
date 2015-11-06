@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package Frontend;
-
+    
 import Backend.Parcel;
 import javafx.event.EventHandler;
 import javafx.scene.image.Image;
@@ -18,13 +18,13 @@ import javafx.scene.input.TransferMode;
  *
  * @author Fernando
  */
-class ParcelImage {
+class ParcelView {
     final Parcel parcel;
     Image img;
     final ImageView view;
-    final TruckDetailController controller;
+    final UnloadParcelFXMLController controller;
     
-    public ParcelImage(Parcel parcel, TruckDetailController c){
+    public ParcelView(Parcel parcel, UnloadParcelFXMLController c){
         this.parcel=parcel;
         this.controller = c;
         updateImage();
@@ -32,22 +32,9 @@ class ParcelImage {
         this.view.setOnMouseClicked((MouseEvent t) -> {
             c.idParcelLabel.setText(this.parcel.getId());
             c.destinationParcelLabel.setText(this.parcel.getDestination().toString());
+            c.selectedParcel = view;
         });
-        this.view.setOnDragDetected(new EventHandler<MouseEvent>() {
-            public void handle(MouseEvent event) {
-                /* drag was detected, start a drag-and-drop gesture*/
-                /* allow any transfer mode */
-                
-                Dragboard db = view.startDragAndDrop(TransferMode.MOVE);
-                System.out.print("hola");
-                /* Put a string on a dragboard */
-                ClipboardContent content = new ClipboardContent();
-                content.putString(parcel.getId());
-                db.setContent(content);
-
-                event.consume();
-            }
-        });
+        
     }
     public void updateImage(){
         img = new Image("images/parcel.png",60,60,false,false);
