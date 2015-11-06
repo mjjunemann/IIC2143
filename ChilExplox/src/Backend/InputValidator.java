@@ -74,7 +74,7 @@ public class InputValidator {
         }
         else{
             throw new Exception
-                ("Debe ingresar un número sin caracteres extraños");
+                ("Debe ingresar caracteres validos [a-zA-Z]");
         }
     }
     

@@ -10,15 +10,16 @@ import java.util.ArrayList;
 import java.util.Optional;
 import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.control.TextInputDialog;
-import javafx.scene.control.ToggleButton;
-
+import javafx.scene.input.MouseEvent;
+import org.controlsfx.control.ToggleSwitch;
 /**
  *
  * @author matia
  */
-public class VisualFilter extends ToggleButton{
+public class VisualFilter extends ToggleSwitch{
     
     public iFilter filter;
     private FilteredList list;
@@ -26,15 +27,18 @@ public class VisualFilter extends ToggleButton{
     private ArrayList<VisualFilter> selected;
     public VisualFilter(iFilter filter,FilteredList list,ArrayList<VisualFilter> selected)
     {
-        this.setText(filter.getClass().getSimpleName());
-        this.setWidth(120);
+        super(filter.getClass().getSimpleName());
         this.setPrefWidth(Double.MAX_VALUE);
-        this.setHeight(60);
         this.filter = filter;
         this.list = list;
         this.selected = selected;
         this.me = this;
-        this.setOnAction(new EventHandler<ActionEvent>(){
+        this.setOnMouseReleased(event ->
+        {
+            fire();
+        });
+        /*
+        this.setOnMousePressed(new EventHandler<ActionEvent>(){
             @Override
             public void handle(ActionEvent e)
             {
@@ -55,7 +59,7 @@ public class VisualFilter extends ToggleButton{
                   }
                 }
             }
-        });
+        });*/
     }
     
     
@@ -76,5 +80,27 @@ public class VisualFilter extends ToggleButton{
         }
     }
     
-    
+    @Override
+    public void fire()
+    {
+        if (!isDisabled())
+        {
+            if (isSelected())
+            {
+               selected.add(me);
+               createDialog(); 
+            }
+            else
+            {
+                selected.remove(me);
+                  filter.Reset(list);
+                  for(VisualFilter v : selected)
+                  {
+                      v.filter.LastFilter(list);
+                  }
+            }
+            
+            //setSelected(!isSelected());
+        }
+    }
 }

@@ -158,17 +158,9 @@ public class CreateOrderViewFXMLController implements Initializable, iController
             float p_weight = 0;
             float p_volume = 0;
             disableEditParcel();
-            try
-            {
-                InputValidator.IsFloat(volume.getText());
-                InputValidator.IsFloat(weight.getText());
-                p_weight = Float.parseFloat(weight.getText());
-                p_volume = Float.parseFloat(volume.getText());
-            }
-            catch (Exception e)
-            {
-             createAlert(e);   
-            }
+            p_weight = Float.parseFloat(weight.getText());
+            p_volume = Float.parseFloat(volume.getText());
+            
             Type p_type = (Type) parcel_types.getSelectionModel().getSelectedItem();
             Address addr1 = this.subsidiary.getAddr();
             Address addr2 = (Address) destinies.getSelectionModel().getSelectedItem();
@@ -339,6 +331,16 @@ public class CreateOrderViewFXMLController implements Initializable, iController
     }
     private boolean checkInputParcel()
     {
+        try
+        {
+            InputValidator.IsFloat(volume.getText());
+            InputValidator.IsFloat(weight.getText());
+        }
+        catch(Exception e)
+        {
+            createAlert(e);
+            return false;
+        }
         return true;   
     }
     
@@ -398,6 +400,19 @@ public class CreateOrderViewFXMLController implements Initializable, iController
     
     private boolean completeClient()
     {
+        try
+        {
+            InputValidator.CheckRut(rut.getText());
+            InputValidator.CheckName(firstName.getText());
+            InputValidator.CheckPhone(phoneNumber.getText());
+        }
+        catch(Exception e)
+        {
+            createAlert(e);
+            return false;
+        }
+        return true;
+        /*
         if (!firstName.getText().isEmpty()
                 && !rut.getText().isEmpty()
                 && !phoneNumber.getText().isEmpty()
@@ -406,6 +421,7 @@ public class CreateOrderViewFXMLController implements Initializable, iController
             return true;
         }
         return false;
+        */
     }
     private void validateClient()
     {
