@@ -52,47 +52,20 @@
                         </ScrollPane>
                      </children>
                   </AnchorPane>
-                  <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
-                    <tabs>
-                      <Tab text="Orders">
-                        <content>
-                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                 <children>
-                                    <TableView fx:id="orderTable" editable="true" nodeOrientation="LEFT_TO_RIGHT" onDragDropped="#onDragDropped" onDragExited="#onDragExited" onDragOver="#onDragOver" onMouseClicked="#modifyOrder" prefHeight="533.0" prefWidth="637.0" style="-fx-border-width: 2; -fx-border-color: transparent; -fx-border-style: solid;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                      <columns>
-                                        <TableColumn fx:id="orderId" prefWidth="100.0" text="ORDER ID" />
-                                          <TableColumn fx:id="orderName" prefWidth="75.0" text="NAME" />
-                                          <TableColumn fx:id="orderRut" prefWidth="75.0" text="RUT" />
-                                          <TableColumn prefWidth="75.0" text="QUANTITY" />
-                                          <TableColumn fx:id="orderState" prefWidth="75.0" text="STATE" />
-                                        <TableColumn fx:id="orderTotal" prefWidth="75.0" text="TOTAL" />
-                                      </columns>
-                                    </TableView>
-                                 </children>
-                              </AnchorPane>
-                        </content>
-                      </Tab>
-                      <Tab text="Parcels">
-                        <content>
-                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                 <children>
-                                    <TableView fx:id="parcelTable" prefHeight="533.0" prefWidth="637.0" style="-fx-border-width: 2; -fx-border-color: transparent; -fx-border-style: solid;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                      <columns>
-                                        <TableColumn fx:id="parcelOrderId" prefWidth="107.0" text="ID ORDER" />
-                                          <TableColumn fx:id="parcelId" prefWidth="105.0" text="ID PARCEL" />
-                                          <TableColumn fx:id="parcelType" prefWidth="98.0" text="TYPE" />
-                                        <TableColumn fx:id="parcelState" prefWidth="98.0" text="STATE" />
-                                          <TableColumn fx:id="parcelDestination" prefWidth="126.0" text="DESTINATION" />
-                                          <TableColumn fx:id="parcelWeight" minWidth="0.0" prefWidth="93.0" text="WEIGHT" />
-                                          <TableColumn fx:id="parcelVolume" minWidth="0.0" prefWidth="105.0" text="VOLUME" />
-                                      </columns>
-                                    </TableView>
-                                 </children>
-                              </AnchorPane>
-                        </content>
-                      </Tab>
-                    </tabs>
-                  </TabPane>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="orderTable" editable="true" nodeOrientation="LEFT_TO_RIGHT" onDragDropped="#onDragDropped" onDragExited="#onDragExited" onDragOver="#onDragOver" onMouseClicked="#modifyOrder" prefHeight="533.0" prefWidth="637.0" style="-fx-border-width: 2; -fx-border-color: transparent; -fx-border-style: solid;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <columns>
+                            <TableColumn fx:id="orderId" prefWidth="100.0" text="ORDER ID" />
+                              <TableColumn fx:id="orderName" prefWidth="75.0" text="NAME" />
+                              <TableColumn fx:id="orderRut" prefWidth="75.0" text="RUT" />
+                              <TableColumn prefWidth="75.0" text="QUANTITY" />
+                              <TableColumn fx:id="orderState" prefWidth="75.0" text="STATE" />
+                            <TableColumn fx:id="orderTotal" prefWidth="75.0" text="TOTAL" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
                </items>
             </SplitPane>
          </children>

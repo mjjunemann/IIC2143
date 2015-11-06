@@ -95,6 +95,8 @@ public class CreateOrderViewFXMLController implements Initializable, iController
     @FXML
     private TextField lastName;
     @FXML
+    private TextField email;
+    @FXML
     private TextField addressField;
     @FXML 
     private TextField phoneNumber;
@@ -293,15 +295,14 @@ public class CreateOrderViewFXMLController implements Initializable, iController
     }
     public void editClient(Client c)
     {
-        String name =  firstName.getText();
-        String addr =  addressField.getText();
-        String client_rut = rut.getText();
-        String phone=  phoneNumber.getText();
-        // Validate inputs //
-        c.setName(name);
-        c.setAddress(addr);
-        c.setPhone(phone);
-        c.setRut(client_rut);
+        
+        completeClient();
+        c.setRut(rut.getText());
+        c.setName(firstName.getText());
+        c.setAddress(addressField.getText());
+        c.setLastname(lastName.getText());
+        c.setPhone(phoneNumber.getText());
+        c.setEmail(email.getText());
 
     }
     
@@ -327,6 +328,8 @@ public class CreateOrderViewFXMLController implements Initializable, iController
             addressField.setText(c.getAddress());
             rut.setText(c.getRut());
             phoneNumber.setText(c.getPhone());
+            email.setText(c.getEmail());
+            lastName.setText(c.getLastname());
         }
     }
     private boolean checkInputParcel()
@@ -402,9 +405,11 @@ public class CreateOrderViewFXMLController implements Initializable, iController
     {
         try
         {
-            InputValidator.CheckRut(rut.getText());
+           InputValidator.CheckRut(rut.getText());
             InputValidator.CheckName(firstName.getText());
+            InputValidator.CheckName(lastName.getText());
             InputValidator.CheckPhone(phoneNumber.getText());
+            InputValidator.CheckEmail(email.getText()); 
         }
         catch(Exception e)
         {
@@ -416,7 +421,8 @@ public class CreateOrderViewFXMLController implements Initializable, iController
         if (!firstName.getText().isEmpty()
                 && !rut.getText().isEmpty()
                 && !phoneNumber.getText().isEmpty()
-                && !addressField.getText().isEmpty())
+                && !addressField.getText().isEmpty()
+                && !email.)
         {
             return true;
         }
@@ -461,7 +467,8 @@ public class CreateOrderViewFXMLController implements Initializable, iController
     @FXML
     public void enableEditParcel()
     {
-        if (this.current_parcel != null)
+        
+        if (this.current_parcel != null && this.current_parcel.getState() == State.Origin)
         {
             parcel_types.setDisable(false);
             destinies.setDisable(false);
@@ -473,7 +480,8 @@ public class CreateOrderViewFXMLController implements Initializable, iController
         {
          Alert dlg = new Alert(AlertType.WARNING);
          dlg.setTitle("Warning");
-         dlg.setContentText("Please set a parcel to continue");
+         dlg.setContentText("Please set a parcel to continue or the "
+                 + "}parcel you are selection is not on origin");
          dlg.showAndWait();
         }
     }

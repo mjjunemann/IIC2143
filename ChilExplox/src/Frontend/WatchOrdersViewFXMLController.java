@@ -9,6 +9,7 @@ import Backend.*;
 import Backend.Filter.FilterOrderID;
 import Backend.Filter.FilterOrderState;
 import Backend.Filter.FilterOrderTotal;
+import Backend.Filter.FilterParcelState;
 import Backend.Filter.FilterRut;
 import Frontend.Cells.AddressCellTable;
 import Frontend.Cells.VisualFilter;
@@ -113,17 +114,11 @@ public class WatchOrdersViewFXMLController implements Initializable, iController
     //</editor-fold>
 
     private TranslateTransition transition;
-    private static final Duration TRANSLATE_DURATION      = Duration.seconds(0.25);
-    private TranslateTransition createTranslateTransition(final Rectangle rectangle) 
-    {
-    final TranslateTransition transition = new TranslateTransition(TRANSLATE_DURATION, rectangle);
-
-    return transition;
-    }
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         this.initializeOrderTable();
-        this.initializeParcelTable();
+        //this.initializeParcelTable();
         this.initializeFilters();
     }    
     
@@ -139,26 +134,6 @@ public class WatchOrdersViewFXMLController implements Initializable, iController
     {
         //ToggleGroup group = new ToggleGroup();
         ArrayList<VisualFilter> selectedToggles = new ArrayList<>();
-        /*
-        group.selectedToggleProperty().addListener(
-                new ChangeListener<Toggle>()
-                {
-                @Override
-                public void changed(ObservableValue<? extends Toggle> observable,
-                        Toggle oldValue, Toggle newValue) {
-                    if (newValue == null)
-                    {
-                        group.selectToggle(oldValue);
-                    }
-                    else
-                    {
-                        group.selectToggle(newValue);
-                        System.out.print("old Value"+oldValue+"\n");
-                        System.out.print("new Value"+newValue+"\n");
-                    }
-                    
-                }
-                });*/
         iFilter tmp = new FilterRut();
         iFilter tmp2 = new FilterOrderID();
         iFilter tmp3 = new FilterOrderState();
@@ -167,11 +142,8 @@ public class WatchOrdersViewFXMLController implements Initializable, iController
         VisualFilter tmp_2 = new VisualFilter(tmp2,filteredOrders,selectedToggles);
         VisualFilter tmp_3 = new VisualFilter(tmp3,filteredOrders,selectedToggles);
         VisualFilter tmp_4 = new VisualFilter(tmp4,filteredOrders,selectedToggles);
-        /*
-        tmp_1.setToggleGroup(group);
-        tmp_2.setToggleGroup(group);
-        tmp_3.setToggleGroup(group);
-        */
+
+        
         FilterBox.getChildren().add(tmp_1);
         FilterBox.getChildren().add(tmp_2);
         FilterBox.getChildren().add(tmp_3);
@@ -223,7 +195,7 @@ public class WatchOrdersViewFXMLController implements Initializable, iController
         //this.main.getChilExplox().getCurrentSubsidiary().getOrders();
         ArrayList<Order> orders = new ArrayList<>(this.main.getChilExplox().getCurrentSubsidiary().getOrders().values());
         orders.stream().forEach(order-> subsidiaryOrders.add(order));    
-        orders.stream().forEach(order->subsidiaryParcels.addAll(order.getParcel()));
+        //orders.stream().forEach(order->subsidiaryParcels.addAll(order.getParcel()));
         /*
         ordersList = FXCollections.observableArrayList();
         ordersShown = new ArrayList<Order>();

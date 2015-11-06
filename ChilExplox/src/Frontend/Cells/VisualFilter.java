@@ -15,6 +15,7 @@ import javafx.event.EventHandler;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.MouseEvent;
 import org.controlsfx.control.ToggleSwitch;
+import org.controlsfx.control.textfield.TextFields;
 /**
  *
  * @author matia

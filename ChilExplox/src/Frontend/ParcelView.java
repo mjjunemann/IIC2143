@@ -29,6 +29,7 @@ class ParcelView {
         this.controller = c;
         updateImage();
         this.view = new ImageView(this.img);
+        this.view.setStyle("-fx-cursor:hand;");
         this.view.setOnMouseClicked((MouseEvent t) -> {
             c.idParcelLabel.setText(this.parcel.getId());
             c.destinationParcelLabel.setText(this.parcel.getDestination().toString());

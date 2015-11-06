@@ -23,9 +23,11 @@ import javafx.util.Callback;
 public class Client implements java.io.Serializable {
     
     private transient StringProperty name;
+    private transient StringProperty lastname;
     private transient StringProperty address;
     private transient StringProperty rut;
     private transient StringProperty phone_number;
+    private transient StringProperty email;
     
     public Client(String name,String address,String rut,String phone_number)
     {
@@ -107,6 +109,24 @@ public class Client implements java.io.Serializable {
     {
         rutProperty().set(rut);
     }
+    
+    public String getEmail()
+    {
+        return emailProperty().get();
+    }
+    public void setEmail(String email)
+    {
+        emailProperty().set(email);
+    }
+    
+    public String getLastname()
+    {
+        return lastnameProperty().get();
+    }
+    public void setLastname(String lastname)
+    {
+        lastnameProperty().set(lastname);
+    }
     //</editor-fold>
     
     
@@ -145,13 +165,28 @@ public class Client implements java.io.Serializable {
         }
         return address;
     }
-    
+    public final StringProperty lastnameProperty()
+    {
+        if (lastname == null)
+        {
+            lastname = new SimpleStringProperty();
+        }
+        return lastname;
+    }
+    public final StringProperty emailProperty()
+    {
+        if (email == null)
+        {
+            email = new SimpleStringProperty();
+        }
+        return email;
+    }
     //</editor-fold>
     
     public static Callback<Client,Observable[]> extractor()
     {
         return (Client c ) -> new Observable[]{c.nameProperty(),c.numberProperty(),
-            c.rutProperty(),c.addressProperty()};
+            c.rutProperty(),c.addressProperty(),c.lastnameProperty(),c.emailProperty()};
     }
     
     
@@ -160,8 +195,10 @@ public class Client implements java.io.Serializable {
     {
       oos.defaultWriteObject();
       oos.writeObject(this.getName());
+      oos.writeObject(this.getLastname());
       oos.writeObject(this.getPhone());
       
+      oos.writeObject(this.getEmail());
       oos.writeObject(this.getAddress());
       oos.writeObject(this.getRut());
            
@@ -176,8 +213,10 @@ public class Client implements java.io.Serializable {
         // parcels cambiar 
         ois.defaultReadObject();
         this.setName((String)ois.readObject());
+        this.setLastname((String)ois.readObject());
         this.setPhone((String) ois.readObject());
         
+        this.setEmail((String)ois.readObject());
         this.setAddress((String)ois.readObject());
         this.setRut((String)ois.readObject());
     }

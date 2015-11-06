@@ -50,9 +50,9 @@
                                        <children>
                                           <TextField fx:id="rut" layoutX="100.0" layoutY="15.0" maxHeight="-Infinity" onKeyPressed="#autoFillClient" prefHeight="29.0" prefWidth="122.0" AnchorPane.leftAnchor="100.0" />
                                           <TextField fx:id="firstName" layoutX="100.0" layoutY="55.0" maxHeight="-Infinity" prefHeight="29.0" prefWidth="122.0" AnchorPane.leftAnchor="100.0" />
-                                          <TextField layoutX="100.0" layoutY="98.0" prefHeight="29.0" prefWidth="122.0" AnchorPane.leftAnchor="100.0" />
+                                          <TextField fx:id="lastName" layoutX="100.0" layoutY="98.0" prefHeight="29.0" prefWidth="122.0" AnchorPane.leftAnchor="100.0" />
                                           <TextField fx:id="phoneNumber" layoutX="341.0" layoutY="15.0" maxHeight="-Infinity" prefHeight="29.0" prefWidth="122.0" AnchorPane.leftAnchor="341.0" />
-                                          <TextField layoutX="341.0" layoutY="54.0" prefHeight="29.0" prefWidth="122.0" AnchorPane.leftAnchor="341.0" />
+                                          <TextField fx:id="email" layoutX="341.0" layoutY="54.0" prefHeight="29.0" prefWidth="122.0" AnchorPane.leftAnchor="341.0" />
                                           <TextField layoutX="341.0" layoutY="98.0" prefHeight="29.0" prefWidth="122.0" AnchorPane.leftAnchor="341.0" />
                                           <TextField fx:id="addressField" layoutX="100.0" layoutY="142.0" maxHeight="-Infinity" prefHeight="27.0" prefWidth="365.0" AnchorPane.leftAnchor="100.0" />
                                           <Label layoutX="23.0" layoutY="20.0" text="RUT:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="21.0" />
