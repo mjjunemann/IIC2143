@@ -54,10 +54,8 @@
                                     </AnchorPane>
                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                                        <children>
-                                          <Button fx:id="viewContentButton" layoutX="34.0" layoutY="28.0" mnemonicParsing="false" onAction="#seeContent" text="Ver contenido" />
-                                          <Button fx:id="loadParcelButton" layoutX="195.0" layoutY="28.0" mnemonicParsing="false" onAction="#loadParcel" text="Cargar Encomienda" />
-                                          <Button fx:id="unloadParcelButton" layoutX="40.0" layoutY="82.0" mnemonicParsing="false" onAction="#unloadParcel" text="Descargar" />
-                                          <Button fx:id="backTruckButton" layoutX="227.0" layoutY="82.0" mnemonicParsing="false" onAction="#backTruck" text="Devolver" />
+                                          <Button fx:id="viewContentButton" layoutX="122.0" layoutY="26.0" mnemonicParsing="false" onAction="#seeContent" text="Ver contenido" />
+                                          <Button fx:id="unloadParcelButton" layoutX="139.0" layoutY="82.0" mnemonicParsing="false" onAction="#unloadParcel" text="Descargar" />
                                        </children>
                                     </AnchorPane>
                                 </items>

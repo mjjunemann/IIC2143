@@ -47,11 +47,7 @@ public class WatchTrucksListFXMLController implements Initializable, iController
     @FXML
     private Button viewContentButton;
     @FXML
-    private Button loadParcelButton;
-    @FXML
     private Button unloadParcelButton;
-    @FXML
-    private Button backTruckButton;
     @FXML
     private TilePane TruckTile;
     @FXML
@@ -64,6 +60,7 @@ public class WatchTrucksListFXMLController implements Initializable, iController
     public Label nParcelsLabel;
     @FXML
     private Label truckTitle;
+    
     
     private boolean muestraLocal = true;
     public Truck selectedTruck;
@@ -127,15 +124,11 @@ public class WatchTrucksListFXMLController implements Initializable, iController
         if (muestraLocal) {
             truckTitle.setText("Local Trucks");
             viewContentButton.setVisible(true);
-            loadParcelButton.setVisible(true);
             unloadParcelButton.setVisible(false);
-            backTruckButton.setVisible(false);
         }else{
             truckTitle.setText("Arrived Trucks");
             viewContentButton.setVisible(false);
-            loadParcelButton.setVisible(false);
             unloadParcelButton.setVisible(true);
-            backTruckButton.setVisible(true);
         }
         plateLabel.setText("-");
         stateLabel.setText("-");

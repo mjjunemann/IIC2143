@@ -10,6 +10,7 @@ import Backend.Parcel;
 import Backend.Truck;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -18,8 +19,12 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.TilePane;
 
 /**
@@ -34,10 +39,27 @@ public class TruckDetailController implements Initializable, iController {
     @FXML
     TilePane restTile;
     
+    @FXML
+    public Label plateTruckLabel;
+    @FXML
+    public Label stateTruckLabel;
+    @FXML
+    public Label destinationTruckLabel;
+    @FXML
+    public Label nParcelsTruckLabel;
+    @FXML
+    public Label maxSpaceLabel;
+    
+    @FXML
+    public Label destinationParcelLabel;
+    @FXML
+    public Label idParcelLabel;
+
+    
     ChilExploxApp main;
     Truck truck;
-    private ArrayList<ParcelImage> trucksParcelsImgs = new ArrayList();
-    private ArrayList<ParcelImage> restOfParcelsImgs = new ArrayList();
+    private Map<ImageView,ParcelImage> trucksParcelsImgs = new HashMap();
+    private Map<ImageView,ParcelImage> restOfParcelsImgs = new HashMap();
     private Parcel selectedParcel;
     //<editor-fold desc="FXML">
     
@@ -56,23 +78,24 @@ public class TruckDetailController implements Initializable, iController {
         restTile.setVgap(5);
         selectedParcel = null;
         
+        ParcelImage pi;
         for(Parcel p: this.truck.getParcels()){
-            trucksParcelsImgs.add(new ParcelImage(p,this));
+            pi = new ParcelImage(p,this);
+            trucksParcelsImgs.put(pi.view, pi);
+            truckTile.getChildren().add(pi.view);
         }
         
         Map<String,Order> subOrders = this.main.getChilExplox().getCurrentSubsidiary().getOrders();
         for (String key: subOrders.keySet()){
             for(Parcel p: subOrders.get(key).getParcels()){
-                restOfParcelsImgs.add(new ParcelImage(p,this));
+                if (!this.truck.getParcels().contains(p)) {
+                    pi = new ParcelImage(p,this);
+                    restOfParcelsImgs.put(pi.view,pi);
+                    restTile.getChildren().add(pi.view);
+                }
             }
         }
 
-        for (ParcelImage pi: trucksParcelsImgs ){
-            truckTile.getChildren().add(pi.view);
-        }
-        for (ParcelImage pi: restOfParcelsImgs ){
-            restTile.getChildren().add(pi.view);
-        }
 
     }
     @Override
@@ -83,6 +106,11 @@ public class TruckDetailController implements Initializable, iController {
     
     public void setTruck(Truck truck){
         this.truck = truck;
+        plateTruckLabel.setText(truck.getPlate());
+        stateTruckLabel.setText(truck.getAvaibility().toString());
+        destinationTruckLabel.setText(truck.getDestinyString());
+        nParcelsTruckLabel.setText(String.valueOf(truck.getParcels().size()));
+        maxSpaceLabel.setText(String.valueOf(this.truck.getMaxParcels()));
         initTableView();
     }
     
@@ -90,6 +118,77 @@ public class TruckDetailController implements Initializable, iController {
     private void returnScene(ActionEvent event){
         this.main.changeScene("WatchTrucksListFXML.fxml", WatchTrucksListFXMLController.class);
     }
-
     
+    @FXML
+    public void onDragOver(DragEvent event)
+    {
+        if (event.getGestureSource() != event.getTarget() && event.getDragboard().hasString())
+        {
+            try{
+            TilePane pane = (TilePane) event.getTarget();
+            
+            event.acceptTransferModes(TransferMode.MOVE);
+            pane.setStyle(
+            "-fx-border-color: steelblue;"
+                    + "-fx-border-width:2;"
+                    + "-fx-border-style:solid;");
+            }catch(Exception e){}
+        }
+        event.consume();
+    }
+    @FXML
+    public void onDragExited(DragEvent event)
+    {
+        TilePane pane = (TilePane) event.getTarget();
+        pane.setStyle("-fx-border-color: transparent;"
+                    + "-fx-border-width:2;"
+                    + "-fx-border-style:solid;");
+        event.consume();
+    }
+    @FXML
+    public void onDragDropped(DragEvent event)
+    {
+        TilePane paneTarget = (TilePane) event.getTarget();
+        ImageView im = (ImageView) event.getGestureSource();
+        TilePane paneSource = (TilePane)im.getParent();
+        System.out.println(paneTarget.getId());
+        System.out.println(im);
+        System.out.println(paneSource.getId());
+        System.out.println(paneTarget.getId().compareTo("truckTile"));
+        
+        Parcel p;
+        if (paneTarget.getId().compareTo("truckTile") == 0) 
+        {
+            p = restOfParcelsImgs.get(im).parcel;
+            System.out.println(this.truck.getDestinyString());
+            System.out.println(p.getDestination().toString());
+            System.out.println(this.truck.canParcelLoad(p));
+            if (this.truck.canParcelLoad(p)) {
+                this.truck.loadParcel(p);
+                this.destinationTruckLabel.setText(truck.getDestinyString());
+                this.nParcelsTruckLabel.setText(String.valueOf(truck.getParcels().size()));
+                paneSource.getChildren().remove(im);
+                paneTarget.getChildren().add(im);
+            }
+        }
+        else
+        {
+            p = restOfParcelsImgs.get(im).parcel;
+            if (this.truck.unload(p)) {
+                this.destinationTruckLabel.setText(truck.getDestinyString());
+                this.nParcelsTruckLabel.setText(String.valueOf(
+                                                truck.getParcels().size()));
+                paneSource.getChildren().remove(im);
+                paneTarget.getChildren().add(im);
+            }
+        }
+    }
+    @FXML
+    void sendTruck(){
+        if (this.truck.getParcels().size() != 0) {
+            this.main.getChilExplox().getCurrentSubsidiary().sendsVehicle(truck,
+                    main.getChilExplox().getSubsidiary( truck.getDestiny()));
+            this.main.changeScene("WatchTrucksListFXML.fxml", WatchTrucksListFXMLController.class);
+        }
+    }
 }
