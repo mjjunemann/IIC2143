@@ -7,6 +7,7 @@ package Frontend;
 
 import Backend.Order;
 import Backend.Parcel;
+import Backend.State;
 import Backend.Truck;
 import java.net.URL;
 import java.util.ArrayList;
@@ -88,7 +89,7 @@ public class TruckDetailController implements Initializable, iController {
         Map<String,Order> subOrders = this.main.getChilExplox().getCurrentSubsidiary().getOrders();
         for (String key: subOrders.keySet()){
             for(Parcel p: subOrders.get(key).getParcels()){
-                if (!this.truck.getParcels().contains(p)) {
+                if (p.getState()== State.Origin && !this.truck.getParcels().contains(p)) {
                     pi = new ParcelImage(p,this);
                     restOfParcelsImgs.put(pi.view,pi);
                     restTile.getChildren().add(pi.view);
