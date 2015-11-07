@@ -31,8 +31,12 @@ class ParcelImage {
         this.view = new ImageView(this.img);
         this.view.setStyle("-fx-cursor:hand;");
         this.view.setOnMouseClicked((MouseEvent t) -> {
-            c.idParcelLabel.setText(this.parcel.getId());
-            c.destinationParcelLabel.setText(this.parcel.getDestination().toString());
+            controller.idParcelLabel.setText(this.parcel.getId());
+            controller.destinationParcelLabel.setText(this.parcel.getDestination().toString());
+            controller.typeParcelLabel.setText(this.parcel.getType().toString());
+            controller.stateParcelLabel.setText(this.parcel.getState().toString());
+            controller.volumeParcelLabel.setText(String.valueOf(this.parcel.getVolume()));
+            controller.weightParcelLabel.setText(String.valueOf(this.parcel.getWeight()));
         });
         this.view.setOnDragDetected(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {

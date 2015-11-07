@@ -55,6 +55,14 @@ public class TruckDetailController implements Initializable, iController {
     public Label destinationParcelLabel;
     @FXML
     public Label idParcelLabel;
+    @FXML
+    public Label stateParcelLabel;
+    @FXML
+    public Label typeParcelLabel;
+    @FXML
+    public Label weightParcelLabel;
+    @FXML
+    public Label volumeParcelLabel;
 
     
     ChilExploxApp main;

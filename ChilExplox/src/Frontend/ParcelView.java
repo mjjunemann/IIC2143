@@ -22,21 +22,28 @@ class ParcelView {
     final Parcel parcel;
     Image img;
     final ImageView view;
-    final UnloadParcelFXMLController controller;
+    UnloadParcelFXMLController controller;
     
-    public ParcelView(Parcel parcel, UnloadParcelFXMLController c){
+    public ParcelView(Parcel parcel){
         this.parcel=parcel;
-        this.controller = c;
         updateImage();
         this.view = new ImageView(this.img);
-        this.view.setStyle("-fx-cursor:hand;");
-        this.view.setOnMouseClicked((MouseEvent t) -> {
-            c.idParcelLabel.setText(this.parcel.getId());
-            c.destinationParcelLabel.setText(this.parcel.getDestination().toString());
-            c.selectedParcel = view;
-        });
-        
     }
+    
+    public void setMouseevent(UnloadParcelFXMLController c){
+        this.view.setStyle("-fx-cursor:hand;");
+        this.controller = c;
+        this.view.setOnMouseClicked((MouseEvent t) -> {
+            controller.idParcelLabel.setText(this.parcel.getId());
+            controller.destinationParcelLabel.setText(this.parcel.getDestination().toString());
+            controller.selectedParcel = view;
+            controller.typeParcelLabel.setText(this.parcel.getType().toString());
+            controller.stateParcelLabel.setText(this.parcel.getState().toString());
+            controller.volumeParcelLabel.setText(String.valueOf(this.parcel.getVolume()));
+            controller.weightParcelLabel.setText(String.valueOf(this.parcel.getWeight()));
+        });
+    }
+    
     public void updateImage(){
         img = new Image("images/parcel.png",60,60,false,false);
     }

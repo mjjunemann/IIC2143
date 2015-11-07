@@ -5,6 +5,7 @@
  */
 package Frontend;
 
+import Backend.Parcel;
 import Backend.State;
 import Backend.Truck;
 import javafx.event.EventHandler;
@@ -35,6 +36,11 @@ public class TruckImage {
             controller.destinationLabel.setText(truck.getDestinyString());
             controller.nParcelsLabel.setText(String.valueOf(truck.getParcels().size()));
             controller.selectedTruck = truck;
+            ParcelView pv;
+            for (Parcel p: truck.getParcels()) {
+                pv = new ParcelView(p);
+                controller.parcelTile.getChildren().add(pv.view);
+            }
         });
     }
     public void updateImage(){

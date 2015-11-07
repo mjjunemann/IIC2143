@@ -38,7 +38,7 @@ public class ChilExploxApp extends Application implements iNotificationListener 
         this.stage = primaryStage;
         this.stage.setOnCloseRequest(e->chilexplox.Exit());
         
-        
+        /*
         //We add two Subsidiaries to ChilExplox and a User
         Address addr = new Address("Amapolas",1500,"Providencia","Santiago");
         Address addr2 = new Address("Hernando de Aguirre",1133,
@@ -60,7 +60,7 @@ public class ChilExploxApp extends Application implements iNotificationListener 
         
         Order order2 = chilexplox.getSubsidiary(addr2).newOrder();
         order2.addParcel(Type.Normal,50, 20, 1, addr2, addr);
-        
+        */
         
         this.changeScene("LoginViewFXML.fxml", LoginViewFXMLController.class);
         // We log into the system in the first Subsidiary

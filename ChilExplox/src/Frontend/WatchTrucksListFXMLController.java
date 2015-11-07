@@ -51,6 +51,8 @@ public class WatchTrucksListFXMLController implements Initializable, iController
     @FXML
     private TilePane TruckTile;
     @FXML
+    public TilePane parcelTile;
+    @FXML
     public Label plateLabel;
     @FXML
     public Label stateLabel;
@@ -135,6 +137,7 @@ public class WatchTrucksListFXMLController implements Initializable, iController
         destinationLabel.setText("-");
         nParcelsLabel.setText("-");
         selectedTruck = null;
+        parcelTile.getChildren().clear();
     }
     
     @FXML
@@ -145,22 +148,9 @@ public class WatchTrucksListFXMLController implements Initializable, iController
         }
     }
     @FXML
-    private void loadParcel(ActionEvent event){
-        
-        if (selectedTruck != null) {
-           changeSceneToLoadParcel(selectedTruck);
-        }
-    }
-    @FXML
     private void unloadParcel(ActionEvent event){
         if (selectedTruck != null) {
            changeSceneToUnloadParcel(selectedTruck);
-        }
-    }
-    @FXML
-    private void backTruck(ActionEvent event){
-        if (!muestraLocal) {
-            
         }
     }
     public void changeSceneToTruck(Truck truck){

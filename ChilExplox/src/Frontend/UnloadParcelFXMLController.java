@@ -47,7 +47,14 @@ public class UnloadParcelFXMLController implements Initializable, iController {
     public Label idParcelLabel;
     @FXML
     public Label destinationParcelLabel;
-    
+    @FXML
+    public Label stateParcelLabel;
+    @FXML
+    public Label typeParcelLabel;
+    @FXML
+    public Label weightParcelLabel;
+    @FXML
+    public Label volumeParcelLabel;
     /**
      * Initializes the controller class.
      */
@@ -66,7 +73,8 @@ public class UnloadParcelFXMLController implements Initializable, iController {
         selectedParcel = null;
         ParcelView pv;
         for(Parcel p: this.truck.getParcels()){
-            pv = new ParcelView(p,this);
+            pv = new ParcelView(p);
+            pv.setMouseevent(this);
             trucksParcelsImgs.put(pv.view, pv);
             parcelTile.getChildren().add(pv.view);
         }
