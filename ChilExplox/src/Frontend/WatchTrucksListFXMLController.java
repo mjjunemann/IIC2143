@@ -55,6 +55,8 @@ public class WatchTrucksListFXMLController implements Initializable, iController
     @FXML
     public Label plateLabel;
     @FXML
+    public Label typeLabel;
+    @FXML
     public Label stateLabel;
     @FXML
     public Label destinationLabel;
@@ -136,6 +138,7 @@ public class WatchTrucksListFXMLController implements Initializable, iController
         stateLabel.setText("-");
         destinationLabel.setText("-");
         nParcelsLabel.setText("-");
+        typeLabel.setText("-");
         selectedTruck = null;
         parcelTile.getChildren().clear();
     }
@@ -160,23 +163,6 @@ public class WatchTrucksListFXMLController implements Initializable, iController
                     getResource("TruckDetail.fxml"));
             AnchorPane page = (AnchorPane)loader.load();
             TruckDetailController controller = loader.getController();
-            controller.setChilExploxApp(this.main);
-            controller.setTruck(truck);
-            
-            this.main.changeSceneFromPage(page);
-            
-        } catch(Exception ex) {
-            Logger.getLogger(ChilExploxApp.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    public void changeSceneToLoadParcel(Truck truck){
-        
-        try{
-            FXMLLoader loader = new FXMLLoader(ChilExploxApp.class.
-                    getResource("LoadParcelFXML.fxml"));
-            AnchorPane page = (AnchorPane)loader.load();
-
-            LoadParcelFXMLController controller = loader.getController();
             controller.setChilExploxApp(this.main);
             controller.setTruck(truck);
             

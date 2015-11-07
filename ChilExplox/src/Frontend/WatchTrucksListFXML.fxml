@@ -10,7 +10,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="389.0" prefWidth="1076.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Frontend.WatchTrucksListFXMLController">
+<AnchorPane id="AnchorPane" prefHeight="389.0" prefWidth="1076.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Frontend.WatchTrucksListFXMLController">
    <children>
       <SplitPane dividerPositions="0.27" layoutY="55.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
@@ -24,14 +24,16 @@
                     </items>
                   </ToolBar>
                   <Label fx:id="truckTitle" alignment="CENTER" layoutY="69.0" prefHeight="23.0" prefWidth="285.0" text="Local Trucks" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-                  <Label layoutX="41.0" layoutY="123.0" text="Patente:" />
-                  <Label layoutX="42.0" layoutY="167.0" text="Estado:" />
-                  <Label layoutX="41.0" layoutY="210.0" text="Destino:" />
-                  <Label layoutX="40.0" layoutY="250.0" text="N° Enc.:" />
+                  <Label layoutX="41.0" layoutY="123.0" text="Plate:" />
+                  <Label layoutX="43.0" layoutY="194.0" text="State:" />
+                  <Label layoutX="42.0" layoutY="237.0" text="Destination:" />
+                  <Label layoutX="41.0" layoutY="277.0" text="N° Parcels:" />
                   <Label fx:id="plateLabel" layoutX="167.0" layoutY="123.0" text="-" />
-                  <Label fx:id="stateLabel" layoutX="167.0" layoutY="167.0" text="-" />
-                  <Label fx:id="destinationLabel" layoutX="167.0" layoutY="210.0" text="-" />
-                  <Label fx:id="nParcelsLabel" layoutX="167.0" layoutY="250.0" text="-" />
+                  <Label fx:id="stateLabel" layoutX="168.0" layoutY="194.0" text="-" />
+                  <Label fx:id="destinationLabel" layoutX="168.0" layoutY="237.0" text="-" />
+                  <Label fx:id="nParcelsLabel" layoutX="168.0" layoutY="277.0" text="-" />
+                  <Label layoutX="41.0" layoutY="159.0" text="Type:" />
+                  <Label fx:id="typeLabel" layoutX="168.0" layoutY="159.0" text="-" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">

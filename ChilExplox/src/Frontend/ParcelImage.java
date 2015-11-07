@@ -55,6 +55,19 @@ class ParcelImage {
         });
     }
     public void updateImage(){
-        img = new Image("images/parcel.png",60,60,false,false);
+        switch(this.parcel.getType()){
+            case Normal:
+                img = new Image("images/parcel_normal.png",60,60,false,false);
+                break;
+            case Fragile:
+                img = new Image("images/parcel_fragile.png",60,60,false,false);
+                break;
+            case Refrigerated:
+                img = new Image("images/parcel_refrigerate.png",60,60,false,false);
+                break;
+            case Radioactive:
+                img = new Image("images/parcel_radioactive.png",60,60,false,false);
+                break;
+        }
     }
 }

@@ -18,14 +18,16 @@ public class Truck extends ITransport implements java.io.Serializable{
     ArrayList<Parcel> parcels;
     Subsidiary home_sub;
     Address destiny;
+    Type type;
     
-    public Truck (String S, int max, Subsidiary sub) {
+    public Truck (String S, int max, Type t ,Subsidiary sub) {
         license_plate = S;
         max_parcels = max;
         parcels = new ArrayList<>();
         availability = State.Origin; /* Truck starts at origin.*/
         home_sub = sub;
         destiny = null;
+        type = t;
     }
     
     public String getPlate(){
@@ -48,11 +50,14 @@ public class Truck extends ITransport implements java.io.Serializable{
             return destiny.toString();
         }
     }
+    public Type getType(){
+        return type;
+    }
     public boolean canParcelLoad(Parcel parcel){
         if (destiny == null) {
-            return true;
+            return type.equals(parcel.getType());
         }else if(checkSpace() > 0){
-            return destiny.equals(parcel.getDestination());
+            return destiny.equals(parcel.getDestination()) && type.equals(parcel.getType());
         }else{
             return false;
         }
