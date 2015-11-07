@@ -112,6 +112,8 @@ public class ChilExplox implements java.io.Serializable
     public void Exit() 
     {
         System.out.print("Closing Bitches Come Back Tomorrow");
+        this.center.stopTimer();
         Loader.saveApp(this);
+        
     }
 }

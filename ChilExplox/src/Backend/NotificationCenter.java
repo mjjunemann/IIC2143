@@ -106,6 +106,10 @@ public class NotificationCenter implements java.io.Serializable
       return parcelsShouldBeNotified;
   }
   
+  public void stopTimer(){
+
+  }
+  
   class NotificationTask extends TimerTask {
       @Override
       public void run(){

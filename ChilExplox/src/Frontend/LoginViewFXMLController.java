@@ -11,6 +11,7 @@ import java.util.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -18,7 +19,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.cell.ComboBoxListCell;
 import javafx.scene.input.KeyCode;
-import javafx.event.Event.*;
 import javafx.geometry.Pos;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
@@ -47,6 +47,9 @@ public class LoginViewFXMLController implements Initializable, iController {
     
     
     ChilExploxApp main;
+
+    @FXML
+    private TextField rutTextField;
 
     
     @Override
@@ -88,8 +91,20 @@ public class LoginViewFXMLController implements Initializable, iController {
         this.login();
     }
     
+    private void login(){
+        if (rutTextField.visibleProperty().getValue()){
+            this.loginAsClient();
+        }
+        else{
+            this.loginAsUser();
+        }
+    }
     
-    private void login()
+    private void loginAsClient(){
+        
+    }
+    
+    private void loginAsUser()
     {
       String username = usernameTextField.getText();
         String password = passwordTextField.getText();
@@ -100,6 +115,22 @@ public class LoginViewFXMLController implements Initializable, iController {
                 this.main.changeScene("SubsidiaryViewFXML.fxml", SubsidiaryViewFXMLController.class);
             }
         }  
+    }
+
+    @FXML
+    private void selectUserLogin(Event event) {
+        if (rutTextField != null){
+            rutTextField.setVisible(false);
+            usernameTextField.setVisible(true);
+            passwordTextField.setVisible(true);
+        }
+    }
+
+    @FXML
+    private void selectClientLogin(Event event) {
+        rutTextField.setVisible(true);
+        usernameTextField.setVisible(false);
+        passwordTextField.setVisible(false);
     }
     
 }
