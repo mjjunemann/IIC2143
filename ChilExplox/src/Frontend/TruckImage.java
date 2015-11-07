@@ -30,6 +30,7 @@ public class TruckImage {
         this.controller = c;
         updateImage();
         this.view = new ImageView(this.img);
+        this.view.setStyle("-fx-cursor:hand;");
         this.view.setOnMouseClicked((MouseEvent t) -> {
             controller.plateLabel.setText(truck.getPlate());
             controller.stateLabel.setText(truck.getAvaibility().toString());
