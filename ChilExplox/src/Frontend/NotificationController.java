@@ -47,15 +47,17 @@ public class NotificationController implements Initializable {
         notificationBuilder.show(); 
     }
     
-    public static void notificationParcel(Parcel parcel, String title, String text){
+    public static void notificationParcel(ChilExploxApp main, Parcel parcel,
+            String title, String text){
         Notifications notificationBuilder = Notifications.create()
                 .title(title)
-                .text(text)
+                .text (text)
                 .hideAfter(Duration.seconds(3))
                 .position(Pos.TOP_RIGHT)
                 .onAction(new EventHandler<ActionEvent>() {
                     @Override public void handle(ActionEvent arg0) {
-                        //Aca incluir que haga algo con la parcel
+                        main.changeScene("WatchTrucksListFXML.fxml",
+                                WatchTrucksListFXMLController.class);
                     }
                 });
         

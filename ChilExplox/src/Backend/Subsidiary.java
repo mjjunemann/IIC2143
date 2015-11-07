@@ -69,7 +69,6 @@ public class Subsidiary implements java.io.Serializable
         String date = String.valueOf(saleDate.getTime());
         this.addClient(client);
         this.orders.put(order.getId(), order);
-        this.notification_center.addOrderNotification(order);
         return order.getTotal();
     }
     public void editParcel(Parcel parcel,Address origin,Address destination){

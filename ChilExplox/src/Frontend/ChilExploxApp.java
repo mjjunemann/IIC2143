@@ -219,7 +219,7 @@ public class ChilExploxApp extends Application implements iNotificationListener 
             
             String contenido = "La encomienda " + parcel.getId() 
                     + " lleva mucho tiempo esperando";
-            NotificationController.notificationParcel(parcel,
+            NotificationController.notificationParcel(this, parcel,
                     "Se debe enviar encomienda",
                     contenido);
         });
