@@ -146,7 +146,9 @@ public class WatchTrucksListFXMLController implements Initializable, iController
     @FXML
     private void seeContent(ActionEvent event){
         
-        if (selectedTruck != null && selectedTruck.getAvaibility() == State.Origin) {
+        if (selectedTruck != null && 
+                (selectedTruck.getAvaibility() == State.Origin || 
+                selectedTruck.getAvaibility() == State.OriginError)) {
             changeSceneToTruck(selectedTruck);
         }
     }

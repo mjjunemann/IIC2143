@@ -33,15 +33,14 @@ public class Truck extends ITransport implements java.io.Serializable{
     public String getPlate(){
         return this.license_plate;
     }
-    
     public State getAvaibility(){
         return this.availability;
     }
     public Address getDestiny(){
         return this.destiny;
     }
-    public void hey(){
-        
+    public Address getHomeAddress(){
+        return home_sub.getAddr();
     }
     public String getDestinyString(){
         if (destiny == null) {
@@ -67,6 +66,12 @@ public class Truck extends ITransport implements java.io.Serializable{
             parcels.remove(parcel);
             if(parcels.size()==0){
                 destiny = null;
+                if (availability==State.OriginError) {
+                    fix();
+                }
+            }
+            if (availability==State.OriginError) {
+                parcel.setState(State.Origin);
             }
             return true;
         }
@@ -115,6 +120,14 @@ public class Truck extends ITransport implements java.io.Serializable{
     @Override
     public void sendBack(){
         this.availability = State.Origin; /*Truck goes back to origin */
+    }
+    public void sendBackError(){
+        this.availability = State.OriginError; /*Truck goes back to origin with error */
+    }
+    public void fix(){
+        if (this.availability==State.OriginError) {
+            this.availability = State.Origin;
+        }
     }
     @Override
     public int checkSpace(){

@@ -93,6 +93,10 @@ public class Subsidiary implements java.io.Serializable
         this.arrived.remove(v);
         v.sendBack();
     }
+    public void sendBackError(ITransport v){
+        this.arrived.remove(v);
+        v.sendBackError();
+    }
     
     public Map<String,Order> getOrders(){
         return this.orders;

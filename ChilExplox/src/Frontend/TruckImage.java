@@ -52,28 +52,40 @@ public class TruckImage {
             case Normal:
                 if (this.truck.getAvaibility() == State.Origin){
                     img = new Image("images/truck_normal.png",120,120,false,false);
-                }else{
+                }else if(this.truck.getAvaibility() == State.OriginError){
+                    img = new Image("images/truck_normal_error.png",120,120,false,false);
+                }
+                else{
                     img = new Image("images/truck_normal_red.png",120,120,false,false);
                 }
                 break;
             case Radioactive:
                 if (this.truck.getAvaibility() == State.Origin){
                     img = new Image("images/truck_radioactive.png",120,120,false,false);
-                }else{
+                }else if(this.truck.getAvaibility() == State.OriginError){
+                    img = new Image("images/truck_radioactive_error.png",120,120,false,false);
+                }
+                else{
                     img = new Image("images/truck_radioactive_red.png",120,120,false,false);
                 }
                 break;
             case Fragile:
                 if (this.truck.getAvaibility() == State.Origin){
                     img = new Image("images/truck_fragile.png",120,120,false,false);
-                }else{
+                }else if(this.truck.getAvaibility() == State.OriginError){
+                    img = new Image("images/truck_fragile_error.png",120,120,false,false);
+                }
+                else{
                     img = new Image("images/truck_fragile_red.png",120,120,false,false);
                 }
                 break;
             case Refrigerated:
                 if (this.truck.getAvaibility() == State.Origin){
                     img = new Image("images/truck_refrigerate.png",120,120,false,false);
-                }else{
+                }else if(this.truck.getAvaibility() == State.OriginError){
+                    img = new Image("images/truck_refrigerate_error.png",120,120,false,false);
+                }
+                else{
                     img = new Image("images/truck_refrigerate_red.png",120,120,false,false);
                 }
                 break;

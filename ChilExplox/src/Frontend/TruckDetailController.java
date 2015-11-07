@@ -23,6 +23,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -43,9 +44,13 @@ public class TruckDetailController implements Initializable, iController {
     TilePane truckTile;
     @FXML
     TilePane restTile;
+    @FXML
+    Button sendButton;
     
     @FXML
     public Label plateTruckLabel;
+    @FXML
+    public Label typeTruckLabel;
     @FXML
     public Label stateTruckLabel;
     @FXML
@@ -108,7 +113,9 @@ public class TruckDetailController implements Initializable, iController {
                 }
             }
         }
-
+        if (truck.getAvaibility()==State.OriginError) {
+            sendButton.setVisible(false);
+        }
 
     }
     @Override
@@ -120,6 +127,7 @@ public class TruckDetailController implements Initializable, iController {
     public void setTruck(Truck truck){
         this.truck = truck;
         plateTruckLabel.setText(truck.getPlate());
+        typeTruckLabel.setText(truck.getType().toString());
         stateTruckLabel.setText(truck.getAvaibility().toString());
         destinationTruckLabel.setText(truck.getDestinyString());
         nParcelsTruckLabel.setText(String.valueOf(truck.getParcels().size()));
@@ -170,6 +178,7 @@ public class TruckDetailController implements Initializable, iController {
         System.out.println(paneTarget.getId().compareTo("truckTile"));
         
         Parcel p;
+        
         if (paneTarget.getId().compareTo("truckTile") == 0) 
         {
             p = restOfParcelsImgs.get(im).parcel;
@@ -196,13 +205,19 @@ public class TruckDetailController implements Initializable, iController {
         {
             p = restOfParcelsImgs.get(im).parcel;
             if (this.truck.unload(p)) {
-                this.destinationTruckLabel.setText(truck.getDestinyString());
-                this.nParcelsTruckLabel.setText(String.valueOf(
-                                                truck.getParcels().size()));
+                System.out.println("unload");
                 paneSource.getChildren().remove(im);
                 paneTarget.getChildren().add(im);
+                this.destinationTruckLabel.setText(truck.getDestinyString());
+                this.stateTruckLabel.setText(truck.getState().toString());
+                this.nParcelsTruckLabel.setText(String.valueOf(
+                                                truck.getParcels().size()));
+            }else{
+                System.out.println("didnt unload");
             }
         }
+        event.setDropCompleted(true);
+        event.consume();
     }
     @FXML
     void sendTruck(){
