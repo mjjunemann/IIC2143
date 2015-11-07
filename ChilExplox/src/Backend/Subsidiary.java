@@ -32,7 +32,7 @@ public class Subsidiary implements java.io.Serializable
         this.clients = new HashMap();
         this.transport = new HashMap();
         this.arrived = new ArrayList<>(); 
-        this.notification_center = new NotificationCenter();
+        //this.notification_center = new NotificationCenter();
     }
     
     public void addVehicle(ITransport v){

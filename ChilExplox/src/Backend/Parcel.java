@@ -57,6 +57,7 @@ public class Parcel implements java.io.Serializable
         setVolume(volume); 
         setWeight(weight);
         setOrder(order);
+        setPriority(priority);
     }
  
     

@@ -5,6 +5,7 @@
  */
 package Backend;
 import java.util.*;
+import javax.swing.event.*;
 /**
  *
  * @author matia
@@ -16,13 +17,32 @@ public class NotificationCenter implements java.io.Serializable
   private ArrayList<Notification> displayed_notifations;
   private Object lock;
   */
-    
+  
   private ArrayList<Notification> unsolved_notifications;
   private ArrayList<Notification> solved_notifications;
+  EventListenerList listeners = new EventListenerList();
+  ChilExplox main;
   
-  public NotificationCenter(){
+  
+  public NotificationCenter(ChilExplox main){
+      this.main = main;
       this.unsolved_notifications = new ArrayList<>();
       this.solved_notifications = new ArrayList<>();
+      Timer timer = new Timer();
+      timer.schedule(new NotificationTask(), 0, 10000);
+      
+  }
+  
+  public void cleanListener(){
+      listeners = new EventListenerList();
+  }
+  
+  public void addListener(iNotificationListener listener){
+      listeners.add(iNotificationListener.class, listener);
+  }
+  
+  public void removeListener(iNotificationListener listener){
+      listeners.remove(iNotificationListener.class, listener);
   }
   /**
    * Show a notification on 
@@ -58,16 +78,49 @@ public class NotificationCenter implements java.io.Serializable
   public ArrayList<Notification> getSolvedNot(){
       return this.solved_notifications;
   }
-  /**
-   * Show a group of notifications in the front end application in
-   * a notification center. 
-   * @param NotificationList Receives a list of notifications.
-   * /
-  public void displayNotificationTipe(ArrayList<Notification> NotificationList)
-  {
-      for(Notification not: NotificationList)
-      {
-          
+  
+  public boolean shouldNotify(Parcel parcel){
+      int priority = parcel.getPriority();
+      Date saleDate = parcel.getOrder().getSaleDate();
+      Date today = new Date();
+      long difference = today.getTime() - saleDate.getTime();
+      float daysDifference = (float)difference / 1000; /// 60 / 24;
+      if (daysDifference > 60){
+          return true;
       }
-  }*/
+      return false;
+  }
+  
+  public ArrayList<Parcel> parcelsToNotify(){
+      Subsidiary subsidiary = this.main.getCurrentSubsidiary();
+      ArrayList<Parcel> parcelsShouldBeNotified = new ArrayList<Parcel>();
+      if (subsidiary != null){
+          for (Order order: subsidiary.getOrders().values()){
+              for (Parcel parcel: order.getParcels()){
+                  if (shouldNotify(parcel)){
+                      parcelsShouldBeNotified.add(parcel);
+                  }
+              }
+          }
+      }
+      return parcelsShouldBeNotified;
+  }
+  
+  class NotificationTask extends TimerTask {
+      @Override
+      public void run(){
+          ArrayList<Parcel> parcels = parcelsToNotify();
+          for (Parcel parcel: parcels){
+            Object[] listenersList = listeners.getListenerList();
+            for (int i = 0; i < listenersList.length; i+= 2){
+                if (listenersList[i] == iNotificationListener.class){
+                    ((iNotificationListener)listenersList[i+1])
+                          .showNotification(parcel);
+                }
+            }
+          } 
+      }
+  }
 }
+
+

@@ -18,13 +18,15 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
+import org.controlsfx.control.Notifications;
 
 
 /**
  *
  * @author matia
  */
-public class ChilExploxApp extends Application {
+public class ChilExploxApp extends Application implements iNotificationListener {
     
     private static ChilExplox chilexplox;
     private Subsidiary actual;
@@ -35,7 +37,8 @@ public class ChilExploxApp extends Application {
     public void start(Stage primaryStage) {
         this.stage = primaryStage;
         this.stage.setOnCloseRequest(e->chilexplox.Exit());
-        /*
+        
+        
         //We add two Subsidiaries to ChilExplox and a User
         Address addr = new Address("Amapolas",1500,"Providencia","Santiago");
         Address addr2 = new Address("Hernando de Aguirre",1133,
@@ -57,7 +60,7 @@ public class ChilExploxApp extends Application {
         
         Order order2 = chilexplox.getSubsidiary(addr2).newOrder();
         order2.addParcel(Type.Normal,50, 20, 1, addr2, addr);
-        */  
+        
         
         this.changeScene("LoginViewFXML.fxml", LoginViewFXMLController.class);
         // We log into the system in the first Subsidiary
@@ -188,7 +191,9 @@ public class ChilExploxApp extends Application {
             iController controller = (iController)className.newInstance();
             controller = loader.getController();
             controller.setChilExploxApp(this);
-                
+
+            chilexplox.startNotifying(this);
+            
             Scene sceneLogin = new Scene(page);
             stage.setScene(sceneLogin);
             stage.setTitle("ChilExplox");
@@ -206,6 +211,18 @@ public class ChilExploxApp extends Application {
     
     public ChilExplox getChilExplox(){
         return this.chilexplox;
+    }
+
+    @Override
+    public void showNotification(Parcel parcel) {
+        Platform.runLater( () -> {
+            
+            String contenido = "La encomienda " + parcel.getId() 
+                    + " lleva mucho tiempo esperando";
+            NotificationController.notificationParcel(parcel,
+                    "Se debe enviar encomienda",
+                    contenido);
+        });
     }
     
 }

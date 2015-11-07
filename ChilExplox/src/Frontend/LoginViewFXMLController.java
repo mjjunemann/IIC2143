@@ -19,9 +19,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.cell.ComboBoxListCell;
 import javafx.scene.input.KeyCode;
 import javafx.event.Event.*;
+import javafx.geometry.Pos;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import org.controlsfx.control.Notifications;
 
 /**
  * FXML Controller class
@@ -49,7 +51,7 @@ public class LoginViewFXMLController implements Initializable, iController {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        
     }  
     
     public void setItemsListView(){
@@ -67,12 +69,14 @@ public class LoginViewFXMLController implements Initializable, iController {
     public void setChilExploxApp(ChilExploxApp main){
         this.main = main;
         setItemsListView();
+
         
     }
 
     @FXML
     private void onEnter(KeyEvent e)
     {
+            
      if(e.getCode().equals(KeyCode.ENTER))
      {
       this.login();

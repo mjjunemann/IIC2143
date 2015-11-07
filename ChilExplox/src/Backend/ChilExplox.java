@@ -21,7 +21,7 @@ public class ChilExplox implements java.io.Serializable
     private User current_user;
     public final Messaging messaging;
     int idSubsidiaryCounter = 1000;
-    
+    private NotificationCenter center;
     
     public ChilExplox()
     {
@@ -29,6 +29,7 @@ public class ChilExplox implements java.io.Serializable
         this.users = new HashMap();
         this.subsidiaries = new HashMap();
         this.subsidiaries_addrs = new ArrayList<>();
+        this.center = new NotificationCenter(this);
         // Here could be a static class that take cares of loading the information
         //loadSubsidaries
         //loadUsers
@@ -101,6 +102,11 @@ public class ChilExplox implements java.io.Serializable
     }
     public User getCurrentUser(){
         return this.current_user;
+    }
+    
+    public void startNotifying(iNotificationListener listener){
+        this.center.cleanListener();
+        this.center.addListener(listener);
     }
     
     public void Exit() 
