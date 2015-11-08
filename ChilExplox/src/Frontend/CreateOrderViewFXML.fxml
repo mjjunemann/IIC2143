@@ -7,7 +7,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Frontend.CreateOrderViewFXMLController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Frontend.CreateOrderViewFXMLController">
    <children>
       <SplitPane dividerPositions="0.1" layoutX="122.0" layoutY="83.0" orientation="VERTICAL" pickOnBounds="false" prefHeight="500.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
@@ -60,7 +60,7 @@
                                           <Label layoutX="20.0" layoutY="103.0" text="LAST NAME:" AnchorPane.leftAnchor="20.0" />
                                           <Label layoutX="265.0" layoutY="21.0" text="PHONE:" AnchorPane.leftAnchor="265.0" AnchorPane.rightAnchor="223.0" AnchorPane.topAnchor="21.0" />
                                           <Label layoutX="265.0" layoutY="60.0" text="EMAIL:" AnchorPane.leftAnchor="265.0" AnchorPane.rightAnchor="223.0" />
-                                          <Label layoutX="20.0" layoutY="147.0" text="ADDRESS:" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="223.0" />
+                                          <Label layoutX="20.0" layoutY="147.0" text="ADDRESS:" AnchorPane.leftAnchor="20.0" />
                                           <Label layoutX="265.0" layoutY="104.0" text="GENDER:" />
                                        </children>
                                     </AnchorPane>
