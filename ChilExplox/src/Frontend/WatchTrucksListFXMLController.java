@@ -125,15 +125,6 @@ public class WatchTrucksListFXMLController implements Initializable, iController
     }
     
     private void clearLabels(){
-        if (muestraLocal) {
-            truckTitle.setText("Local Trucks");
-            viewContentButton.setVisible(true);
-            unloadParcelButton.setVisible(false);
-        }else{
-            truckTitle.setText("Arrived Trucks");
-            viewContentButton.setVisible(false);
-            unloadParcelButton.setVisible(true);
-        }
         plateLabel.setText("-");
         stateLabel.setText("-");
         destinationLabel.setText("-");
@@ -141,6 +132,8 @@ public class WatchTrucksListFXMLController implements Initializable, iController
         typeLabel.setText("-");
         selectedTruck = null;
         parcelTile.getChildren().clear();
+        viewContentButton.setVisible(false);
+        unloadParcelButton.setVisible(false);
     }
     
     @FXML
@@ -156,6 +149,19 @@ public class WatchTrucksListFXMLController implements Initializable, iController
     private void unloadParcel(ActionEvent event){
         if (selectedTruck != null) {
            changeSceneToUnloadParcel(selectedTruck);
+        }
+    }
+    public void showButton(){
+        if (((selectedTruck.getAvaibility()==State.Origin
+                ||selectedTruck.getAvaibility()==State.OriginError) 
+                && muestraLocal)
+                ||(selectedTruck.getAvaibility()!=State.Origin 
+                && !muestraLocal)) {
+            viewContentButton.setVisible(muestraLocal);
+            unloadParcelButton.setVisible(!muestraLocal);
+        }else{
+            viewContentButton.setVisible(false);
+            unloadParcelButton.setVisible(false);
         }
     }
     public void changeSceneToTruck(Truck truck){

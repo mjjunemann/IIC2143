@@ -13,19 +13,20 @@
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="398.0" prefWidth="242.0">
                <children>
                   <Button fx:id="returnButton" layoutX="9.0" layoutY="8.0" mnemonicParsing="false" onAction="#returnScene" text="Back" />
-                  <Label layoutX="10.0" layoutY="47.0" text="Plate:" />
-                  <Label layoutX="14.0" layoutY="182.0" text="Destination:" />
-                  <Button fx:id="sendButton" layoutX="73.0" layoutY="350.0" mnemonicParsing="false" onAction="#sendTruck" text="Send" />
-                  <Label layoutX="14.0" layoutY="229.0" text="N° Encomiendas:" />
-                  <Label layoutX="12.0" layoutY="137.0" text="Estado:" />
-                  <Label fx:id="plateTruckLabel" layoutX="11.0" layoutY="74.0" text="Label" />
-                  <Label fx:id="stateTruckLabel" layoutX="14.0" layoutY="159.0" text="Label" />
-                  <Label fx:id="destinationTruckLabel" layoutX="14.0" layoutY="209.0" text="Label" />
-                  <Label fx:id="nParcelsTruckLabel" layoutX="14.0" layoutY="256.0" text="Label" />
-                  <Label layoutX="11.0" layoutY="283.0" text="Espacio max:" />
-                  <Label fx:id="maxSpaceLabel" layoutX="14.0" layoutY="310.0" text="Label" />
-                  <Label layoutX="11.0" layoutY="94.0" text="Type:" />
-                  <Label fx:id="typeTruckLabel" layoutX="12.0" layoutY="119.0" text="Label" />
+                  <Label layoutX="10.0" layoutY="47.0" text="Plate:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="50.0" />
+                  <Label layoutX="14.0" layoutY="182.0" text="Destination:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="170.0" />
+                  <Button fx:id="sendButton" layoutX="17.0" layoutY="334.0" mnemonicParsing="false" onAction="#sendTruck" text="Send" AnchorPane.bottomAnchor="20.0" />
+                  <Label layoutX="14.0" layoutY="229.0" text="N° Encomiendas:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="210.0" />
+                  <Label layoutX="12.0" layoutY="137.0" text="Estado:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="130.0" />
+                  <Label fx:id="plateTruckLabel" layoutX="11.0" layoutY="74.0" text="Label" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="70.0" />
+                  <Label fx:id="stateTruckLabel" layoutX="14.0" layoutY="159.0" text="Label" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="150.0" />
+                  <Label fx:id="destinationTruckLabel" layoutX="14.0" layoutY="209.0" text="Label" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="190.0" />
+                  <Label fx:id="nParcelsTruckLabel" layoutX="14.0" layoutY="256.0" text="Label" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="230.0" />
+                  <Label layoutX="11.0" layoutY="283.0" text="Espacio max:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="250.0" />
+                  <Label fx:id="maxSpaceLabel" layoutX="14.0" layoutY="310.0" text="Label" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="270.0" />
+                  <Label layoutX="11.0" layoutY="94.0" text="Type:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="90.0" />
+                  <Label fx:id="typeTruckLabel" layoutX="12.0" layoutY="119.0" text="Label" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="110.0" />
+                  <Button fx:id="fixButton" layoutX="132.0" layoutY="336.0" mnemonicParsing="false" onAction="#fixTruck" text="Fix" AnchorPane.bottomAnchor="20.0" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="398.0" prefWidth="269.0">
@@ -78,19 +79,21 @@
                         </AnchorPane>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="393.0" prefWidth="305.0">
                            <children>
-                              <Label layoutX="31.0" layoutY="52.0" text="ID:" />
-                              <Label layoutX="31.0" layoutY="158.0" text="Destination:" />
-                              <Label fx:id="idParcelLabel" layoutX="38.0" layoutY="77.0" text="-" />
-                              <Label fx:id="destinationParcelLabel" layoutX="38.0" layoutY="185.0" text="-" />
-                              <Label fx:id="typeParcelLabel" layoutX="38.0" layoutY="233.0" text="-" />
-                              <Label layoutX="31.0" layoutY="206.0" text="Type:" />
+                              <Label layoutX="31.0" layoutY="52.0" text="ID:" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="50.0" />
+                              <Label layoutX="40.0" layoutY="172.0" text="Destination:" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="170.0" />
+                              <Label fx:id="idParcelLabel" layoutX="38.0" layoutY="77.0" text="-" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="70.0" />
+                              <Label fx:id="destinationParcelLabel" layoutX="47.0" layoutY="199.0" text="-" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="190.0" />
+                              <Label fx:id="typeParcelLabel" layoutX="47.0" layoutY="247.0" text="-" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="230.0" />
+                              <Label layoutX="31.0" layoutY="206.0" text="Type:" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="210.0" />
                               <Label layoutX="66.0" layoutY="14.0" text="Selected Parcel" />
-                              <Label layoutX="31.0" layoutY="251.0" text="Volume:" />
-                              <Label fx:id="volumeParcelLabel" layoutX="38.0" layoutY="278.0" text="-" />
-                              <Label layoutX="32.0" layoutY="298.0" text="Weight:" />
-                              <Label fx:id="weightParcelLabel" layoutX="39.0" layoutY="325.0" text="-" />
-                              <Label layoutX="31.0" layoutY="104.0" text="State:" />
-                              <Label fx:id="stateParcelLabel" layoutX="38.0" layoutY="131.0" text="-" />
+                              <Label layoutX="40.0" layoutY="265.0" text="Volume:" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="250.0" />
+                              <Label fx:id="volumeParcelLabel" layoutX="47.0" layoutY="292.0" text="-" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="270.0" />
+                              <Label layoutX="41.0" layoutY="312.0" text="Weight:" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="290.0" />
+                              <Label fx:id="weightParcelLabel" layoutX="48.0" layoutY="339.0" text="-" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="310.0" />
+                              <Label layoutX="39.0" layoutY="124.0" text="State:" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="130.0" />
+                              <Label fx:id="stateParcelLabel" layoutX="39.0" layoutY="144.0" text="-" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="150.0" />
+                              <Label layoutX="41.0" layoutY="62.0" text="Priority" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="90.0" />
+                              <Label fx:id="priorityParcelLabel" layoutX="104.0" layoutY="97.0" text="-" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="110.0" />
                            </children>
                         </AnchorPane>
                     </items>

@@ -10,30 +10,32 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="389.0" prefWidth="1076.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Frontend.WatchTrucksListFXMLController">
+<AnchorPane id="AnchorPane" prefHeight="389.0" prefWidth="909.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Frontend.WatchTrucksListFXMLController">
    <children>
-      <SplitPane dividerPositions="0.27" layoutY="55.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <SplitPane dividerPositions="0.28" layoutY="55.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="387.0" prefWidth="280.0">
                <children>
                   <ToolBar prefHeight="55.0" prefWidth="306.0">
                     <items>
                         <Button fx:id="backButton" mnemonicParsing="false" onAction="#returnToSubsidary" text="Atras" />
-                      <Button fx:id="localTruckButton" mnemonicParsing="false" onAction="#loadLocalTrucks" text="Locales" />
-                        <Button fx:id="arrivedTruckButton" mnemonicParsing="false" onAction="#loadArrivedTrucks" text="Arribados" />
+                      <Button fx:id="localTruckButton" mnemonicParsing="false" onAction="#loadLocalTrucks" text="Local" />
+                        <Button fx:id="arrivedTruckButton" mnemonicParsing="false" onAction="#loadArrivedTrucks" text="Arrived" />
                     </items>
                   </ToolBar>
                   <Label fx:id="truckTitle" alignment="CENTER" layoutY="69.0" prefHeight="23.0" prefWidth="285.0" text="Local Trucks" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-                  <Label layoutX="41.0" layoutY="123.0" text="Plate:" />
-                  <Label layoutX="43.0" layoutY="194.0" text="State:" />
-                  <Label layoutX="42.0" layoutY="237.0" text="Destination:" />
-                  <Label layoutX="41.0" layoutY="277.0" text="N° Parcels:" />
-                  <Label fx:id="plateLabel" layoutX="167.0" layoutY="123.0" text="-" />
-                  <Label fx:id="stateLabel" layoutX="168.0" layoutY="194.0" text="-" />
-                  <Label fx:id="destinationLabel" layoutX="168.0" layoutY="237.0" text="-" />
-                  <Label fx:id="nParcelsLabel" layoutX="168.0" layoutY="277.0" text="-" />
-                  <Label layoutX="41.0" layoutY="159.0" text="Type:" />
-                  <Label fx:id="typeLabel" layoutX="168.0" layoutY="159.0" text="-" />
+                  <Label layoutX="41.0" layoutY="123.0" text="Plate:" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="100.0" />
+                  <Label layoutX="43.0" layoutY="194.0" text="State:" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="180.0" />
+                  <Label layoutX="42.0" layoutY="237.0" text="Destination:" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="220.0" />
+                  <Label layoutX="41.0" layoutY="277.0" text="N° Parcels:" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="260.0" />
+                  <Label fx:id="plateLabel" layoutX="167.0" layoutY="123.0" text="-" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="120.0" />
+                  <Label fx:id="stateLabel" layoutX="168.0" layoutY="194.0" text="-" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="200.0" />
+                  <Label fx:id="destinationLabel" layoutX="168.0" layoutY="237.0" text="-" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="240.0" />
+                  <Label fx:id="nParcelsLabel" layoutX="168.0" layoutY="277.0" text="-" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="280.0" />
+                  <Label layoutX="41.0" layoutY="159.0" text="Type:" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="140.0" />
+                  <Label fx:id="typeLabel" layoutX="168.0" layoutY="159.0" text="-" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="160.0" />
+                  <Button fx:id="viewContentButton" layoutX="42.0" layoutY="328.0" mnemonicParsing="false" onAction="#seeContent" text="Load" AnchorPane.bottomAnchor="20.0" />
+                  <Button fx:id="unloadParcelButton" layoutX="132.0" layoutY="328.0" mnemonicParsing="false" onAction="#unloadParcel" text="Unload" AnchorPane.bottomAnchor="20.0" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
@@ -47,17 +49,16 @@
                         </AnchorPane>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                            <children>
-                              <SplitPane dividerPositions="0.6" layoutX="33.0" layoutY="52.0" orientation="VERTICAL" prefHeight="385.0" prefWidth="383.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <SplitPane dividerPositions="0.2" layoutX="33.0" layoutY="52.0" orientation="VERTICAL" prefHeight="385.0" prefWidth="383.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <items>
                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                                        <children>
-                                          <TilePane fx:id="parcelTile" layoutX="28.0" layoutY="13.0" prefHeight="225.0" prefWidth="381.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                          <Label alignment="CENTER" layoutX="16.0" layoutY="23.0" prefHeight="23.0" prefWidth="285.0" text="On Truck:" textAlignment="CENTER" />
                                        </children>
                                     </AnchorPane>
                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                                        <children>
-                                          <Button fx:id="viewContentButton" layoutX="122.0" layoutY="26.0" mnemonicParsing="false" onAction="#seeContent" text="Ver contenido" />
-                                          <Button fx:id="unloadParcelButton" layoutX="139.0" layoutY="82.0" mnemonicParsing="false" onAction="#unloadParcel" text="Descargar" />
+                                          <TilePane fx:id="parcelTile" hgap="5.0" layoutX="-64.0" layoutY="-41.0" prefHeight="148.0" prefWidth="316.0" vgap="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                        </children>
                                     </AnchorPane>
                                 </items>

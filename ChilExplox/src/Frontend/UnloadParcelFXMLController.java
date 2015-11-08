@@ -59,6 +59,8 @@ public class UnloadParcelFXMLController implements Initializable, iController {
     @FXML
     public Label idParcelLabel;
     @FXML
+    public Label priorityParcelLabel;
+    @FXML
     public Label destinationParcelLabel;
     @FXML
     public Label stateParcelLabel;
@@ -118,6 +120,13 @@ public class UnloadParcelFXMLController implements Initializable, iController {
             originTruckLabel.setText(truck.getDestinyString());
             nParcelsTruckLabel.setText(String.valueOf(truck.getParcels().size()));
             selectedParcel = null;
+            idParcelLabel.setText("-");
+            priorityParcelLabel.setText("-");
+            destinationParcelLabel.setText("-");
+            stateParcelLabel.setText("-");
+            typeParcelLabel.setText("-");
+            weightParcelLabel.setText("-");
+            volumeParcelLabel.setText("-");
         }
     }
     @FXML 
@@ -156,6 +165,7 @@ public class UnloadParcelFXMLController implements Initializable, iController {
                     main.getChilExplox().getCurrentSubsidiary().getMailbox().
                         sendMessage(mail);
                     sendTruckBackErrorButton.setVisible(true);
+                    sendTruckBackButton.setVisible(false);
                 }
             }
         }

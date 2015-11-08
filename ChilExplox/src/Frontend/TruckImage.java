@@ -39,6 +39,7 @@ public class TruckImage {
             controller.destinationLabel.setText(truck.getDestinyString());
             controller.nParcelsLabel.setText(String.valueOf(truck.getParcels().size()));
             controller.selectedTruck = truck;
+            controller.showButton();
             controller.parcelTile.getChildren().clear();
             ParcelView pv;
             for (Parcel p: truck.getParcels()) {

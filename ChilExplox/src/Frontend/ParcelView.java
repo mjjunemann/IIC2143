@@ -41,6 +41,7 @@ class ParcelView {
             controller.stateParcelLabel.setText(this.parcel.getState().toString());
             controller.volumeParcelLabel.setText(String.valueOf(this.parcel.getVolume()));
             controller.weightParcelLabel.setText(String.valueOf(this.parcel.getWeight()));
+            controller.priorityParcelLabel.setText(String.valueOf(this.parcel.getPriority()));
         });
     }
     

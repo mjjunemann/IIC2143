@@ -46,6 +46,8 @@ public class TruckDetailController implements Initializable, iController {
     TilePane restTile;
     @FXML
     Button sendButton;
+    @FXML
+    Button fixButton;
     
     @FXML
     public Label plateTruckLabel;
@@ -64,6 +66,8 @@ public class TruckDetailController implements Initializable, iController {
     public Label destinationParcelLabel;
     @FXML
     public Label idParcelLabel;
+    @FXML
+    public Label priorityParcelLabel;
     @FXML
     public Label stateParcelLabel;
     @FXML
@@ -115,6 +119,8 @@ public class TruckDetailController implements Initializable, iController {
         }
         if (truck.getAvaibility()==State.OriginError) {
             sendButton.setVisible(false);
+        }else{
+            fixButton.setVisible(false);
         }
 
     }
@@ -226,5 +232,24 @@ public class TruckDetailController implements Initializable, iController {
                     main.getChilExplox().getSubsidiary( truck.getDestiny()));
             this.main.changeScene("WatchTrucksListFXML.fxml", WatchTrucksListFXMLController.class);
         }
+    }
+    @FXML
+    void fixTruck(){
+        while(truck.getAvaibility() == State.OriginError){
+            Parcel p = truck.getParcels().get(0);
+            p.setState(State.Origin);
+            ParcelImage pi = new ParcelImage(p,this);
+            restOfParcelsImgs.put(pi.view, pi);
+            restTile.getChildren().add(pi.view);
+            truck.unload(p);
+        }
+        trucksParcelsImgs.clear();
+        truckTile.getChildren().clear();
+        this.destinationTruckLabel.setText(truck.getDestinyString());
+        this.stateTruckLabel.setText(truck.getState().toString());
+        this.nParcelsTruckLabel.setText(String.valueOf(
+                                                truck.getParcels().size()));
+        fixButton.setVisible(false);
+        sendButton.setVisible(true);
     }
 }

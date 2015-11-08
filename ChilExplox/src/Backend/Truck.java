@@ -70,9 +70,6 @@ public class Truck extends ITransport implements java.io.Serializable{
                     fix();
                 }
             }
-            if (availability==State.OriginError) {
-                parcel.setState(State.Origin);
-            }
             return true;
         }
         return false;
