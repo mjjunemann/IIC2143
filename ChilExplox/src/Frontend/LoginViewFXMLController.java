@@ -101,7 +101,14 @@ public class LoginViewFXMLController implements Initializable, iController {
     }
     
     private void loginAsClient(){
-        
+        String rut = rutTextField.getText();
+        int positionSelected = addressList.getSelectionModel().getSelectedIndex();
+        if (positionSelected >= 0){
+            Address address = this.main.getChilExplox().getSubsidiariesAddress().get(positionSelected);
+            if (this.main.getChilExplox().loginClient(rut, address)){
+                this.main.changeScene("ClientViewFXML.fxml", ClientViewFXMLController.class);
+            }
+        } 
     }
     
     private void loginAsUser()

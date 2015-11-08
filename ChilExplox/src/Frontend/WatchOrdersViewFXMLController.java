@@ -68,6 +68,9 @@ public class WatchOrdersViewFXMLController implements Initializable, iController
     private ObservableList<Parcel> subsidiaryParcels;
     
     private ObservableList<String> ordersList;
+    
+    VisualFilter rutVisualFilter;
+    iFilter rutFilter;
     //<editor-fold desc="FXML">
     @FXML
     private TableView<Order> orderTable;
@@ -126,6 +129,15 @@ public class WatchOrdersViewFXMLController implements Initializable, iController
     public void setChilExploxApp(ChilExploxApp main){
         this.main = main;
         this.initializeOrders();
+        if (main.getChilExplox().clientLogged){
+            rutVisualFilter.setVisible(false);
+            //Aca hacer filtro de ordenes para el cliente
+            rutFilter.Filter(filteredOrders, 
+                    main.getChilExplox().getCurrentClient().getRut());
+            //rutVisualFilter.filter.Filter(filteredOrders, main.getChilExplox().getCurrentClient())
+        }else{
+            rutVisualFilter.setVisible(true);
+        }
 
        
     }
@@ -134,17 +146,16 @@ public class WatchOrdersViewFXMLController implements Initializable, iController
     {
         //ToggleGroup group = new ToggleGroup();
         ArrayList<VisualFilter> selectedToggles = new ArrayList<>();
-        iFilter tmp = new FilterRut();
+        rutFilter = new FilterRut();
         iFilter tmp2 = new FilterOrderID();
         iFilter tmp3 = new FilterOrderState();
         iFilter tmp4 = new FilterOrderTotal();
-        VisualFilter tmp_1 = new VisualFilter(tmp,filteredOrders,selectedToggles);
+        rutVisualFilter = new VisualFilter(rutFilter,filteredOrders,selectedToggles);
         VisualFilter tmp_2 = new VisualFilter(tmp2,filteredOrders,selectedToggles);
         VisualFilter tmp_3 = new VisualFilter(tmp3,filteredOrders,selectedToggles);
         VisualFilter tmp_4 = new VisualFilter(tmp4,filteredOrders,selectedToggles);
 
-        
-        FilterBox.getChildren().add(tmp_1);
+        FilterBox.getChildren().add(rutVisualFilter);
         FilterBox.getChildren().add(tmp_2);
         FilterBox.getChildren().add(tmp_3);
         FilterBox.getChildren().add(tmp_4);
@@ -182,14 +193,15 @@ public class WatchOrdersViewFXMLController implements Initializable, iController
     
     @FXML
     private void returnTuSubsidiary(ActionEvent event) {
-        main.changeScene("SubsidiaryViewFXML.fxml",SubsidiaryViewFXMLController.class);
+        if (this.main.getChilExplox().clientLogged){
+            main.changeScene("ClientViewFXML.fxml",
+                    ClientViewFXMLController.class);
+        } else {
+            main.changeScene("SubsidiaryViewFXML.fxml",
+                    SubsidiaryViewFXMLController.class);
+        }
     }
-    /*
-    private void initializeOrders()
-    {
-        
-    }
-    */
+    
     private void initializeOrders(){
         
         //this.main.getChilExplox().getCurrentSubsidiary().getOrders();

@@ -6,6 +6,13 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Frontend.ClientViewFXMLController">
-    
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="Frontend.ClientViewFXMLController">
+   <children>
+      <Label fx:id="welcomeLabel" layoutX="35.0" layoutY="18.0" text="Bienvenido " />
+      <Button fx:id="logoutButton" layoutX="503.0" layoutY="13.0" mnemonicParsing="false" onAction="#logoutClient" text="Logout" />
+      <Button fx:id="newOrderButton" layoutX="392.0" layoutY="121.0" mnemonicParsing="false" onAction="#createNewOrder" prefHeight="39.0" prefWidth="172.0" text="Nueva Orden" />
+      <Button fx:id="viewOrdersButton" layoutX="35.0" layoutY="121.0" mnemonicParsing="false" onAction="#viewOrders" prefHeight="39.0" prefWidth="172.0" text="Ver Ordenes" />
+      <Button fx:id="watchParcelsButton" layoutX="35.0" layoutY="181.0" mnemonicParsing="false" onAction="#watchParcels" prefHeight="39.0" prefWidth="172.0" text="Ver Encomiendas" visible="false" />
+   </children>
 </AnchorPane>

@@ -194,8 +194,14 @@ public class CreateOrderViewFXMLController implements Initializable, iController
             Client c = getClient();
             this.order.saveParcels();
             this.subsidiary.setOrder(this.order,c);
-            main.changeScene("SubsidiaryViewFXML.fxml",
+            if (main.getChilExplox().clientLogged){
+                main.changeScene("ClientViewFXML.fxml", 
+                        ClientViewFXMLController.class);
+                
+            }else{
+                main.changeScene("SubsidiaryViewFXML.fxml",
                     SubsidiaryViewFXMLController.class);
+            }
         }/*
         else
         {
@@ -220,8 +226,14 @@ public class CreateOrderViewFXMLController implements Initializable, iController
     @FXML
     private void cancelOrder(ActionEvent event) {
         order.cancelSave();
-        main.changeScene("SubsidiaryViewFXML.fxml",
+
+        if (main.getChilExplox().clientLogged){
+            main.changeScene("ClientViewFXML.fxml", 
+                    ClientViewFXMLController.class);
+        }else{
+            main.changeScene("SubsidiaryViewFXML.fxml",
                 SubsidiaryViewFXMLController.class);
+        }
 
     }
     
@@ -239,6 +251,17 @@ public class CreateOrderViewFXMLController implements Initializable, iController
         this.initializeMin();
         this.order = this.subsidiary.newOrder();
         this.setOrderInfo(this.order);
+    }
+    
+    public void initializeWithClient(Client client)
+    {
+        this.initializeMin();
+        this.order = this.subsidiary.newOrder();
+        this.setOrderInfo(this.order);
+        setClient(client);
+        firstName.setEditable(false);
+        this.rut.setEditable(false);
+        this.lastName.setEditable(false);
     }
     
     public void initializeMin()

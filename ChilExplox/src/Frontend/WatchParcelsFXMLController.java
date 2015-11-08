@@ -89,7 +89,6 @@ public class WatchParcelsFXMLController implements Initializable , iController {
         VisualFilter tmp_2 = new VisualFilter(tmp2,filteredParcels,selectedToggles);
         VisualFilter tmp_3 = new VisualFilter(tmp3,filteredParcels,selectedToggles);
 
-        
         FilterBox.getChildren().add(tmp_2);
         FilterBox.getChildren().add(tmp_3);
     }
@@ -118,6 +117,12 @@ public class WatchParcelsFXMLController implements Initializable , iController {
     }
     @FXML
     private void returnTuSubsidiary(ActionEvent event) {
-        main.changeScene("SubsidiaryViewFXML.fxml",SubsidiaryViewFXMLController.class);
+        if (main.getChilExplox().clientLogged){
+            main.changeScene("ClientViewFXML.fxml",
+                ClientViewFXMLController.class);
+        }else{
+            main.changeScene("SubsidiaryViewFXML.fxml",
+                SubsidiaryViewFXMLController.class);
+        }
     }
 }

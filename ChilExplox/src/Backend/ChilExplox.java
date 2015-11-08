@@ -19,9 +19,11 @@ public class ChilExplox implements java.io.Serializable
     private Map<Address,Subsidiary> subsidiaries;
     private Subsidiary current_subsidiary;
     private User current_user;
+    private Client current_client;
     public final Messaging messaging;
     int idSubsidiaryCounter = 1000;
     private NotificationCenter center;
+    public boolean clientLogged = false;
     
     public ChilExplox()
     {
@@ -51,10 +53,27 @@ public class ChilExplox implements java.io.Serializable
                 && user.getPassword().equals(password)){
             this.current_subsidiary = this.subsidiaries.get(subsidiary_addrs);
             this.current_user = user;
-            System.out.print("Logged-in as: "+ username +" in "+ subsidiary_addrs.getAddress()+" \n");
+            System.out.print("Logged-in as: "+ username +
+                    " in "+ subsidiary_addrs.getAddress()+" \n");
+            this.clientLogged = false;
             return true;
             }
         }
+        return false;
+    }
+    
+    public boolean loginClient(String rut, Address subsidiary_address){
+        if (this.subsidiaries_addrs.contains(subsidiary_address)){
+            this.current_subsidiary = this.subsidiaries.get(subsidiary_address);
+            this.current_client = this.current_subsidiary.getClient(rut);
+            if (this.current_client != null){
+                System.out.print("Logged-in as: "+ this.current_client.getName() +
+                        " in "+ subsidiary_address.getAddress()+" \n");
+                this.clientLogged = true;
+                return true;
+            }
+        }
+        
         return false;
     }
     
@@ -102,6 +121,10 @@ public class ChilExplox implements java.io.Serializable
     }
     public User getCurrentUser(){
         return this.current_user;
+    }
+    
+    public Client getCurrentClient(){
+        return this.current_client;
     }
     
     public void startNotifying(iNotificationListener listener){
