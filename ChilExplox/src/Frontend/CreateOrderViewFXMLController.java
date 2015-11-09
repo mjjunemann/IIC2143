@@ -25,6 +25,7 @@ import Frontend.Cells.AddressCell;
 import Frontend.Cells.ParcelCell;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Optional;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.input.KeyCode;
@@ -40,6 +41,7 @@ import javafx.scene.text.Text;
  * @author guillermofigueroa
  */
 import javafx.scene.control.Alert.AlertType;
+import org.controlsfx.control.action.Action;
 import org.controlsfx.control.textfield.TextFields;
 public class CreateOrderViewFXMLController implements Initializable, iController {
 
@@ -104,6 +106,8 @@ public class CreateOrderViewFXMLController implements Initializable, iController
     private TextField rut;
     @FXML
     private Label parcel_state;
+    @FXML
+    private Button deleteButton;
     //</editor-fold>
     
     private Order order;
@@ -260,6 +264,7 @@ public class CreateOrderViewFXMLController implements Initializable, iController
         this.setOrderInfo(this.order);
         setClient(client);
         firstName.setEditable(false);
+        this.deleteButton.setDisable(true);
         this.rut.setEditable(false);
         this.lastName.setEditable(false);
     }
@@ -507,5 +512,28 @@ public class CreateOrderViewFXMLController implements Initializable, iController
                  + "}parcel you are selection is not on origin");
          dlg.showAndWait();
         }
+    }
+    
+    @FXML
+    public void deleteOrder()
+    {
+        Alert alert = deleteOrderAlert();
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK)
+        {
+            this.subsidiary.deleteOrder(this.order);
+            main.changeScene("SubsidiaryViewFXML.fxml",
+                SubsidiaryViewFXMLController.class);
+        }
+            
+        
+        
+    }
+    public Alert deleteOrderAlert()
+    {
+        Alert dlg = new Alert(AlertType.CONFIRMATION);
+        dlg.setTitle("Deleting Order");
+        dlg.setContentText("Are you sure you wanna delete this order?");
+        return dlg;
     }
 }

@@ -53,7 +53,16 @@ public class Subsidiary implements java.io.Serializable
     public Mailbox getMailbox(){
         return this.mailbox;
     }
-    
+    public boolean deleteOrder(Order o)
+    {
+        if (getOrders().containsKey(o.getId()))
+        {
+            getOrders().remove(o.getId());
+            return true;
+        }
+                    
+        return false;
+    }
     public Order newOrder(){
         String id = subsidiaryId + String.valueOf(orderIdCounter);
         orderIdCounter++;
