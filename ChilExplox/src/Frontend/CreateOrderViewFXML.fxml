@@ -7,7 +7,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Frontend.CreateOrderViewFXMLController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Frontend.CreateOrderViewFXMLController">
    <children>
       <SplitPane dividerPositions="0.1" layoutX="122.0" layoutY="83.0" orientation="VERTICAL" pickOnBounds="false" prefHeight="500.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
@@ -56,7 +56,6 @@
                                           <TextField fx:id="lastName" layoutX="100.0" layoutY="98.0" prefHeight="29.0" prefWidth="122.0" AnchorPane.leftAnchor="100.0" />
                                           <TextField fx:id="phoneNumber" layoutX="341.0" layoutY="15.0" maxHeight="-Infinity" prefHeight="29.0" prefWidth="122.0" AnchorPane.leftAnchor="341.0" />
                                           <TextField fx:id="email" layoutX="341.0" layoutY="54.0" prefHeight="29.0" prefWidth="122.0" AnchorPane.leftAnchor="341.0" />
-                                          <TextField layoutX="341.0" layoutY="98.0" prefHeight="29.0" prefWidth="122.0" AnchorPane.leftAnchor="341.0" />
                                           <TextField fx:id="addressField" layoutX="100.0" layoutY="142.0" maxHeight="-Infinity" prefHeight="27.0" prefWidth="365.0" AnchorPane.leftAnchor="100.0" />
                                           <Label layoutX="23.0" layoutY="20.0" text="RUT:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="21.0" />
                                           <Label layoutX="14.0" layoutY="60.0" text="FIRST NAME:" AnchorPane.leftAnchor="20.0" />
@@ -64,7 +63,6 @@
                                           <Label layoutX="265.0" layoutY="21.0" text="PHONE:" AnchorPane.leftAnchor="265.0" AnchorPane.rightAnchor="223.0" AnchorPane.topAnchor="21.0" />
                                           <Label layoutX="265.0" layoutY="60.0" text="EMAIL:" AnchorPane.leftAnchor="265.0" AnchorPane.rightAnchor="223.0" />
                                           <Label layoutX="20.0" layoutY="147.0" text="ADDRESS:" AnchorPane.leftAnchor="20.0" />
-                                          <Label layoutX="265.0" layoutY="104.0" text="GENDER:" />
                                        </children>
                                     </AnchorPane>
                                     <SplitPane dividerPositions="0.5217391304347826" prefHeight="232.0" prefWidth="415.0">
@@ -102,6 +100,8 @@
                                                 </Text>
                                                 <Label layoutX="21.0" layoutY="68.0" text="TYPE:" AnchorPane.leftAnchor="20.0" />
                                                 <ChoiceBox fx:id="parcel_types" layoutX="124.0" layoutY="66.0" prefHeight="25.0" prefWidth="122.0" AnchorPane.leftAnchor="126.0" AnchorPane.rightAnchor="14.0" />
+                                                <Label layoutX="20.0" layoutY="205.0" prefHeight="27.0" prefWidth="84.0" text="PRIORITY" />
+                                                <TextField fx:id="priorityTextField" layoutX="126.0" layoutY="205.0" prefHeight="25.0" prefWidth="122.0" />
                                              </children>
                                           </AnchorPane>
                                       </items>
