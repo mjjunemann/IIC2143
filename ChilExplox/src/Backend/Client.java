@@ -5,7 +5,16 @@
  */
 package Backend;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.Set;
+import javafx.beans.Observable;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.util.Callback;
 
 /**
  *
@@ -13,10 +22,12 @@ import java.util.Set;
  */
 public class Client implements java.io.Serializable {
     
-    private String name;
-    private String address;
-    private String rut;
-    private String phone_number;
+    private transient StringProperty name;
+    private transient StringProperty lastname;
+    private transient StringProperty address;
+    private transient StringProperty rut;
+    private transient StringProperty phone_number;
+    private transient StringProperty email;
     
     public Client(String name,String address,String rut,String phone_number)
     {
@@ -37,7 +48,7 @@ public class Client implements java.io.Serializable {
     */
     public String getName()
     {
-        return this.name;
+        return nameProperty().get();
     }
     
     /**
@@ -46,7 +57,7 @@ public class Client implements java.io.Serializable {
      */
     public void setName(String name)
     {
-        this.name = name;
+        nameProperty().set(name);
     }
     
     /**
@@ -55,7 +66,7 @@ public class Client implements java.io.Serializable {
      */
     public String getAddress()
     {
-        return this.address;
+        return addressProperty().get();
     }
     /**
      * Set de client address
@@ -63,7 +74,7 @@ public class Client implements java.io.Serializable {
      */
     public void setAddress(String address)
     {
-        this.address = address;
+        addressProperty().set(address);
     }
     
     /**
@@ -72,7 +83,7 @@ public class Client implements java.io.Serializable {
      */
     public String getPhone()
     {
-        return this.phone_number;
+        return numberProperty().get();
     }
     /**
      * Set the client phone number.
@@ -80,7 +91,7 @@ public class Client implements java.io.Serializable {
      */
     public void setPhone(String number)
     {
-        this.phone_number = number;   
+        numberProperty().set(number);   
     }
     /**
      * Returns the national identification number of the client.
@@ -88,7 +99,7 @@ public class Client implements java.io.Serializable {
      */
     public String getRut()
     {
-        return this.rut;
+        return rutProperty().get();
     }
     /**
      * Set the national identification number of the client
@@ -96,7 +107,118 @@ public class Client implements java.io.Serializable {
      */
     public void setRut(String rut)
     {
-        this.rut = rut;
+        rutProperty().set(rut);
+    }
+    
+    public String getEmail()
+    {
+        return emailProperty().get();
+    }
+    public void setEmail(String email)
+    {
+        emailProperty().set(email);
+    }
+    
+    public String getLastname()
+    {
+        return lastnameProperty().get();
+    }
+    public void setLastname(String lastname)
+    {
+        lastnameProperty().set(lastname);
     }
     //</editor-fold>
+    
+    
+    
+    //<editor-fold desc="Properties">
+    public final StringProperty nameProperty()
+    {
+        if (name == null)
+        {
+            name = new SimpleStringProperty();
+        }
+        return name;
+    }
+    
+    public final StringProperty rutProperty()
+    {
+        if (rut == null)
+        {
+            rut = new SimpleStringProperty();
+        }
+        return rut;
+    }
+    public final StringProperty numberProperty()
+    {
+        if (phone_number == null)
+        {
+            phone_number = new SimpleStringProperty();
+        }
+        return phone_number;
+    }
+    public final StringProperty addressProperty()
+    {
+        if (address == null)
+        {
+            address = new SimpleStringProperty();
+        }
+        return address;
+    }
+    public final StringProperty lastnameProperty()
+    {
+        if (lastname == null)
+        {
+            lastname = new SimpleStringProperty();
+        }
+        return lastname;
+    }
+    public final StringProperty emailProperty()
+    {
+        if (email == null)
+        {
+            email = new SimpleStringProperty();
+        }
+        return email;
+    }
+    //</editor-fold>
+    
+    public static Callback<Client,Observable[]> extractor()
+    {
+        return (Client c ) -> new Observable[]{c.nameProperty(),c.numberProperty(),
+            c.rutProperty(),c.addressProperty(),c.lastnameProperty(),c.emailProperty()};
+    }
+    
+    
+    private void writeObject(ObjectOutputStream oos)
+    throws IOException
+    {
+      oos.defaultWriteObject();
+      oos.writeObject(this.getName());
+      oos.writeObject(this.getLastname());
+      oos.writeObject(this.getPhone());
+      
+      oos.writeObject(this.getEmail());
+      oos.writeObject(this.getAddress());
+      oos.writeObject(this.getRut());
+           
+      
+    }
+
+    private void readObject(ObjectInputStream ois)
+    throws ClassNotFoundException,IOException
+    {
+        
+        // deliveryDate
+        // parcels cambiar 
+        ois.defaultReadObject();
+        this.setName((String)ois.readObject());
+        this.setLastname((String)ois.readObject());
+        this.setPhone((String) ois.readObject());
+        
+        this.setEmail((String)ois.readObject());
+        this.setAddress((String)ois.readObject());
+        this.setRut((String)ois.readObject());
+    }
+
 }

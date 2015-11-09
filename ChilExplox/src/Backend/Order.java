@@ -5,13 +5,19 @@
  */
 package Backend;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import javafx.beans.Observable;
 import javafx.beans.property.FloatProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.util.Callback;
 
 /**
  *
@@ -19,64 +25,83 @@ import javafx.beans.property.SimpleStringProperty;
  */
 public class Order implements java.io.Serializable
 {
-    private ArrayList<Parcel> parcels;
-    private SimpleObjectProperty<Date> sales_date;
-    private SimpleObjectProperty<Date> delivery_date;
+    private transient SimpleObjectProperty<ArrayList<Parcel>> parcels;
+    private transient ArrayList<Parcel> unsaved_parcels;
+    private transient SimpleObjectProperty<Date> sales_date;
+    private transient SimpleObjectProperty<Date> delivery_date;
     private boolean calculated;
-    private SimpleFloatProperty total_price;
-    private SimpleObjectProperty<Client> client;
-    private SimpleObjectProperty<State> state;
-    private SimpleStringProperty orderId;
+    private transient SimpleFloatProperty total_price;
+    private transient SimpleObjectProperty<Client> client;
+    private transient SimpleObjectProperty<State> state;
+    private transient SimpleStringProperty orderId;
     
     private int parcelIdCounter = 100;
     /*constructor para testear */
     public Order(String id)
     {
-        setId(id);
-        this.parcels = new ArrayList<>();
+        this.setId(id);
+        this.setParcels(new ArrayList<>());
+        this.unsaved_parcels = new ArrayList<>();
         this.calculated = false;
         setTotal(0);
-        setState(State.Origin);
+        this.setState(State.Origin);
     }
     
     /**
      * Constructor receive a date.
      * @param date of the sale
+     * @param id 
      */
     public Order(Date date,String id)
     {
-        setId(id);
-        this.parcels = new ArrayList<>();
+        this.setId(id);
+        this.setParcels( new ArrayList<>());
+        this.unsaved_parcels = new ArrayList<>();
         this.calculated = false;
-        setTotal(0);
-        setSaleDate(date);
+        this.setTotal(0);
+        this.setSaleDate(date);
         this.client = null;
+        this.setState(State.Origin);
     }
     
     
     /**
      * Constructor receive a date.
      * @param date of the sale
+     * @param client 
      */
     public Order(Client client, Date date)
     {
-        this.parcels = new ArrayList<>();
+        this.setParcels(new ArrayList<>());
+        this.unsaved_parcels = new ArrayList<>();
         this.calculated = false;
-        setTotal(0);
-        setSaleDate(date);
+        this.setTotal(0);
+        this.setSaleDate(date);
         setClient(client);
     }
     
     /**
-     * Add a parcel to the order.
-     */    
-    public Parcel addParcel(float weight,float volume,int priority,Address origin,Address destination){
+     * 
+     * @param type
+     * @param weight
+     * @param volume
+     * @param priority
+     * @param origin
+     * @param destination
+     * @return 
+     */
+    public Parcel addParcel(Type type,float weight,float volume,int priority,Address origin,Address destination){
         this.calculated = false;
-        String id = orderId + String.valueOf(parcelIdCounter);
+        String id = getId() + String.valueOf(parcelIdCounter);
         parcelIdCounter++;
-        Parcel parcel = new Parcel(weight, volume, priority, origin, destination, this, id);
-        this.parcels.add(parcel);
+        Parcel parcel = new Parcel(type,weight, volume, priority, origin, destination, this, id);
+        this.getParcels().add(parcel);
         return parcel;
+    }
+    public boolean deleteParcel(Parcel p)
+    {
+        this.calculated = false;
+        return this.getParcels().remove(p);
     }
     /**
      * Get the total price of the order
@@ -86,12 +111,15 @@ public class Order implements java.io.Serializable
     {
         if (!this.calculated)
         {
-            setTotal(BudgetCalculator.calculateTotal(getParcel()));
+            setTotal(BudgetCalculator.calculateTotal(getParcels()));
             this.calculated = true;
         }
         return getTotalValue();
     }
-    
+    public void saveParcels()
+    {
+        setParcels((ArrayList<Parcel>) unsaved_parcels.clone());
+    }
     public final float getTotalValue()
     {
         return totalProperty().get();
@@ -123,7 +151,7 @@ public class Order implements java.io.Serializable
         Boolean origin = true;
         Boolean destination = true;
         Boolean delivered = true;
-        for( Parcel p : this.parcels){
+        for( Parcel p : this.getParcel()){
             State s = p.getState();
             if ( s == State.OnTransit){
                 origin = false;
@@ -154,14 +182,15 @@ public class Order implements java.io.Serializable
         }
     }
     
-    /**
-     * Get the client who made the order
-     * @return client
-     */
+    
     public final void setClient(Client c)
     {
         clientProperty().set(c);
     }
+    /**
+     * Get the client who made the order
+     * @return client
+     */
     public Client getClient(){
         return clientProperty().get();
     }
@@ -170,6 +199,20 @@ public class Order implements java.io.Serializable
         saleDateProperty().set(date);
     }
     
+    
+    public final void setParcels(ArrayList<Parcel> parcels)
+    {
+        parcelProperty().set(parcels);
+    }
+    
+    public final ArrayList<Parcel> getParcels()
+    {
+        return this.unsaved_parcels;
+    }
+    public final ArrayList<Parcel> getParcel()
+    {
+        return parcelProperty().get();
+    }
     /**
      * Get the date of the sale
      * @return 
@@ -186,18 +229,23 @@ public class Order implements java.io.Serializable
         return stateProperty().get();
     }
 
-    public final ArrayList<Parcel> getParcel()
+    
+    public final void setDeliveryDate(Date delivery)
     {
-        return this.parcels;
+        deliveryDateProperty().set(delivery);
+    }
+    public final Date getDeliveryDate()
+    {
+        return deliveryDateProperty().get();
     }
     /*
     We define - for now - the prioriy of an order as the max priority of the 
     parcels that make up the order.
     */
     public int getPriority(){
-        int max = this.parcels.get(0).getPriority();
+        int max = this.getParcel().get(0).getPriority();
         int n;
-        for( Parcel p : this.parcels){
+        for( Parcel p : this.getParcel()){
             n = p.getPriority();
             if (n>max){
                 max = n;
@@ -214,24 +262,24 @@ public class Order implements java.io.Serializable
     
     @Override
     public String toString(){
-        return this.orderId + ", price: " + this.total_price;
+        return this.getId() + ", price: " + this.getTotal();
     }
     //<editor-fold desc="Properties">
-    /*
+    
     public final ObjectProperty<ArrayList<Parcel>> parcelProperty()
     {
         if(parcels == null)
         {
-            parcels = new SimpleObjectProperty<ArrayList<Parcel>>();
+            parcels = new SimpleObjectProperty<>();
         }
         return parcels;
     }
-    */
+    
     public final ObjectProperty<Date> saleDateProperty()
     {
         if (sales_date == null)
         {
-            sales_date = new SimpleObjectProperty<Date>();
+            sales_date = new SimpleObjectProperty<>();
         }
         return sales_date;
     }
@@ -239,7 +287,7 @@ public class Order implements java.io.Serializable
     {
         if (delivery_date == null)
         {
-            delivery_date = new SimpleObjectProperty<Date>();
+            delivery_date = new SimpleObjectProperty<>();
         }
         return delivery_date;
     }
@@ -255,7 +303,7 @@ public class Order implements java.io.Serializable
     {
         if (client == null)
         {
-            client = new SimpleObjectProperty<Client>();
+            client = new SimpleObjectProperty<>();
         }
         return client;
     }
@@ -263,7 +311,7 @@ public class Order implements java.io.Serializable
     {
         if (state == null)
         {
-            state = new SimpleObjectProperty<State>();
+            state = new SimpleObjectProperty<>();
         }
         return state;
     }
@@ -276,5 +324,59 @@ public class Order implements java.io.Serializable
         return orderId;
     }
     //</editor-fold>
+    
+    public static  Callback<Order,Observable[]> extractor()
+    {
+        return (Order o) -> new Observable[]
+        {
+         o.saleDateProperty(),o.clientProperty(),o.deliveryDateProperty(),o.stateProperty(),
+            o.totalProperty(),o.orderIdProperty(),o.parcelProperty()
+        };
+    }
+    
+     private void writeObject(ObjectOutputStream oos)
+    throws IOException
+    {
+      oos.defaultWriteObject();
+      oos.writeObject(this.getId());
+      oos.writeObject(this.getParcel());
+      
+      oos.writeObject(this.getSaleDate());
+      oos.writeObject(this.getDeliveryDate());
+      
+      oos.writeObject(this.getClient());
+      oos.writeObject(this.getTotal());
+      oos.writeObject(this.getState());
+      
+      
+      }
+
+    private void readObject(ObjectInputStream ois)
+    throws ClassNotFoundException,IOException
+    {
+        
+        // deliveryDate
+        // parcels cambiar 
+        ois.defaultReadObject();
+        this.setId((String)ois.readObject());
+        this.setParcels((ArrayList<Parcel>) ois.readObject());
+        this.unsaved_parcels = (ArrayList<Parcel>) this.getParcel().clone();
+        this.setSaleDate((Date)ois.readObject());
+        this.setDeliveryDate((Date)ois.readObject());
+        
+        this.setClient((Client)ois.readObject());
+        this.setTotal((Float)ois.readObject());
+        this.setState((State)ois.readObject());
+    }
+
+    public void cancelSave() {
+        ArrayList<Parcel> tmpParcels = getParcel();
+        for (Parcel p : this.unsaved_parcels)
+        {
+            if (!tmpParcels.contains(p))
+                this.parcelIdCounter--;
+        }
+        this.unsaved_parcels = (ArrayList<Parcel>) this.getParcel().clone();
+    }
     
 }

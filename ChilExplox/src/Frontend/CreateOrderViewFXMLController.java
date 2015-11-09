@@ -9,6 +9,9 @@ import Backend.Address;
 import Backend.BudgetCalculator;
 import Backend.ChilExplox;
 import Backend.Client;
+import Backend.InputValidator;
+import Backend.State;
+import Backend.Type;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -22,16 +25,24 @@ import Frontend.Cells.AddressCell;
 import Frontend.Cells.ParcelCell;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Optional;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
+
+
 
 /**
  * FXML Controller class
  *
  * @author guillermofigueroa
  */
+import javafx.scene.control.Alert.AlertType;
+import org.controlsfx.control.action.Action;
+import org.controlsfx.control.textfield.TextFields;
 public class CreateOrderViewFXMLController implements Initializable, iController {
 
     /**
@@ -42,12 +53,11 @@ public class CreateOrderViewFXMLController implements Initializable, iController
     Subsidiary subsidiary;
     ArrayList<String> parcelArray;
     ObservableList<Parcel> parcels;
+    Parcel current_parcel;
     
     //<editor-fold desc="FXML">
     @FXML
     private Button cancelButton;
-    @FXML
-    private Button saveButton;
     @FXML
     private Button newParcelButton;
     @FXML
@@ -61,6 +71,8 @@ public class CreateOrderViewFXMLController implements Initializable, iController
     @FXML
     private ChoiceBox destinies;
     @FXML
+    private ChoiceBox parcel_types;
+    @FXML
     private TextField volume;
     @FXML
     private TextField weight;
@@ -73,25 +85,36 @@ public class CreateOrderViewFXMLController implements Initializable, iController
     @FXML
     private Label total;
     @FXML
+    private Text parcelState;
+    @FXML
     private Button saveOrder;
+    @FXML
+    private Button deleteParcelButton;
     @FXML
     private TextField firstName;
     @FXML
     private TextField lastName;
+    @FXML
+    private TextField email;
     @FXML
     private TextField addressField;
     @FXML 
     private TextField phoneNumber;
     @FXML
     private TextField rut;
+    @FXML
+    private Label parcel_state;
+    @FXML
+    private Button deleteButton;
     //</editor-fold>
     
     private Order order;
+    @FXML
+    private TextField priorityTextField;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         this.initListView();
-
         saveParcel.setDisable(true);
     }   
     public void initListView()
@@ -106,51 +129,97 @@ public class CreateOrderViewFXMLController implements Initializable, iController
         this.main = main;
         this.app = main.getChilExplox();
         this.subsidiary = this.app.getCurrentSubsidiary();
+        TextFields.bindAutoCompletion(rut, this.subsidiary.getClients().keySet());
 
 
     }
     
     @FXML
     private void newParcel(ActionEvent event) {
+        this.current_parcel = null;
         String peekID = this.order.peekId();
+        parcel_types.setDisable(false);
         destinies.setDisable(false);
-        weight.setText(null);
-        volume.setText(null);
         weight.setDisable(false);
         volume.setDisable(false);
-        parcel_id.setText(peekID);
-        destinies.setValue(null);
         saveParcel.setDisable(false);
+        priorityTextField.setDisable(false);
+        
+        weight.setText(null);
+        volume.setText(null);
+        priorityTextField.setText(null);
+        
+        parcelSetState(State.Origin);
+        parcel_id.setText(peekID);
+        
+        parcel_types.setValue(null);
+        destinies.setValue(null);
+        
     }
     
     @FXML
     private void saveParcel(ActionEvent event)
     {
         boolean succesful = this.checkInputParcel();
-        if (succesful)
+        if (succesful && this.current_parcel == null)
         {
-            weight.setDisable(true);
-            volume.setDisable(true);
-            destinies.setDisable(true);
-            float p_weight = Float.parseFloat(weight.getText());
-            float p_volume = Float.parseFloat(volume.getText());
+            float p_weight = 0;
+            float p_volume = 0;
+            int p_priority = 0;
+            disableEditParcel();
+            p_weight = Float.parseFloat(weight.getText());
+            p_volume = Float.parseFloat(volume.getText());
+            p_priority = Integer.parseInt(priorityTextField.getText());
+            
+            Type p_type = (Type) parcel_types.getSelectionModel().getSelectedItem();
             Address addr1 = this.subsidiary.getAddr();
-            Parcel p = this.order.addParcel(p_weight,p_volume,0,addr1,addr1);
+            Address addr2 = (Address) destinies.getSelectionModel().getSelectedItem();
+            Parcel p = this.order.addParcel(p_type,p_weight,p_volume,
+                    p_priority,addr1,addr2);
             this.parcels.add(p);
             changeTotals(this.order,p);
             saveParcel.setDisable(true);
         }
+        else if (succesful)
+        {
+            disableEditParcel();
+            editParcel(this.current_parcel);
+        }
         
         
+    }
+    private void createAlert(Exception e)
+    {
+         Alert dlg = new Alert(AlertType.WARNING);
+         dlg.setTitle("Warning");
+         dlg.setContentText(e.toString());
+         dlg.showAndWait();   
     }
     @FXML
     private void saveOrder(ActionEvent event)
     {
-        Client c = getClient();
-        this.subsidiary.setOrder(this.order,c);
-        main.changeScene("SubsidiaryViewFXML.fxml",
-                SubsidiaryViewFXMLController.class);
-
+        if (!parcels.isEmpty() && completeClient())
+        {
+            Client c = getClient();
+            this.order.saveParcels();
+            this.subsidiary.setOrder(this.order,c);
+            if (main.getChilExplox().clientLogged){
+                main.changeScene("ClientViewFXML.fxml", 
+                        ClientViewFXMLController.class);
+                
+            }else{
+                main.changeScene("SubsidiaryViewFXML.fxml",
+                    SubsidiaryViewFXMLController.class);
+            }
+        }/*
+        else
+        {
+            Client c = getClient();
+            this.subsidiary.setOrder(this.order,c);
+            main.changeScene("SubsidiaryViewFXML.fxml",
+                    SubsidiaryViewFXMLController.class);
+        }
+        */
     }
     
     private void changeTotals(Order o, Parcel p)
@@ -165,8 +234,15 @@ public class CreateOrderViewFXMLController implements Initializable, iController
     }
     @FXML
     private void cancelOrder(ActionEvent event) {
-        main.changeScene("SubsidiaryViewFXML.fxml",
+        order.cancelSave();
+
+        if (main.getChilExplox().clientLogged){
+            main.changeScene("ClientViewFXML.fxml", 
+                    ClientViewFXMLController.class);
+        }else{
+            main.changeScene("SubsidiaryViewFXML.fxml",
                 SubsidiaryViewFXMLController.class);
+        }
 
     }
     
@@ -175,7 +251,7 @@ public class CreateOrderViewFXMLController implements Initializable, iController
         this.order = order;
         this.setClient(order.getClient());
         this.setOrderInfo(this.order);
-        this.order.getParcel().stream().forEach( p -> this.parcels.add(p));
+        this.order.getParcels().stream().forEach( p -> this.parcels.add(p));
         this.listView.setItems(this.parcels);
     }
     
@@ -186,26 +262,41 @@ public class CreateOrderViewFXMLController implements Initializable, iController
         this.setOrderInfo(this.order);
     }
     
+    public void initializeWithClient(Client client)
+    {
+        this.initializeMin();
+        this.order = this.subsidiary.newOrder();
+        this.setOrderInfo(this.order);
+        setClient(client);
+        firstName.setEditable(false);
+        this.deleteButton.setDisable(true);
+        this.rut.setEditable(false);
+        this.lastName.setEditable(false);
+    }
+    
     public void initializeMin()
     {
         destinies.setDisable(true);
         weight.setText(null);
         volume.setText(null);
+        priorityTextField.setText(null);
         weight.setDisable(true);
         volume.setDisable(true);
+        priorityTextField.setDisable(true);
         destinies.setValue(null);
         saveParcel.setDisable(true);
         
-        ArrayList<String> tmp = new ArrayList();
         destinies.setDisable(true);
-        for (Address addr: this.app.getSubsidiariesAddress())
-        {
-            tmp.add(addr.getMainStreet());
-        }
-        ObservableList<String> list = FXCollections.observableArrayList(tmp);
+        parcel_types.setDisable(true);
+        
+        ObservableList<Address> list = FXCollections.observableArrayList(this.app.getSubsidiariesAddress());
+        ObservableList<Type> typesArray = FXCollections.observableArrayList(Type.values());
         this.parcels = FXCollections.observableArrayList(Parcel.extractor());
         listView.setItems(this.parcels);
+        parcel_types.setItems(typesArray);
         destinies.setItems(list);
+        
+        
     }
     
     public void setOrderInfo(Order o)
@@ -239,45 +330,223 @@ public class CreateOrderViewFXMLController implements Initializable, iController
     }
     public void editClient(Client c)
     {
-        String name =  firstName.getText();
-        String addr =  addressField.getText();
-        String client_rut =  this.rut.getText();
-        String phone=  phoneNumber.getText();
-        // Validate inputs //
-        c.setName(name);
-        c.setAddress(addr);
-        c.setPhone(phone);
-        c.setRut(client_rut);
+        
+        completeClient();
+        c.setRut(rut.getText());
+        c.setName(firstName.getText());
+        c.setAddress(addressField.getText());
+        c.setLastname(lastName.getText());
+        c.setPhone(phoneNumber.getText());
+        c.setEmail(email.getText());
+
+    }
+    
+    public void editParcel(Parcel p)
+    {
+        float p_weight = Float.parseFloat(weight.getText());
+        float p_volume = Float.parseFloat(volume.getText());
+        int priority = Integer.parseInt(priorityTextField.getText());
+        Type p_type = (Type) parcel_types.getSelectionModel().getSelectedItem();
+        System.out.print(p_type);
+        Address addr2 = (Address) destinies.getSelectionModel().getSelectedItem();
+        p.setWeight(p_weight);
+        p.setVolume(p_volume);
+        p.setType(p_type);
+        p.setDestination(addr2);
+        p.setPriority(priority);
+        changeTotals(this.order,p);
 
     }
     public void setClient(Client c)
     {
-        firstName.setText(c.getName());
-        addressField.setText(c.getAddress());
-        rut.setText(c.getRut());
-        phoneNumber.setText(c.getPhone());
+        if (c != null)
+        {
+            firstName.setText(c.getName());
+            addressField.setText(c.getAddress());
+            rut.setText(c.getRut());
+            phoneNumber.setText(c.getPhone());
+            email.setText(c.getEmail());
+            lastName.setText(c.getLastname());
+        }
     }
     private boolean checkInputParcel()
     {
+        try
+        {
+            InputValidator.IsFloat(volume.getText());
+            InputValidator.IsFloat(weight.getText());
+            InputValidator.IsNumber(priorityTextField.getText());
+        }
+        catch(Exception e)
+        {
+            createAlert(e);
+            return false;
+        }
         return true;   
     }
     
     public void setParcel(Parcel p)
     {
+        this.current_parcel = p;
+        
         parcel_id.setText(p.getId());
         weight.setText(String.format("%f",p.getWeight()));
         volume.setText(String.format("%f",p.getVolume()));
-        destinies.setValue(null);
+        priorityTextField.setText(String.format("%d",p.getPriority()));
+        
+        parcelSetState(p.getState());
+        System.out.print(p.getType());
+        
+        parcel_types.setValue(p.getType());
+        
+        destinies.setValue(p.getDestination());
+        //destinies.setValue(null);
+        //enableEditParcel();
         this.setSubTotal(p);
     }
     @FXML
     public void onMouseClickParcel(MouseEvent e)
     {
+        if(e.getClickCount() == 2)
+        {
+            Parcel p = listView.getSelectionModel().getSelectedItem();
+            if (p != null)
+            {
+                this.setParcel(p);
+            }
+        }
+    }
+    
+    @FXML
+    private void autoFillClient(KeyEvent e)
+    {
+     if(e.getCode().equals(KeyCode.ENTER))
+     {
+         if (rut.getText() != null)
+         {
+            setClient(this.subsidiary.getClient(rut.getText()));
+            
+        } 
+     }
+    }
+    @FXML
+    private void deleteParcel(ActionEvent event)
+    {
         Parcel p = listView.getSelectionModel().getSelectedItem();
         if (p != null)
         {
-            this.setParcel(p);
+            parcels.remove(p);
+            this.order.deleteParcel(p);
         }
     }
+    
+    private boolean completeClient()
+    {
+        try
+        {
+           InputValidator.CheckRut(rut.getText());
+            InputValidator.CheckName(firstName.getText());
+            InputValidator.CheckName(lastName.getText());
+            InputValidator.CheckPhone(phoneNumber.getText());
+            InputValidator.CheckEmail(email.getText()); 
+        }
+        catch(Exception e)
+        {
+            createAlert(e);
+            return false;
+        }
+        return true;
+        /*
+        if (!firstName.getText().isEmpty()
+                && !rut.getText().isEmpty()
+                && !phoneNumber.getText().isEmpty()
+                && !addressField.getText().isEmpty()
+                && !email.)
+        {
+            return true;
+        }
+        return false;
+        */
+    }
+    private void validateClient()
+    {
+        
+    }
+    public void parcelSetState(Backend.State s)
+    {
+        switch(s)
+        {
+            case Origin:
+                parcelState.setStyle("-fx-fill:green;");
+                break;
+            case OnTransit:
+                parcelState.setStyle("-fx-fill:green;");
+                break;
+            case Destination:
+                parcelState.setStyle("-fx-fill:red;");
+                break;
+            case Delivered:
+                parcelState.setStyle("-fx-fill:red;");
+                break;
+                
+        }
+        parcelState.setText(s.toString());
 
+    }
+    
+    public void disableEditParcel()
+    {
+        weight.setDisable(true);
+        volume.setDisable(true);
+        priorityTextField.setDisable(true);
+        destinies.setDisable(true);
+        parcel_types.setDisable(true);
+        saveParcel.setDisable(true);
+
+    }
+    @FXML
+    public void enableEditParcel()
+    {
+        
+        if (this.current_parcel != null && this.current_parcel.getState() == State.Origin)
+        {
+            parcel_types.setDisable(false);
+            destinies.setDisable(false);
+            weight.setDisable(false);
+            volume.setDisable(false);
+            priorityTextField.setDisable(false);
+            saveParcel.setDisable(false);
+        }
+        else
+        {
+         Alert dlg = new Alert(AlertType.WARNING);
+         dlg.setTitle("Warning");
+         dlg.setContentText("Please set a parcel to continue or the "
+                 + "}parcel you are selection is not on origin");
+         dlg.showAndWait();
+        }
+    }
+    
+    @FXML
+    public void deleteOrder()
+    {
+        Alert alert = deleteOrderAlert();
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK)
+        {
+            this.subsidiary.deleteOrder(this.order);
+            main.changeScene("SubsidiaryViewFXML.fxml",
+                SubsidiaryViewFXMLController.class);
+        }
+            
+        
+        
+    }
+    public Alert deleteOrderAlert()
+    {
+        Alert dlg = new Alert(AlertType.CONFIRMATION);
+        dlg.setTitle("Deleting Order");
+        dlg.setContentText("Are you sure you wanna delete this order?");
+        return dlg;
+    }
 }
