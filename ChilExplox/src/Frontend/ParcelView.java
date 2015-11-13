@@ -13,6 +13,7 @@ import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
+import javafx.scene.shape.Rectangle;
 
 /**
  *
@@ -23,6 +24,7 @@ class ParcelView {
     Image img;
     final ImageView view;
     UnloadParcelFXMLController controller;
+    WatchTrucksListFXMLController watch;
     
     public ParcelView(Parcel parcel){
         this.parcel=parcel;
@@ -42,6 +44,18 @@ class ParcelView {
             controller.volumeParcelLabel.setText(String.valueOf(this.parcel.getVolume()));
             controller.weightParcelLabel.setText(String.valueOf(this.parcel.getWeight()));
             controller.priorityParcelLabel.setText(String.valueOf(this.parcel.getPriority()));
+        });
+    }
+    
+    public void setPreviewEvent(WatchTrucksListFXMLController c){
+        this.watch = c;
+        this.view.setOnMouseEntered((MouseEvent t)->
+        {
+            System.out.println("hihihi");
+            Rectangle r = new Rectangle();
+            
+            r.setLayoutX(t.getSceneX());
+            r.setLayoutY(t.getSceneY());
         });
     }
     
