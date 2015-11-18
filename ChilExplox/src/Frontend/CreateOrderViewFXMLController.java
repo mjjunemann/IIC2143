@@ -262,10 +262,6 @@ public class CreateOrderViewFXMLController implements Initializable, iController
         this.order = this.subsidiary.newOrder();
         this.setOrderInfo(this.order);
         setClient(client);
-        firstName.setEditable(false);
-        this.deleteButton.setDisable(true);
-        this.rut.setEditable(false);
-        this.lastName.setEditable(false);
     }
     
     public void initializeMin()
@@ -290,6 +286,12 @@ public class CreateOrderViewFXMLController implements Initializable, iController
         parcel_types.setItems(typesArray);
         destinies.setItems(list);
         
+        if (this.main.getChilExplox().clientLogged){
+            firstName.setEditable(false);
+            this.deleteButton.setDisable(true);
+            this.rut.setEditable(false);
+            this.lastName.setEditable(false);
+        }
         
     }
     

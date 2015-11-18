@@ -245,33 +245,11 @@ public class WatchOrdersViewFXMLController implements Initializable, iController
         {
             Order orderSelected = orderTable.getSelectionModel().getSelectedItem();
             if (orderSelected != null){
-                if (this.main.getChilExplox().clientLogged){
-                    changeSceneToModifyOrderWithClient(orderSelected);
-                }else{
-                    changeSceneToModifyOrder(orderSelected);
-                }
+
+                changeSceneToModifyOrder(orderSelected);
+                
             }
         }
-    }
-    
-    private void changeSceneToModifyOrderWithClient(Order order){
-        try{
-            FXMLLoader loader = new FXMLLoader(ChilExploxApp.class.
-                    getResource("CreateOrderViewFXML.fxml"));
-            AnchorPane page = (AnchorPane)loader.load();
-
-            CreateOrderViewFXMLController controller = loader.getController();
-            
-            controller.setChilExploxApp(this.main);
-            controller.initializeWithClient(null);
-            controller.initializeWithOrder(order);
-         
-        
-            this.main.changeSceneFromPage(page);
-        } catch(Exception ex) {
-            Logger.getLogger(ChilExploxApp.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
     }
     
     private void changeSceneToModifyOrder(Order order){
