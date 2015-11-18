@@ -69,6 +69,7 @@ public class ClientViewFXMLController implements Initializable, iController {
             
             controller.setChilExploxApp(this.main);
             controller.initializeWithClient(this.main.getChilExplox().getCurrentClient());
+            
          
             this.main.changeSceneFromPage(page);
         } catch(Exception ex) {
