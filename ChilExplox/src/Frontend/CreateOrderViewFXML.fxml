@@ -101,7 +101,7 @@
                                                 <Label layoutX="21.0" layoutY="68.0" text="TYPE:" AnchorPane.leftAnchor="20.0" />
                                                 <ChoiceBox fx:id="parcel_types" layoutX="124.0" layoutY="66.0" prefHeight="25.0" prefWidth="122.0" AnchorPane.leftAnchor="126.0" AnchorPane.rightAnchor="14.0" />
                                                 <Label layoutX="20.0" layoutY="205.0" prefHeight="27.0" prefWidth="84.0" text="PRIORITY" />
-                                                <TextField fx:id="priorityTextField" layoutX="126.0" layoutY="205.0" prefHeight="25.0" prefWidth="122.0" />
+                                                <TextField fx:id="priority" layoutX="126.0" layoutY="205.0" prefHeight="25.0" prefWidth="122.0" />
                                              </children>
                                           </AnchorPane>
                                       </items>

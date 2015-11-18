@@ -11,7 +11,7 @@ import java.util.regex.*;
  * @author guille
  */
 public class InputValidator {
-      
+     
     /*
     RUT Validation
     */
@@ -28,14 +28,16 @@ public class InputValidator {
         String dv = rut.substring(rut.length() - 1);
         
         if (!matcher.find()){
-            throw new Exception("Debe ingresar un Rut con caracteres válidos");
+            String messageError = "Debe ingresar un Rut con caracteres válidos";
+            throw new Exception(messageError);
         }
 
 	String[] rutTemp = rut.split("-");
      
         int digitAux = Integer.parseInt(rutTemp[0]);
 	if (!dv.equals(Digito(digitAux))) {
-		throw new Exception("Debe ingresar un Rut válido");
+            String messageError = "Debe ingresar un Rut válido";
+            throw new Exception(messageError);
 	}
 	return true;
     }

@@ -110,7 +110,7 @@ public class CreateOrderViewFXMLController implements Initializable, iController
     
     private Order order;
     @FXML
-    private TextField priorityTextField;
+    private TextField priority;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -143,11 +143,11 @@ public class CreateOrderViewFXMLController implements Initializable, iController
         weight.setDisable(false);
         volume.setDisable(false);
         saveParcel.setDisable(false);
-        priorityTextField.setDisable(false);
+        priority.setDisable(false);
         
         weight.setText(null);
         volume.setText(null);
-        priorityTextField.setText(null);
+        priority.setText(null);
         
         parcelSetState(State.Origin);
         parcel_id.setText(peekID);
@@ -169,7 +169,7 @@ public class CreateOrderViewFXMLController implements Initializable, iController
             disableEditParcel();
             p_weight = Float.parseFloat(weight.getText());
             p_volume = Float.parseFloat(volume.getText());
-            p_priority = Integer.parseInt(priorityTextField.getText());
+            p_priority = Integer.parseInt(priority.getText());
             
             Type p_type = (Type) parcel_types.getSelectionModel().getSelectedItem();
             Address addr1 = this.subsidiary.getAddr();
@@ -188,13 +188,7 @@ public class CreateOrderViewFXMLController implements Initializable, iController
         
         
     }
-    private void createAlert(Exception e)
-    {
-         Alert dlg = new Alert(AlertType.WARNING);
-         dlg.setTitle("Warning");
-         dlg.setContentText(e.toString());
-         dlg.showAndWait();   
-    }
+    
     @FXML
     private void saveOrder(ActionEvent event)
     {
@@ -279,10 +273,10 @@ public class CreateOrderViewFXMLController implements Initializable, iController
         destinies.setDisable(true);
         weight.setText(null);
         volume.setText(null);
-        priorityTextField.setText(null);
+        priority.setText(null);
         weight.setDisable(true);
         volume.setDisable(true);
-        priorityTextField.setDisable(true);
+        priority.setDisable(true);
         destinies.setValue(null);
         saveParcel.setDisable(true);
         
@@ -345,7 +339,7 @@ public class CreateOrderViewFXMLController implements Initializable, iController
     {
         float p_weight = Float.parseFloat(weight.getText());
         float p_volume = Float.parseFloat(volume.getText());
-        int priority = Integer.parseInt(priorityTextField.getText());
+        int priorityValue = Integer.parseInt(priority.getText());
         Type p_type = (Type) parcel_types.getSelectionModel().getSelectedItem();
         System.out.print(p_type);
         Address addr2 = (Address) destinies.getSelectionModel().getSelectedItem();
@@ -353,7 +347,7 @@ public class CreateOrderViewFXMLController implements Initializable, iController
         p.setVolume(p_volume);
         p.setType(p_type);
         p.setDestination(addr2);
-        p.setPriority(priority);
+        p.setPriority(priorityValue);
         changeTotals(this.order,p);
 
     }
@@ -369,17 +363,32 @@ public class CreateOrderViewFXMLController implements Initializable, iController
             lastName.setText(c.getLastname());
         }
     }
+
     private boolean checkInputParcel()
     {
         try
         {
             InputValidator.IsFloat(volume.getText());
-            InputValidator.IsFloat(weight.getText());
-            InputValidator.IsNumber(priorityTextField.getText());
         }
         catch(Exception e)
         {
-            createAlert(e);
+            ShowAlert.alertWithField(e, "volumen");
+            return false;
+        }
+        try{
+            InputValidator.IsFloat(weight.getText());
+        }
+        catch(Exception e)
+        {
+            ShowAlert.alertWithField(e, "peso");
+            return false;
+        }
+        try{
+            InputValidator.IsNumber(priority.getText());
+        }
+        catch(Exception e)
+        {
+            ShowAlert.alertWithField(e, "prioridad");
             return false;
         }
         return true;   
@@ -392,7 +401,7 @@ public class CreateOrderViewFXMLController implements Initializable, iController
         parcel_id.setText(p.getId());
         weight.setText(String.format("%f",p.getWeight()));
         volume.setText(String.format("%f",p.getVolume()));
-        priorityTextField.setText(String.format("%d",p.getPriority()));
+        priority.setText(String.format("%d",p.getPriority()));
         
         parcelSetState(p.getState());
         System.out.print(p.getType());
@@ -445,16 +454,38 @@ public class CreateOrderViewFXMLController implements Initializable, iController
         try
         {
            InputValidator.CheckRut(rut.getText());
-            InputValidator.CheckName(firstName.getText());
-            InputValidator.CheckName(lastName.getText());
-            InputValidator.CheckPhone(phoneNumber.getText());
-            InputValidator.CheckEmail(email.getText()); 
+           
         }
         catch(Exception e)
         {
-            createAlert(e);
+            ShowAlert.alertWithField(e, rut.getId());
             return false;
         }
+        try{
+            InputValidator.CheckName(firstName.getText());
+        } catch(Exception e){
+            ShowAlert.alertWithField(e, "nombre");
+            return false;
+        }
+        try{
+            InputValidator.CheckName(lastName.getText());
+        } catch(Exception e){
+            ShowAlert.alertWithField(e, "apellido");
+            return false;
+        }
+        try{
+            InputValidator.CheckPhone(phoneNumber.getText());
+        } catch(Exception e){
+            ShowAlert.alertWithField(e, "telefono");
+            return false;
+        }
+        try{
+            InputValidator.CheckEmail(email.getText()); 
+        } catch(Exception e){
+            ShowAlert.alertWithField(e, email.getId());
+            return false;
+        }
+     
         return true;
         /*
         if (!firstName.getText().isEmpty()
@@ -498,7 +529,7 @@ public class CreateOrderViewFXMLController implements Initializable, iController
     {
         weight.setDisable(true);
         volume.setDisable(true);
-        priorityTextField.setDisable(true);
+        priority.setDisable(true);
         destinies.setDisable(true);
         parcel_types.setDisable(true);
         saveParcel.setDisable(true);
@@ -514,7 +545,7 @@ public class CreateOrderViewFXMLController implements Initializable, iController
             destinies.setDisable(false);
             weight.setDisable(false);
             volume.setDisable(false);
-            priorityTextField.setDisable(false);
+            priority.setDisable(false);
             saveParcel.setDisable(false);
         }
         else
