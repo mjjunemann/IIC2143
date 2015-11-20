@@ -19,6 +19,7 @@ import javafx.stage.Stage;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
+import javafx.scene.image.Image;
 import org.controlsfx.control.Notifications;
 
 
@@ -36,6 +37,7 @@ public class ChilExploxApp extends Application implements iNotificationListener 
     @Override
     public void start(Stage primaryStage) {
         this.stage = primaryStage;
+        primaryStage.getIcons().add(new Image("/images/truck_normal.png"));
         this.stage.setOnCloseRequest(e->chilexplox.Exit());
         System.out.println(com.sun.javafx.runtime.VersionInfo.getRuntimeVersion());
         /*

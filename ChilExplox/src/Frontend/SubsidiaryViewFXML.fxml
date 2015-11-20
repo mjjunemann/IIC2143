@@ -6,7 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Frontend.SubsidiaryViewFXMLController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="background" stylesheets="@../stylesheets/win7glass.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Frontend.SubsidiaryViewFXMLController">
    <children>
       <Button fx:id="newOrderButton" layoutX="381.0" layoutY="110.0" mnemonicParsing="false" onAction="#createNewOrder" prefHeight="39.0" prefWidth="172.0" text="Nueva Orden" AnchorPane.leftAnchor="381.0" AnchorPane.topAnchor="110.0" />
       <Button fx:id="logoutButton" layoutX="499.0" layoutY="20.0" mnemonicParsing="false" onAction="#logoutUser" text="Logout" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0" />
