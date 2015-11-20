@@ -7,6 +7,8 @@ package Frontend;
     
 import Backend.Parcel;
 import javafx.event.EventHandler;
+import javafx.scene.control.Button;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
@@ -23,19 +25,22 @@ class ParcelView {
     final Parcel parcel;
     Image img;
     final ImageView view;
+    final Button button;
     UnloadParcelFXMLController controller;
-    WatchTrucksListFXMLController watch;
+    Tooltip tool;
     
     public ParcelView(Parcel parcel){
         this.parcel=parcel;
         updateImage();
         this.view = new ImageView(this.img);
+        this.button = new Button();
+        this.button.setGraphic(this.view);
     }
     
     public void setMouseevent(UnloadParcelFXMLController c){
         this.view.setStyle("-fx-cursor:hand;");
         this.controller = c;
-        this.view.setOnMouseClicked((MouseEvent t) -> {
+        this.button.setOnMouseClicked((MouseEvent t) -> {
             controller.idParcelLabel.setText(this.parcel.getId());
             controller.destinationParcelLabel.setText(this.parcel.getDestination().toString());
             controller.selectedParcel = view;
@@ -47,16 +52,19 @@ class ParcelView {
         });
     }
     
-    public void setPreviewEvent(WatchTrucksListFXMLController c){
-        this.watch = c;
-        this.view.setOnMouseEntered((MouseEvent t)->
-        {
-            System.out.println("hihihi");
-            Rectangle r = new Rectangle();
-            
-            r.setLayoutX(t.getSceneX());
-            r.setLayoutY(t.getSceneY());
-        });
+    public void setToolTip(){
+        this.tool = new Tooltip();
+        this.tool.setText(String.format("ID: %s\n"
+                    + "Dest: %s\nType: %s\n"
+                    + "State: %s\nVol: %f\n"
+                    + "Wei: %f\nPriority: %d", this.parcel.getId(),
+                    this.parcel.getDestination().toString(), 
+                    this.parcel.getType().toString(),
+                    this.parcel.getState().toString(),
+                    this.parcel.getVolume(),
+                    this.parcel.getWeight(),
+                    this.parcel.getPriority()));
+        this.button.setTooltip(this.tool);
     }
     
     public void updateImage(){

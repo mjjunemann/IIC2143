@@ -12,6 +12,7 @@ import Backend.Type;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -27,6 +28,7 @@ public class TruckImage {
     final ImageView view;
     final WatchTrucksListFXMLController controller;
     final Button button;
+    final Tooltip tool;
     
     public TruckImage(Truck truck, WatchTrucksListFXMLController c){
         this.truck=truck;
@@ -35,6 +37,9 @@ public class TruckImage {
         this.view = new ImageView(this.img);
         this.button = new Button();
         this.button.setGraphic(this.view);
+        this.tool = new Tooltip();
+        this.tool.setText(String.format("Plate: %s\nClick para ver su info!\nDoble Click para cargar!", truck.getPlate()));
+        this.button.setTooltip(this.tool);
         this.view.setStyle("-fx-cursor:hand;");
         this.button.setOnMouseClicked((MouseEvent t) -> {
             if (t.getClickCount() == 1) {
@@ -48,8 +53,8 @@ public class TruckImage {
                 ParcelView pv;
                 for (Parcel p: truck.getParcels()) {
                     pv = new ParcelView(p);
-                    pv.setPreviewEvent(this.controller);
-                    controller.parcelTile.getChildren().add(pv.view);
+                    pv.setToolTip();
+                    controller.parcelTile.getChildren().add(pv.button);
                 }
             }else{
                 if (controller.muestraLocal && 

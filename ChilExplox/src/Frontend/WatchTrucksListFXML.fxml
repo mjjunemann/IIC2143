@@ -51,7 +51,7 @@
                                 <items>
                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                                        <children>
-                                          <Label alignment="CENTER" layoutX="16.0" layoutY="23.0" prefHeight="23.0" prefWidth="285.0" text="On Truck:" textAlignment="CENTER" />
+                                          <Label alignment="CENTER" layoutX="16.0" layoutY="23.0" prefHeight="23.0" prefWidth="285.0" text="On Truck:" textAlignment="CENTER" AnchorPane.topAnchor="23.0" />
                                        </children>
                                     </AnchorPane>
                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
