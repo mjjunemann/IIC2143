@@ -20,6 +20,7 @@ import javafx.stage.Stage;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
+import javafx.scene.image.Image;
 import org.controlsfx.control.Notifications;
 
 
@@ -37,8 +38,10 @@ public class ChilExploxApp extends Application implements iNotificationListener 
     @Override
     public void start(Stage primaryStage) {
         this.stage = primaryStage;
+        primaryStage.getIcons().add(new Image("/images/truck_normal.png"));
         this.stage.setOnCloseRequest(e->chilexplox.Exit());
         System.out.println(com.sun.javafx.runtime.VersionInfo.getRuntimeVersion());
+        
         /*
         //We add two Subsidiaries to ChilExplox and a User
         Address addr = new Address("Amapolas",1500,"Providencia","Santiago");
@@ -46,10 +49,13 @@ public class ChilExploxApp extends Application implements iNotificationListener 
                 "Providencia","Santiago");
         Address addr3 = new Address("Cumbre San Juan",12496,
                 "Las Condes","Santiago");
+
         chilexplox.addSubsidary(addr);
         chilexplox.addSubsidary(addr2);
         chilexplox.addSubsidary(addr3);
-        chilexplox.addUser("admin", "Administrador", "admin");
+        chilexplox.addUser("admin", "Administrador", "admin", Role.Administrator);
+        chilexplox.addUser("fdoflorenzano", "Fernando", "blorg");
+        chilexplox.addUser("user", "Usuario", "user");
         
         Truck t1 = new Truck("ER-3434",45,Type.Normal,chilexplox.getSubsidiary(addr));
         chilexplox.getSubsidiary(addr).addVehicle(t1);
@@ -77,7 +83,9 @@ public class ChilExploxApp extends Application implements iNotificationListener 
         chilexplox.getSubsidiary(addr3).addVehicle(t3);
         t4 = new Truck("BT-1288",10,Type.Refrigerated, chilexplox.getSubsidiary(addr3));
         chilexplox.getSubsidiary(addr3).addVehicle(t4);
+        
         */
+        
         this.changeScene("LoginViewFXML.fxml", LoginViewFXMLController.class);
         // We log into the system in the first Subsidiary
         /*
@@ -210,7 +218,7 @@ public class ChilExploxApp extends Application implements iNotificationListener 
             controller = loader.getController();
             controller.setChilExploxApp(this);
 
-            chilexplox.startNotifying(this);
+            //chilexplox.startNotifying(this);
             
             Scene sceneLogin = new Scene(page);
             stage.setScene(sceneLogin);

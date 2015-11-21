@@ -20,7 +20,7 @@ import javafx.util.Callback;
  *
  * @author matia
  */
-public class Client implements java.io.Serializable {
+public class Client extends iPerson implements java.io.Serializable {
     
     private transient StringProperty name;
     private transient StringProperty lastname;
@@ -28,6 +28,7 @@ public class Client implements java.io.Serializable {
     private transient StringProperty rut;
     private transient StringProperty phone_number;
     private transient StringProperty email;
+    Role role;
     
     public Client(String name,String address,String rut,String phone_number)
     {
@@ -35,9 +36,11 @@ public class Client implements java.io.Serializable {
      this.setAddress(address);
      this.setRut(rut);
      this.setPhone(phone_number);
+     this.role = Role.Client;
     }
 
     public Client() {
+        this.role = Role.Client;
     }
 
     
@@ -119,6 +122,11 @@ public class Client implements java.io.Serializable {
         emailProperty().set(email);
     }
     
+    @Override
+    public Role getRole(){
+        return this.role;
+    }
+    
     public String getLastname()
     {
         return lastnameProperty().get();
@@ -197,7 +205,7 @@ public class Client implements java.io.Serializable {
       oos.writeObject(this.getName());
       oos.writeObject(this.getLastname());
       oos.writeObject(this.getPhone());
-      
+      oos.writeObject(this.getRole());
       oos.writeObject(this.getEmail());
       oos.writeObject(this.getAddress());
       oos.writeObject(this.getRut());
@@ -215,7 +223,7 @@ public class Client implements java.io.Serializable {
         this.setName((String)ois.readObject());
         this.setLastname((String)ois.readObject());
         this.setPhone((String) ois.readObject());
-        
+        this.setRole((Role) ois.readObject());
         this.setEmail((String)ois.readObject());
         this.setAddress((String)ois.readObject());
         this.setRut((String)ois.readObject());
