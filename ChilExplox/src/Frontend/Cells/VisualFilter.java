@@ -141,5 +141,6 @@ public class VisualFilter extends ToggleSwitch{
     
     protected void resetToDeactivate()
     {
-        this.selectedProperty().set(false);    }
-}
+        this.selectedProperty().set(false);    
+    }
+}   

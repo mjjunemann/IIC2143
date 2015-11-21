@@ -201,7 +201,6 @@ public class WatchOrdersViewFXMLController implements Initializable, iController
                 {
                     event.getSelectedCrumb().getValue().filterSelectedCrumb(event.getSelectedCrumb());
                 }
-//filterSelectedCrumb(event.getSelectedCrumb());
                 
             }
             
