@@ -5,13 +5,8 @@
  */
 package Frontend;
 
-import Backend.Address;
-import Backend.BudgetCalculator;
-import Backend.ChilExplox;
-import Backend.Client;
-import Backend.InputValidator;
-import Backend.State;
-import Backend.Type;
+
+import Backend.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -20,6 +15,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import Backend.Order;
 import Backend.Parcel;
+import Backend.Role;
 import Backend.Subsidiary;
 import Frontend.Cells.AddressCell;
 import Frontend.Cells.ParcelCell;
@@ -230,7 +226,7 @@ public class CreateOrderViewFXMLController implements Initializable, iController
     private void cancelOrder(ActionEvent event) {
         order.cancelSave();
 
-        if (main.getChilExplox().clientLogged){
+        if (main.getChilExplox().getCurrentLogged().getRole().equals(Role.Client)){
             main.changeScene("ClientViewFXML.fxml", 
                     ClientViewFXMLController.class);
         }else{
@@ -286,7 +282,13 @@ public class CreateOrderViewFXMLController implements Initializable, iController
         parcel_types.setItems(typesArray);
         destinies.setItems(list);
         
-        if (this.main.getChilExplox().clientLogged){
+        ChilExplox chile = this.main.getChilExplox();
+        iPerson person = chile.getCurrentLogged();
+        Role role = person.getRole();
+        String name = person.getName();
+      
+        
+        if (this.main.getChilExplox().getCurrentLogged().getRole().equals(Role.Client)){
             firstName.setEditable(false);
             this.deleteButton.setDisable(true);
             this.rut.setEditable(false);

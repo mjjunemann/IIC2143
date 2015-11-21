@@ -6,15 +6,18 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="background" stylesheets="@../stylesheets/win7glass.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Frontend.SubsidiaryViewFXMLController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="background" stylesheets="@../stylesheets/win7glass.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Frontend.SubsidiaryViewFXMLController">
    <children>
-      <Button fx:id="newOrderButton" layoutX="381.0" layoutY="110.0" mnemonicParsing="false" onAction="#createNewOrder" prefHeight="39.0" prefWidth="172.0" text="Nueva Orden" AnchorPane.leftAnchor="381.0" AnchorPane.topAnchor="110.0" />
+      <Button fx:id="newOrderButton" layoutX="408.0" layoutY="110.0" mnemonicParsing="false" onAction="#createNewOrder" prefHeight="39.0" prefWidth="172.0" text="Nueva Orden" AnchorPane.leftAnchor="408.0" AnchorPane.topAnchor="110.0" />
       <Button fx:id="logoutButton" layoutX="499.0" layoutY="20.0" mnemonicParsing="false" onAction="#logoutUser" text="Logout" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0" />
       <Label fx:id="welcomeLabel" layoutX="35.0" layoutY="26.0" text="Bienvenido " AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="20.0" />
       <Button fx:id="viewOrdersButton" layoutX="14.0" layoutY="211.0" mnemonicParsing="false" onAction="#viewOrders" prefHeight="39.0" prefWidth="172.0" text="Ver Ordenes" AnchorPane.bottomAnchor="150.0" AnchorPane.leftAnchor="14.0" />
       <Button fx:id="viewTrucksButton" layoutX="14.0" layoutY="161.0" mnemonicParsing="false" onAction="#watchTrucks" prefHeight="39.0" prefWidth="172.0" text="Ver Camiones" AnchorPane.rightAnchor="414.0" AnchorPane.topAnchor="161.0" />
       <Button fx:id="viewMessagesButton" layoutX="14.0" layoutY="110.0" mnemonicParsing="false" onAction="#openMailbox" prefHeight="39.0" prefWidth="172.0" text="Ver Mensajes" AnchorPane.bottomAnchor="251.0" AnchorPane.rightAnchor="414.0" />
       <Button fx:id="viewOrdersButton1" layoutX="14.0" layoutY="259.0" mnemonicParsing="false" onAction="#watchParcels" prefHeight="39.0" prefWidth="172.0" text="Ver Encomiendas" />
-      <Button fx:id="viewOrdersButton11" layoutX="381.0" layoutY="259.0" mnemonicParsing="false" onAction="#viewOrders" prefHeight="39.0" prefWidth="172.0" text="Reportes" />
+      <Button fx:id="viewOrdersButton11" layoutX="408.0" layoutY="347.0" mnemonicParsing="false" onAction="#viewOrders" prefHeight="39.0" prefWidth="172.0" text="Reportes" />
+      <Button fx:id="newTruckButton" layoutX="408.0" layoutY="259.0" mnemonicParsing="false" onAction="#createNewTruck" prefHeight="39.0" prefWidth="172.0" text="Nuevo Camion" visible="false" />
+      <Button fx:id="newSubsidiaryButton" layoutX="408.0" layoutY="211.0" mnemonicParsing="false" onAction="#createNewSubsidiary" prefHeight="39.0" prefWidth="172.0" text="Nueva Sucursal" visible="false" />
+      <Button fx:id="newUserButton" layoutX="408.0" layoutY="161.0" mnemonicParsing="false" onAction="#createNewUser" prefHeight="39.0" prefWidth="172.0" text="Nuevo Usuario" visible="false" />
    </children>
 </AnchorPane>

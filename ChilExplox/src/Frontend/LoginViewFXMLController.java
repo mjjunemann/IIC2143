@@ -54,7 +54,7 @@ public class LoginViewFXMLController implements Initializable, iController {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+       
     }  
     
     public void setItemsListView(){
@@ -71,6 +71,7 @@ public class LoginViewFXMLController implements Initializable, iController {
     @Override
     public void setChilExploxApp(ChilExploxApp main){
         this.main = main;
+        this.main.getChilExplox().logout();
         setItemsListView();
 
         
@@ -78,11 +79,12 @@ public class LoginViewFXMLController implements Initializable, iController {
 
     @FXML
     private void onEnter(KeyEvent e)
-    {
-            
+    {   
      if(e.getCode().equals(KeyCode.ENTER))
      {
-      this.login();
+
+        this.login();
+
      }
     }
     @FXML

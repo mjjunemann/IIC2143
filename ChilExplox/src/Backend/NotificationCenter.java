@@ -22,13 +22,14 @@ public class NotificationCenter implements java.io.Serializable
   private ArrayList<Notification> solved_notifications;
   EventListenerList listeners = new EventListenerList();
   ChilExplox main;
+  Timer timer;
   
   
   public NotificationCenter(ChilExplox main){
       this.main = main;
       this.unsolved_notifications = new ArrayList<>();
       this.solved_notifications = new ArrayList<>();
-      Timer timer = new Timer();
+      timer = new Timer();
       timer.schedule(new NotificationTask(), 0, 10000);
       
   }
@@ -107,7 +108,10 @@ public class NotificationCenter implements java.io.Serializable
   }
   
   public void stopTimer(){
-
+      
+      //timer.cancel();
+      //timer.purge();
+              
   }
   
   class NotificationTask extends TimerTask {
