@@ -6,6 +6,7 @@
 package Frontend;
 
 import Backend.*;
+import fxsampler.FXSampler;
 import javafx.application.Application;
 import javafx.fxml.Initializable;
 import javafx.event.ActionEvent;
@@ -188,8 +189,10 @@ public class ChilExploxApp extends Application implements iNotificationListener 
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        
         chilexplox = ChilExplox.getInstance();
         launch(args);
+        //FXSampler.main(args);
     }
     
     public Stage getStage(){

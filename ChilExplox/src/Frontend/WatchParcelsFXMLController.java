@@ -32,6 +32,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.VBox;
+import org.controlsfx.control.BreadCrumbBar;
 
 /**
  * FXML Controller class
@@ -86,8 +87,9 @@ public class WatchParcelsFXMLController implements Initializable , iController {
 
         iFilter tmp2 = new FilterParcelID();
         iFilter tmp3 = new FilterParcelState();
-        VisualFilter tmp_2 = new VisualFilter(tmp2,filteredParcels,selectedToggles);
-        VisualFilter tmp_3 = new VisualFilter(tmp3,filteredParcels,selectedToggles);
+        BreadCrumbBar a = new BreadCrumbBar();
+        VisualFilter tmp_2 = new VisualFilter(tmp2,filteredParcels,selectedToggles,a);
+        VisualFilter tmp_3 = new VisualFilter(tmp3,filteredParcels,selectedToggles,a);
 
         FilterBox.getChildren().add(tmp_2);
         FilterBox.getChildren().add(tmp_3);

@@ -12,7 +12,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Frontend.WatchOrdersViewFXMLController">
    <children>
-      <BorderPane prefHeight="43.0" prefWidth="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <BorderPane fx:id="topBorderPane" prefHeight="43.0" prefWidth="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <left>
             <Button fx:id="returnToSubsidiaryButton" mnemonicParsing="false" onAction="#returnTuSubsidiary" text="Return" BorderPane.alignment="CENTER">
                <BorderPane.margin>
@@ -27,13 +27,6 @@
                </BorderPane.margin>
             </Button>
          </right>
-         <center>
-            <TextField fx:id="searchTextField" onKeyPressed="#onEnter" prefHeight="27.0" prefWidth="275.0" BorderPane.alignment="CENTER">
-               <BorderPane.margin>
-                  <Insets left="250.0" right="10.0" />
-               </BorderPane.margin>
-            </TextField>
-         </center>
       </BorderPane>
       <AnchorPane layoutX="102.0" layoutY="36.0" prefHeight="364.0" prefWidth="581.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="36.0">
          <children>

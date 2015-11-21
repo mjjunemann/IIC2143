@@ -63,5 +63,10 @@ public class FilterOrderTotal implements iFilter<Order,String>{
             });
             return list;
     }
-    
+    @Override
+    public String toString()
+    {
+        return "TOTAL";
+    }
+
 }

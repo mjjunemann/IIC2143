@@ -5,7 +5,6 @@
  */
 package Backend.Filter;
 
-import Backend.Order;
 import Backend.iFilter;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -14,21 +13,11 @@ import javafx.collections.transformation.FilteredList;
  *
  * @author matia
  */
-public class FilterOrderID implements iFilter<Order,String> {
+public class FilterReset implements iFilter{
     String last_param;
-    @Override
-    public ObservableList Filter(FilteredList<Order> list, String param) {
-        last_param = param;
-        list.setPredicate(o-> 
-                
-        {
-            return param.equals(o.getId());
-        });
-        return list;
-    }
 
     @Override
-    public ObservableList Reset(FilteredList<Order> list) {
+    public ObservableList Reset(FilteredList list) {
         list.setPredicate(o-> 
                 
         {
@@ -38,21 +27,27 @@ public class FilterOrderID implements iFilter<Order,String> {
     }
 
     @Override
-    public ObservableList LastFilter(FilteredList<Order> list) {
-        if (last_param != null){
-        list.setPredicate(o-> 
+    public ObservableList LastFilter(FilteredList list) {
+         list.setPredicate(o-> 
                 
         {
-            return last_param.equals(o.getId());
+            return true;
         });
-        }
         return list;
     }
     @Override
     public String toString()
     {
-        return "ID";
+        return "ALL";
     }
 
-    
+    @Override
+    public ObservableList Filter(FilteredList list, Object param) {
+        list.setPredicate(o-> 
+                
+        {
+            return true;
+        });
+        return list;
+    }
 }
