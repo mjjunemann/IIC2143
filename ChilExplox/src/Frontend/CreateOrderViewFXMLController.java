@@ -248,14 +248,14 @@ public class CreateOrderViewFXMLController implements Initializable, iController
     public void initializeWithoutOrder()
     {
         this.initializeMin();
-        this.order = this.subsidiary.newOrder();
+        this.order = this.subsidiary.newOrder(this.main.getChilExplox().getCurrentUser());
         this.setOrderInfo(this.order);
     }
     
     public void initializeWithClient(Client client)
     {
         this.initializeMin();
-        this.order = this.subsidiary.newOrder();
+        this.order = this.subsidiary.newOrder(this.main.getChilExplox().getCurrentUser());
         this.setOrderInfo(this.order);
         setClient(client);
     }

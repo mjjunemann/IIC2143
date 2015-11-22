@@ -5,12 +5,14 @@
  */
 package Frontend;
 
+import Backend.ArchiveType;
 import Backend.ChilExplox;
 import Backend.Mailbox;
 import Backend.Message;
 import Backend.MessageType;
 import Backend.Order;
 import Backend.Parcel;
+import Backend.Record;
 import Backend.Truck;
 import java.net.URL;
 import java.util.HashMap;
@@ -160,7 +162,12 @@ public class UnloadParcelFXMLController implements Initializable, iController {
                 String content = result.get();
                 Message mail = new Message(origin,destiny, subject, content, 
                                         MessageType.Error);
-        
+                Parcel p = trucksParcelsImgs.get(selectedParcel).parcel;
+                Record r = new Record(ArchiveType.Error, subject+" "+content,
+                            p.getResposable(),
+                            p);
+                p.updateStatusToError();
+                main.getChilExplox().getSubsidiary(truck.getHomeAddress()).addRecord(r);
                 if (mail.getDestinyMailbox() != null){
                     main.getChilExplox().getCurrentSubsidiary().getMailbox().
                         sendMessage(mail);

@@ -5,6 +5,8 @@
  */
 package Backend;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author matia
@@ -14,6 +16,7 @@ public class User extends iPerson implements java.io.Serializable
     public final String username;
     private String password;
     protected String name;
+    private ArrayList<Record> records;
     Role role;
     
     public User(String username,String name,String password)
@@ -22,6 +25,7 @@ public class User extends iPerson implements java.io.Serializable
         this.name = name;
         this.setPassword(password);
         this.role = Role.User;
+        this.records = new ArrayList<>();
     }
     
     public User(String username,String name,String password, Role role)
@@ -30,6 +34,7 @@ public class User extends iPerson implements java.io.Serializable
         this.name = name;
         this.setPassword(password);
         this.role = role;
+        this.records = new ArrayList<>();
     }
 
     //<editor-fold desc="Setter & Getters">
@@ -84,6 +89,16 @@ public class User extends iPerson implements java.io.Serializable
         return this.username;
     }
     
+    public ArrayList<Record> getRecords(){
+        return this.records;
+    }
+    
+    public void addRecord(Record r){
+        if (this.records == null) {
+            this.records = new ArrayList<>();
+        }
+       this.records.add(r);
+    }
 
     
     //</editor-fold>
