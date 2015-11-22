@@ -43,7 +43,7 @@ public class LoginViewFXMLController implements Initializable, iController {
     private TextField passwordTextField; 
 
     @FXML
-    private ListView<String> addressList = new ListView<String>();
+    private ListView<Subsidiary> addressList;
     
     
     ChilExploxApp main;
@@ -58,14 +58,10 @@ public class LoginViewFXMLController implements Initializable, iController {
     }  
     
     public void setItemsListView(){
-        ObservableList<String> addressStringList = 
-                FXCollections.observableArrayList();
-        ArrayList<Address> subsidiariesAddress = 
-                this.main.getChilExplox().getSubsidiariesAddress();
-        for (Address address : subsidiariesAddress) {
-            addressStringList.add(address.getAddress());
-        }
-        addressList.setItems(addressStringList);  
+        ObservableList<Subsidiary> addressSubsidiariesList = 
+                FXCollections.observableArrayList(
+                        this.main.getChilExplox().getEnabledSubsidiaries());
+        addressList.setItems(addressSubsidiariesList);  
     }
     
     @Override
@@ -104,9 +100,9 @@ public class LoginViewFXMLController implements Initializable, iController {
     
     private void loginAsClient(){
         String rut = rutTextField.getText();
-        int positionSelected = addressList.getSelectionModel().getSelectedIndex();
-        if (positionSelected >= 0){
-            Address address = this.main.getChilExplox().getSubsidiariesAddress().get(positionSelected);
+        Subsidiary subsidiary_selected = addressList.getSelectionModel().getSelectedItem();
+        if (subsidiary_selected != null){
+            Address address = subsidiary_selected.getAddr();
             if (this.main.getChilExplox().loginClient(rut, address)){
                 this.main.changeScene("ClientViewFXML.fxml", ClientViewFXMLController.class);
             }
@@ -117,9 +113,9 @@ public class LoginViewFXMLController implements Initializable, iController {
     {
       String username = usernameTextField.getText();
         String password = passwordTextField.getText();
-        int positionSelected = addressList.getSelectionModel().getSelectedIndex();
-        if (positionSelected >= 0){
-            Address address = this.main.getChilExplox().getSubsidiariesAddress().get(positionSelected);
+        Subsidiary subsidiary_selected = addressList.getSelectionModel().getSelectedItem();
+        if (subsidiary_selected != null){
+            Address address = subsidiary_selected.getAddr();
             if (this.main.getChilExplox().login(username, password, address)){
                 this.main.changeScene("SubsidiaryViewFXML.fxml", SubsidiaryViewFXMLController.class);
             }

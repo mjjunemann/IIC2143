@@ -114,6 +114,16 @@ public class ChilExplox implements java.io.Serializable
         this.subsidiaries_addrs.add(address);
         this.subsidiaries.put(address,s);
     }
+    
+    public void addSubsidary(Address address, boolean enabled)
+    {
+        Subsidiary s = new Subsidiary(address, 
+                String.valueOf(idSubsidiaryCounter));
+        idSubsidiaryCounter++;
+        this.subsidiaries_addrs.add(address);
+        this.subsidiaries.put(address,s);
+        s.setEnabled(enabled);
+    }
     public boolean addUser(String username, String name, String password)
     {
         if(!this.users.containsKey(username)){
@@ -143,6 +153,21 @@ public class ChilExplox implements java.io.Serializable
     public Subsidiary getCurrentSubsidiary(){
         return this.current_subsidiary;
     }
+    
+    public ArrayList<Subsidiary> getAllSubsidiaries(){
+        return new ArrayList<Subsidiary>(this.subsidiaries.values());
+    }
+    
+    public ArrayList<Subsidiary> getEnabledSubsidiaries(){
+        ArrayList<Subsidiary> enabled_subsidiaries = new ArrayList<Subsidiary>();
+        for (Subsidiary subsidiary: this.subsidiaries.values()){
+            if (subsidiary.getEnabled()){
+                enabled_subsidiaries.add(subsidiary);
+            }
+        }
+        return enabled_subsidiaries;
+    }
+    
     public User getCurrentUser(){
         return this.current_user;
     }

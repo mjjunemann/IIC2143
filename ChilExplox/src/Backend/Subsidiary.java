@@ -22,6 +22,7 @@ public class Subsidiary implements java.io.Serializable
     private NotificationCenter notification_center;
     private String subsidiaryId;
     private int orderIdCounter = 1000;
+    private boolean enabled;
     
     public Subsidiary(Address addr, String id){
         this.subsidiaryId = id;
@@ -32,6 +33,7 @@ public class Subsidiary implements java.io.Serializable
         this.clients = new HashMap();
         this.transport = new HashMap();
         this.arrived = new ArrayList<>(); 
+        this.enabled = true;
         //this.notification_center = new NotificationCenter();
     }
     
@@ -42,6 +44,19 @@ public class Subsidiary implements java.io.Serializable
         }
         return false;
         
+    }
+    
+    public boolean getEnabled(){
+        return this.enabled;
+    }
+    
+    @Override
+    public String toString(){
+        return this.getAddress();
+    }
+    
+    public void setEnabled(boolean bool){
+        this.enabled = bool;
     }
     
     public Map<String,ITransport> getVehicles(){
