@@ -35,8 +35,13 @@ public class Subsidiary implements java.io.Serializable
         //this.notification_center = new NotificationCenter();
     }
     
-    public void addVehicle(ITransport v){
-        transport.put(v.getPlate(),v);
+    public boolean addVehicle(ITransport v){
+        if (!transport.containsKey(v.getPlate())){
+            transport.put(v.getPlate(),v);
+            return true;
+        }
+        return false;
+        
     }
     
     public Map<String,ITransport> getVehicles(){
@@ -46,16 +51,8 @@ public class Subsidiary implements java.io.Serializable
         return this.arrived;
     }
     
-    public ArrayList<Truck> getTrucks(){
-        ArrayList<Truck> trucks = new ArrayList<Truck>();
-        for (ITransport vehicle: this.transport.values()){
-            try{
-                trucks.add((Truck)vehicle);
-            }catch(Exception e){
-                
-            }
-        }
-        return trucks;
+    public ArrayList<ITransport> getTrucks(){
+        return new ArrayList<ITransport>(this.transport.values());
     }
     
     public String getAddress(){
@@ -75,6 +72,11 @@ public class Subsidiary implements java.io.Serializable
                     
         return false;
     }
+    
+    public void removeTruck(Truck truck){
+        this.transport.remove(truck.getPlate());
+    }
+    
     public Order newOrder(){
         String id = subsidiaryId + String.valueOf(orderIdCounter);
         orderIdCounter++;

@@ -30,7 +30,7 @@ public class Truck extends ITransport implements java.io.Serializable{
         home_sub = sub;
         destiny = null;
         type = t;
-        this.driver_rut = "12345678-9";
+        this.driver_rut = "12345678-5";
         this.driver_name = "Juan";
     }
     
@@ -46,8 +46,12 @@ public class Truck extends ITransport implements java.io.Serializable{
         this.driver_name = name;
     }
     
-    public String getDriver(){
+    public String getDriverRut(){
         return this.driver_rut;
+    }
+    
+    public String getDriverName(){
+        return this.driver_name;
     }
     
     public String getPlate(){
@@ -70,7 +74,7 @@ public class Truck extends ITransport implements java.io.Serializable{
         }
     }
     public Type getType(){
-        return type;
+        return this.type;
     }
     public boolean canParcelLoad(Parcel parcel){
         if (destiny == null) {
@@ -149,6 +153,14 @@ public class Truck extends ITransport implements java.io.Serializable{
     @Override
     public int checkSpace(){
         return max_parcels - parcels.size();
+    }
+    
+    public void setSpace(int capacity){
+        this.max_parcels = capacity;
+    }
+    
+    public void setType(Type type){
+        this.type = type;
     }
     
     public State getState(){
