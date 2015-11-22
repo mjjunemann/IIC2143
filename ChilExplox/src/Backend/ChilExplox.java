@@ -161,6 +161,10 @@ public class ChilExplox implements java.io.Serializable
         this.center.addListener(listener);
     }
     
+    public ArrayList<User> getUsers(){
+        return new ArrayList<User>(this.users.values());
+    }
+    
     public void Exit() 
     {
         System.out.print("Closing Bitches Come Back Tomorrow");

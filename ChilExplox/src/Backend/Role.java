@@ -20,13 +20,19 @@ public enum Role {
     
     private String str;
     static {
-        Administrator.str = "Administrator";
-        User.str = "User";
-        Client.str = "Client";
+        Administrator.str = "Administrador";
+        User.str = "Operario";
+        Client.str = "Cliente";
     }
     public String toString(){
         return str;
     }
+    
+    public static Role[] usersValues(){
+        Role[] user_roles = {Role.User, Role.Administrator};
+        return user_roles;
+    }
+    
     public static State lookup(String param)
         {
             for(State state :State.values())

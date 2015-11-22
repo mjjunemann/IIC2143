@@ -14,10 +14,10 @@
       <Button fx:id="viewOrdersButton" layoutX="14.0" layoutY="211.0" mnemonicParsing="false" onAction="#viewOrders" prefHeight="39.0" prefWidth="172.0" text="Ver Ordenes" AnchorPane.bottomAnchor="150.0" AnchorPane.leftAnchor="14.0" />
       <Button fx:id="viewTrucksButton" layoutX="14.0" layoutY="161.0" mnemonicParsing="false" onAction="#watchTrucks" prefHeight="39.0" prefWidth="172.0" text="Ver Camiones" AnchorPane.rightAnchor="414.0" AnchorPane.topAnchor="161.0" />
       <Button fx:id="viewMessagesButton" layoutX="14.0" layoutY="110.0" mnemonicParsing="false" onAction="#openMailbox" prefHeight="39.0" prefWidth="172.0" text="Ver Mensajes" AnchorPane.bottomAnchor="251.0" AnchorPane.rightAnchor="414.0" />
-      <Button fx:id="viewOrdersButton1" layoutX="14.0" layoutY="259.0" mnemonicParsing="false" onAction="#watchParcels" prefHeight="39.0" prefWidth="172.0" text="Ver Encomiendas" />
-      <Button fx:id="viewOrdersButton11" layoutX="408.0" layoutY="347.0" mnemonicParsing="false" onAction="#viewOrders" prefHeight="39.0" prefWidth="172.0" text="Reportes" />
+      <Button fx:id="watchParcelsButton" layoutX="14.0" layoutY="259.0" mnemonicParsing="false" onAction="#watchParcels" prefHeight="39.0" prefWidth="172.0" text="Ver Encomiendas" />
+      <Button fx:id="viewReportsButton" layoutX="408.0" layoutY="347.0" mnemonicParsing="false" onAction="#viewReports" prefHeight="39.0" prefWidth="172.0" text="Reportes" />
       <Button fx:id="newTruckButton" layoutX="408.0" layoutY="259.0" mnemonicParsing="false" onAction="#createNewTruck" prefHeight="39.0" prefWidth="172.0" text="Nuevo Camion" visible="false" />
       <Button fx:id="newSubsidiaryButton" layoutX="408.0" layoutY="211.0" mnemonicParsing="false" onAction="#createNewSubsidiary" prefHeight="39.0" prefWidth="172.0" text="Nueva Sucursal" visible="false" />
-      <Button fx:id="newUserButton" layoutX="408.0" layoutY="161.0" mnemonicParsing="false" onAction="#createNewUser" prefHeight="39.0" prefWidth="172.0" text="Nuevo Usuario" visible="false" />
+      <Button fx:id="newUserButton" layoutX="408.0" layoutY="161.0" mnemonicParsing="false" onAction="#createNewUser" prefHeight="39.0" prefWidth="172.0" text=" Nuevo Usuario" visible="false" />
    </children>
 </AnchorPane>

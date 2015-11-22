@@ -72,6 +72,10 @@ public class User extends iPerson implements java.io.Serializable
         return this.role;
     }
     
+    public String getUsername(){
+        return this.username;
+    }
+    
     /**
      * This method takes a user and changes the role of the user
      * @param user

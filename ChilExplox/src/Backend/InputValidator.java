@@ -80,6 +80,21 @@ public class InputValidator {
         }
     }
     
+    private static final Pattern VALID_NORMAL_STRING_REGEX = 
+            Pattern.compile("^[A-Z0-9._%+-]+$", 
+                    Pattern.CASE_INSENSITIVE);
+    
+    public static boolean CheckNormalString(String text) throws Exception{
+        Matcher matcher = VALID_NORMAL_STRING_REGEX .matcher(text);
+        if (matcher.find()){
+            return true;
+        }
+        else{
+            throw new Exception
+                ("Debe ingresar un texto valido");
+        }
+    }
+    
     /*
     Verifies if is a valid email
     */

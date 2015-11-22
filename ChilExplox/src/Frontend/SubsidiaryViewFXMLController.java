@@ -50,6 +50,10 @@ public class SubsidiaryViewFXMLController implements Initializable, iController 
     private Button newSubsidiaryButton;
     @FXML
     private Button newTruckButton;
+    @FXML
+    private Button watchParcelsButton;
+    @FXML
+    private Button viewReportsButton;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -126,6 +130,7 @@ public class SubsidiaryViewFXMLController implements Initializable, iController 
 
     @FXML
     private void createNewUser(ActionEvent event) {
+        main.changeScene("ModifyUsersViewFXML.fxml", ModifyUsersViewFXMLController.class);
     }
 
     @FXML
@@ -134,6 +139,10 @@ public class SubsidiaryViewFXMLController implements Initializable, iController 
 
     @FXML
     private void createNewTruck(ActionEvent event) {
+    }
+
+    @FXML
+    private void viewReports(ActionEvent event) {
     }
     
     

@@ -6,7 +6,8 @@
 package Frontend;
 
 import javafx.scene.control.Alert;
-
+import javafx.scene.control.ButtonType;
+import java.util.*;
 /**
  *
  * @author guillermofigueroa
@@ -35,4 +36,20 @@ public class ShowAlert {
          dlg.setContentText(e.toString());
          dlg.showAndWait();   
     }
+    
+    public static boolean confirmation(String title, String message){
+        Alert dlg = new Alert(Alert.AlertType.CONFIRMATION);
+         dlg.setTitle(title);
+         dlg.setContentText(message);
+         final Optional<ButtonType> result = dlg.showAndWait();
+         return result.get() == ButtonType.OK;
+    }
+    
+    public static void message(String title, String message){
+        Alert dlg = new Alert(Alert.AlertType.INFORMATION);
+         dlg.setTitle(title);
+         dlg.setContentText(message);
+         dlg.showAndWait();
+    }
+    
 }

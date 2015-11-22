@@ -8,7 +8,7 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="ChilExplox.jar" size="562959" download="eager" />
+    <jar href="ChilExplox.jar" size="567082" download="eager" />
     <jar href="lib/controlsfx-8.40.11-20151104.010712-48.jar" size="928852" download="eager" />
     <jar href="lib/controlsfx-samples-8.40.11-20151104.010740-37.jar" size="639677" download="eager" />
     <jar href="lib/fxsampler-1.0.9-20151105.010737-1.jar" size="30899" download="eager" />
