@@ -183,19 +183,19 @@ public class ModifySubsidiariesViewFXMLController implements Initializable, iCon
     }
     
     private boolean checkSubsidiaryInputs(){
-        if (street.getText() == null){
+        if (street.getText().isEmpty()){
             ShowAlert.alertWithFieldAndMessage("Calle", "Debe ingresar una calle");
            return false; 
         }
-        if (number.getText() == null){
+        if (number.getText().isEmpty()){
             ShowAlert.alertWithFieldAndMessage("Numero", "Debe ingresar un numero");
             return false;
         }
-        if (neighborhood.getText() == null){
+        if (neighborhood.getText().isEmpty()){
             ShowAlert.alertWithFieldAndMessage("Comuna", "Debe ingresar una comuna");
             return false;
         }
-        if (city.getText() == null){
+        if (city.getText().isEmpty()){
             ShowAlert.alertWithFieldAndMessage("Ciudad", "Debe ingresar una ciudad");
             return false;
         }

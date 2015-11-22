@@ -99,6 +99,7 @@ public class LoginViewFXMLController implements Initializable, iController {
     }
     
     private void loginAsClient(){
+        if (checkClientLoginInputs()){
         String rut = rutTextField.getText();
         Subsidiary subsidiary_selected = addressList.getSelectionModel().getSelectedItem();
         if (subsidiary_selected != null){
@@ -106,11 +107,23 @@ public class LoginViewFXMLController implements Initializable, iController {
             if (this.main.getChilExplox().loginClient(rut, address)){
                 this.main.changeScene("ClientViewFXML.fxml", ClientViewFXMLController.class);
             }
+            else{
+                ShowAlert.alertWithFieldAndMessage(
+                    "login", 
+                    "no existe este cliente en la sucursal");
+            }
         } 
+        else{
+            ShowAlert.alertWithFieldAndMessage(
+                    "sucursal", 
+                    "debe ingresar una sucursal");
+        }
+        }
     }
     
     private void loginAsUser()
     {
+        if (checkUserLoginInputs()){
       String username = usernameTextField.getText();
         String password = passwordTextField.getText();
         Subsidiary subsidiary_selected = addressList.getSelectionModel().getSelectedItem();
@@ -119,7 +132,18 @@ public class LoginViewFXMLController implements Initializable, iController {
             if (this.main.getChilExplox().login(username, password, address)){
                 this.main.changeScene("SubsidiaryViewFXML.fxml", SubsidiaryViewFXMLController.class);
             }
-        }  
+            else{
+                ShowAlert.alertWithFieldAndMessage(
+                    "login", 
+                    "usuario o contraseña invalido");
+            }
+        } 
+        else{
+            ShowAlert.alertWithFieldAndMessage(
+                    "sucursal", 
+                    "debe seleccionar una sucursal");
+        }
+        }
     }
 
     @FXML
@@ -136,6 +160,33 @@ public class LoginViewFXMLController implements Initializable, iController {
         rutTextField.setVisible(true);
         usernameTextField.setVisible(false);
         passwordTextField.setVisible(false);
+    }
+    
+    private boolean checkUserLoginInputs(){
+        if (usernameTextField.getText().isEmpty()){
+            ShowAlert.alertWithFieldAndMessage(
+                    "usuario",
+                    "debe ingresar un usuario");
+            return false;
+        }
+        if (passwordTextField.getText().isEmpty()){
+            ShowAlert.alertWithFieldAndMessage(
+                    "contraseña",
+                    "debe ingresar una contraseña");
+            return false;
+        }
+        return true;
+    }
+    
+    
+    private boolean checkClientLoginInputs(){
+        if (rutTextField.getText().isEmpty()){
+            ShowAlert.alertWithFieldAndMessage(
+                    "rut",
+                    "debe ingresar un rut");
+            return false;
+        }
+        return true;
     }
     
 }

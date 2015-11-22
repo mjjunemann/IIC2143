@@ -120,25 +120,25 @@ public class ModifyUsersViewFXMLController implements Initializable, iController
     }
     
     private boolean checkUserInputs(){
-        if (name.getText() == null){
+        if (name.getText().isEmpty()){
             ShowAlert.alertWithFieldAndMessage(
                     "Nombre", 
                     "Ingrese un nombre");
             return false;
         }
-        if (user.getText() == null){
+        if (user.getText().isEmpty()){
             ShowAlert.alertWithFieldAndMessage(
                     "Usuario", 
                     "Ingrese un usuario");
             return false;
         }
-        if (password.getText() == null){
+        if (password.getText().isEmpty()){
             ShowAlert.alertWithFieldAndMessage(
                     "Contraseña", 
                     "Ingrese una contraseña");
             return false;
         }
-        if (repeated_password.getText() == null){
+        if (repeated_password.getText().isEmpty()){
             ShowAlert.alertWithFieldAndMessage(
                     "Repetición contraseña", 
                     "Repita la contraseña");

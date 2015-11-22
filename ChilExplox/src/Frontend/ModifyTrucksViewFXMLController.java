@@ -258,24 +258,24 @@ public class ModifyTrucksViewFXMLController implements Initializable, iControlle
     
     
     private boolean checkTruckInputs(){
-        if (license_plate.getText() == null){
+        if (license_plate.getText().isEmpty()){
             ShowAlert.alertWithFieldAndMessage(
                     "patente",
                     "debe ingresar patente");
             return false;
         }
-        if (capacity.getText() == null){
+        if (capacity.getText().isEmpty()){
             ShowAlert.alertWithFieldAndMessage(
                     "capacidad",
                     "debe ingresar la capacidad del camión");
             return false;
         }
-        if (driver_name.getText() == null){
+        if (driver_name.getText().isEmpty()){
             ShowAlert.alertWithFieldAndMessage(
                     "nombre del conductor","debe ingresar un nombre");
             return false;
         }
-        if (driver_rut.getText() == null){
+        if (driver_rut.getText().isEmpty()){
             ShowAlert.alertWithFieldAndMessage(
                     "rut del conductor","debe ingresar un rut");
             return false;
