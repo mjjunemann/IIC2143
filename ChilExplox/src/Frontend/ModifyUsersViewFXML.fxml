@@ -8,24 +8,24 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="458.0" prefWidth="687.0" styleClass="background" stylesheets="@../stylesheets/win7glass.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Frontend.ModifyUsersViewFXMLController">
+<AnchorPane id="AnchorPane" prefHeight="459.0" prefWidth="717.0" styleClass="background" stylesheets="@../stylesheets/win7glass.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Frontend.ModifyUsersViewFXMLController">
    <children>
       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="56.0" prefWidth="496.0">
          <children>
-            <ToolBar layoutX="-1.0" prefHeight="49.0" prefWidth="684.0" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="-187.0" AnchorPane.topAnchor="0.0">
+            <ToolBar layoutX="-1.0" prefHeight="49.0" prefWidth="717.0" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="-220.0" AnchorPane.topAnchor="0.0">
                <items>
-                  <HBox alignment="CENTER" prefHeight="44.0" prefWidth="91.0" spacing="8.0">
+                  <HBox alignment="CENTER" prefHeight="37.0" prefWidth="115.0" spacing="8.0">
                      <children>
-                        <Button fx:id="returnButton" mnemonicParsing="false" onAction="#returnToSubsidiary" prefHeight="33.0" prefWidth="92.0" text="Volver" />
+                        <Button fx:id="returnButton" mnemonicParsing="false" onAction="#returnToSubsidiary" prefHeight="33.0" prefWidth="116.0" text="Volver" />
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER_RIGHT" prefHeight="44.0" prefWidth="455.0" spacing="8.0" />
+                  <HBox alignment="CENTER_RIGHT" prefHeight="37.0" prefWidth="421.0" spacing="8.0" />
                   <Button fx:id="newUserButton" mnemonicParsing="false" onAction="#newUser" text="Nuevo Usuario" />
                </items>
             </ToolBar>
          </children>
       </AnchorPane>
-      <SplitPane dividerPositions="0.5255474452554745" layoutX="-1.0" layoutY="46.0" prefHeight="413.0" prefWidth="689.0">
+      <SplitPane dividerPositions="0.497907949790795" layoutX="-1.0" layoutY="46.0" prefHeight="413.0" prefWidth="717.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="403.0" prefWidth="582.0">
                <children>
@@ -38,7 +38,7 @@
                   </TableView>
                </children>
             </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="420.0" prefWidth="321.0" styleClass="background">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="412.0" prefWidth="358.0" styleClass="background">
                <children>
                   <Button fx:id="saveUserButton" layoutX="186.0" layoutY="370.0" mnemonicParsing="false" onAction="#saveUser" text="Guardar Usuario" />
                   <Button fx:id="removeUserButton" layoutX="14.0" layoutY="370.0" mnemonicParsing="false" onAction="#removeUser" text="Eliminar Usuario" />

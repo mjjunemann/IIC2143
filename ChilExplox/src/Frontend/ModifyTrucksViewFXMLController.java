@@ -143,6 +143,7 @@ public class ModifyTrucksViewFXMLController implements Initializable, iControlle
                 FXCollections.observableArrayList(
                         this.main.getChilExplox().getCurrentSubsidiary().getTrucks());
         trucksTableView.setItems(trucks);
+        trucksTableView.refresh();
     }
     
     @FXML

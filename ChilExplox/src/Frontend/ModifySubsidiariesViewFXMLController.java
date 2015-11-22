@@ -119,6 +119,7 @@ public class ModifySubsidiariesViewFXMLController implements Initializable, iCon
                 FXCollections.observableArrayList(
                         this.main.getChilExplox().getAllSubsidiaries());
         subsidiariesTableView.setItems(subsidiaries);
+        subsidiariesTableView.refresh();
     }
 
     private void setFieldsWithSubsidiary(Subsidiary sub){
