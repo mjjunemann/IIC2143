@@ -23,6 +23,7 @@ public class ChilExplox implements java.io.Serializable
     int idSubsidiaryCounter = 1000;
     private NotificationCenter center;
     public boolean clientLogged = false;
+    private transient Timer timer;
     
     private iPerson current_logged = null;
     
@@ -33,7 +34,7 @@ public class ChilExplox implements java.io.Serializable
         this.subsidiaries = new HashMap();
         this.subsidiaries_addrs = new ArrayList<>();
         
-        //this.center = new NotificationCenter(this);
+        this.center = new NotificationCenter(this);
         
         
         // Here could be a static class that take cares of loading the information
@@ -182,8 +183,17 @@ public class ChilExplox implements java.io.Serializable
     
     
     public void startNotifying(iNotificationListener listener){
+        stopNotifying();
+        this.timer = this.center.initializeTimer();
         this.center.cleanListener();
         this.center.addListener(listener);
+    }
+    
+    public void stopNotifying(){
+        if (this.timer != null){
+            this.timer.cancel();
+            this.timer.purge();
+        }
     }
     
     public ArrayList<User> getUsers(){
@@ -208,7 +218,8 @@ public class ChilExplox implements java.io.Serializable
     public void Exit() 
     {
         System.out.print("Closing Bitches Come Back Tomorrow");
-        //this.center.stopTimer();
+        stopNotifying();
+        
         Loader.saveApp(this);
         
     }

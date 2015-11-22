@@ -73,7 +73,7 @@ public class ChilExploxApp extends Application implements iNotificationListener 
             controller = loader.getController();
             controller.setChilExploxApp(this);
 
-            //chilexplox.startNotifying(this);
+            chilexplox.startNotifying(this);
             
             Scene sceneLogin = new Scene(page);
             stage.setScene(sceneLogin);

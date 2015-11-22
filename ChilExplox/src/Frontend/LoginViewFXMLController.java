@@ -69,7 +69,6 @@ public class LoginViewFXMLController implements Initializable, iController {
         this.main = main;
         this.main.getChilExplox().logout();
         setItemsListView();
-
         
     }
 
