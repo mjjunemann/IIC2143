@@ -300,7 +300,8 @@ public class Parcel implements java.io.Serializable
         return (Parcel p) -> new Observable[]{p.weightProperty(),p.volumeProperty(),
             p.priorityProperty(),p.originProperty(),
             p.destinationProperty(),p.idProperty(),
-            p.stateProperty(),p.typeProperty(),p.orderProperty()
+            p.stateProperty(),p.typeProperty(),p.orderProperty(),
+            p.responsableProperty(),p.recordsProperty()
         };
     }
     
@@ -320,6 +321,9 @@ public class Parcel implements java.io.Serializable
       oos.writeObject(getState());
       oos.writeObject(getType());
       oos.writeObject(getOrder());
+      oos.writeObject(getResposable());
+      oos.writeObject(getRecords());
+
       }
 
     private void readObject(ObjectInputStream ois)
@@ -339,5 +343,7 @@ public class Parcel implements java.io.Serializable
         this.setState((State) ois.readObject());
         this.setType((Type) ois.readObject());
         this.setOrder((Order) ois.readObject());
+        this.setResponsable((User) ois.readObject());
+        this.setRecords((ArrayList<Record>) ois.readObject());
     }
 }   

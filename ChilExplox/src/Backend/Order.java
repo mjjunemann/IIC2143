@@ -348,7 +348,7 @@ public class Order implements java.io.Serializable
         return (Order o) -> new Observable[]
         {
          o.saleDateProperty(),o.clientProperty(),o.deliveryDateProperty(),o.stateProperty(),
-            o.totalProperty(),o.orderIdProperty(),o.parcelProperty()
+            o.totalProperty(),o.orderIdProperty(),o.parcelProperty(),o.responsableProperty()
         };
     }
     
@@ -365,6 +365,7 @@ public class Order implements java.io.Serializable
       oos.writeObject(this.getClient());
       oos.writeObject(this.getTotal());
       oos.writeObject(this.getState());
+      oos.writeObject(this.getResponsable());
       
       
       }
@@ -385,6 +386,7 @@ public class Order implements java.io.Serializable
         this.setClient((Client)ois.readObject());
         this.setTotal((Float)ois.readObject());
         this.setState((State)ois.readObject());
+        this.setResponsable((User) ois.readObject());
     }
 
     public void cancelSave() {

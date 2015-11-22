@@ -12,7 +12,7 @@ import java.util.Date;
  * @author Fernando
  */
 
-public class Record {
+public class Record implements java.io.Serializable{
     
     private ArchiveType type;
     private String content;

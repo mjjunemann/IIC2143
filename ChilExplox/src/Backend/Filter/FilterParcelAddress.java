@@ -27,10 +27,10 @@ public class FilterParcelAddress implements iFilter<Parcel,String>{
     public ObservableList Filter(FilteredList<Parcel> list, String param) {
         last_param = Pattern.compile(param, 
                     Pattern.CASE_INSENSITIVE);
-        list.setPredicate(o->
+        list.setPredicate((Parcel o)->
         {
-            m = last_param.matcher(o.getDestination().toString());
-            return m.find();
+            m = last_param.matcher(o.getDestination().getAddress());
+            return (m.find());
         });
         return list;
     }
@@ -51,7 +51,7 @@ public class FilterParcelAddress implements iFilter<Parcel,String>{
         list.setPredicate(o-> 
                 
         {
-            m = last_param.matcher(o.getDestination().toString());
+            m = last_param.matcher(o.getDestination().getAddress());
             return m.find();
         });
         }
