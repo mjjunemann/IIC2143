@@ -195,10 +195,13 @@ public class WatchOrdersViewFXMLController implements Initializable, iController
                 System.out.print(event.getSelectedCrumb());
                 if (event.getSelectedCrumb().getValue().filter.getClass().equals(FilterReset.class))
                 {
+                    event.getSelectedCrumb().getValue().resetToLeaf(event.getSelectedCrumb());
+
                     event.getSelectedCrumb().getValue().ResetFilter();
                 }
                 else
                 {
+                    event.getSelectedCrumb().getValue().resetToLeaf(event.getSelectedCrumb());
                     event.getSelectedCrumb().getValue().filterSelectedCrumb(event.getSelectedCrumb());
                 }
                 
@@ -209,15 +212,23 @@ public class WatchOrdersViewFXMLController implements Initializable, iController
         //testBar.autoNavigationEnabledProperty().setValue(Boolean.TRUE);
         testBar.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
         
-        testBar.setSelectedCrumb(BreadCrumbBar.buildTreeModel(initializeResetFilter()));
+        testBar.selectedCrumbProperty().set(initializeResetFilter());
         
         
     }
-    private VisualFilter initializeResetFilter()
+    private TreeItem initializeResetFilter()
     {
         iFilter reset = new FilterReset();
         VisualFilter tmp = new VisualFilter(reset,filteredOrders,new ArrayList<>(),testBar);
-        return tmp;
+        TreeItem tmp2 = new TreeItem<VisualFilter>(tmp)
+        {
+          @Override 
+          public String toString()
+          {
+            return this.getValue().toString();
+          }
+        };
+        return tmp2;
     }
     private void initializeOrderTable()
     {

@@ -97,6 +97,7 @@ public class VisualFilter extends ToggleSwitch{
             {
                 selected.remove(me);
                 filterSelected();
+                //_removeCrumb();
             }
             
             //setSelected(!isSelected());
@@ -124,10 +125,9 @@ public class VisualFilter extends ToggleSwitch{
     }
     
     private void addCrumb()
-    {   
-        this.bar.getSelectedCrumb().getChildren().add(crumb);
-        this.bar.setSelectedCrumb(crumb);
-        
+    {
+        this.bar.getSelectedCrumb().getChildren().add(this.crumb);
+        this.bar.selectedCrumbProperty().set(this.crumb);   
     }
     public void ResetFilter()
     {
@@ -137,10 +137,56 @@ public class VisualFilter extends ToggleSwitch{
     {
         TreeItem tmp = this.bar.getSelectedCrumb().getParent();
         this.bar.setSelectedCrumb(tmp);
+        this.crumb.getParent().setValue(null);
+        this.crumb.getChildren().clear();
     }
     
     protected void resetToDeactivate()
     {
         this.selectedProperty().set(false);    
+    }
+    
+    protected void _removeCrumb()
+    {
+        TreeItem parent = this.crumb.getParent();
+        System.out.print(parent);
+        System.out.print(parent.getChildren());
+        System.out.print(this.crumb.getChildren());
+        TreeItem child = null;
+        if (!this.crumb.isLeaf())
+        {
+            System.out.print("ENTRE MIERDA");
+            
+            child = (TreeItem) this.crumb.getChildren().get(0);
+            this.crumb.getParent().getChildren().add(child);   
+            System.out.print(child.getParent());
+        }
+        parent.getChildren().remove(this.crumb);
+        this.crumb.getChildren().clear();
+        //TreeItem algo = getLeaf(parent);
+        //System.out.print(algo);
+        //this.bar.setSelectedCrumb(child);
+        this.bar.selectedCrumbProperty().set(this.bar.selectedCrumbProperty().get());
+        this.resetToDeactivate();
+        //this.bar.setSelectedCrumb((TreeItem) this.bar.getSelectedCrumb());
+    }
+    private TreeItem getLeaf(TreeItem parent)
+    {
+        do
+        {
+            if (!parent.isLeaf())
+                parent = (TreeItem) parent.getChildren().get(0);    
+        }while(!parent.isLeaf());
+        return parent;
+    }
+    public void resetToLeaf(TreeItem parent)
+    {
+        do
+        {
+            parent = (TreeItem) parent.getChildren().get(0);
+            ((VisualFilter) parent.getValue()).resetToDeactivate();
+            
+        }while(!parent.isLeaf());
+        
     }
 }   
