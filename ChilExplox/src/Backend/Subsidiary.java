@@ -46,6 +46,18 @@ public class Subsidiary implements java.io.Serializable
         return this.arrived;
     }
     
+    public ArrayList<Truck> getTrucks(){
+        ArrayList<Truck> trucks = new ArrayList<Truck>();
+        for (ITransport vehicle: this.transport.values()){
+            try{
+                trucks.add((Truck)vehicle);
+            }catch(Exception e){
+                
+            }
+        }
+        return trucks;
+    }
+    
     public String getAddress(){
         return subsidiary_address.getAddress();
     }
