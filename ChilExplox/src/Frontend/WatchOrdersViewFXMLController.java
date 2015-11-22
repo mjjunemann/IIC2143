@@ -192,7 +192,6 @@ public class WatchOrdersViewFXMLController implements Initializable, iController
             public void handle(BreadCrumbBar.BreadCrumbActionEvent<VisualFilter> event) 
             {
                 
-                System.out.print(event.getSelectedCrumb());
                 if (event.getSelectedCrumb().getValue().filter.getClass().equals(FilterReset.class))
                 {
                     event.getSelectedCrumb().getValue().resetToLeaf(event.getSelectedCrumb());

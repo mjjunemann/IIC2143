@@ -8,6 +8,8 @@ package Backend.Filter;
 import Backend.Address;
 import Backend.Parcel;
 import Backend.iFilter;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
@@ -15,21 +17,50 @@ import javafx.collections.transformation.FilteredList;
  *
  * @author matia
  */
-public class FilterParcelAddress implements iFilter<Parcel,Address>{
+public class FilterParcelAddress implements iFilter<Parcel,String>{
 
+    private Pattern stringCmp;
+            
+    Pattern last_param;
+    Matcher m;
     @Override
-    public ObservableList Filter(FilteredList<Parcel> list, Address param) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public ObservableList LastFilter(FilteredList<Parcel> list) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ObservableList Filter(FilteredList<Parcel> list, String param) {
+        last_param = Pattern.compile(param, 
+                    Pattern.CASE_INSENSITIVE);
+        list.setPredicate(o->
+        {
+            m = last_param.matcher(o.getDestination().toString());
+            return m.find();
+        });
+        return list;
     }
 
     @Override
     public ObservableList Reset(FilteredList<Parcel> list) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        list.setPredicate(o-> 
+                
+        {
+            return true;
+        });
+        return list;
+    }
+
+    @Override
+    public ObservableList LastFilter(FilteredList<Parcel> list) {
+        if (last_param != null){
+        list.setPredicate(o-> 
+                
+        {
+            m = last_param.matcher(o.getDestination().toString());
+            return m.find();
+        });
+        }
+        return list;
+    }
+    @Override
+    public String toString()
+    {
+        return "DESTINATION";
     }
     
 }

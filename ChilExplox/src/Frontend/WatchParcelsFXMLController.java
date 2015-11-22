@@ -9,6 +9,7 @@ import Backend.Address;
 import Backend.Filter.FilterOrderID;
 import Backend.Filter.FilterOrderState;
 import Backend.Filter.FilterOrderTotal;
+import Backend.Filter.FilterParcelAddress;
 import Backend.Filter.FilterParcelID;
 import Backend.Filter.FilterParcelOrderId;
 import Backend.Filter.FilterParcelState;
@@ -100,18 +101,24 @@ public class WatchParcelsFXMLController implements Initializable , iController {
         iFilter tmp3 = new FilterParcelState();
         iFilter tmp4 = new FilterParcelType();
         iFilter tmp5 = new FilterParcelOrderId();
+        iFilter tmp6 = new FilterParcelAddress();
+
         
         
         VisualFilter tmp_2 = new VisualFilter(tmp2,filteredParcels,selectedToggles,testBar);
         VisualFilter tmp_3 = new VisualFilter(tmp3,filteredParcels,selectedToggles,testBar);
         VisualFilter tmp_4 = new VisualFilter(tmp4,filteredParcels,selectedToggles,testBar);
         VisualFilter tmp_5 = new VisualFilter(tmp5,filteredParcels,selectedToggles,testBar);
+        VisualFilter tmp_6 = new VisualFilter(tmp6,filteredParcels,selectedToggles,testBar);
+
 
         
         FilterBox.getChildren().add(tmp_2);
         FilterBox.getChildren().add(tmp_3);
         FilterBox.getChildren().add(tmp_4);
         FilterBox.getChildren().add(tmp_5);
+        FilterBox.getChildren().add(tmp_6);
+
 
     }
     private void initializeParcelTable()
@@ -144,7 +151,6 @@ public class WatchParcelsFXMLController implements Initializable , iController {
             public void handle(BreadCrumbBar.BreadCrumbActionEvent<VisualFilter> event) 
             {
                 
-                System.out.print(event.getSelectedCrumb());
                 if (event.getSelectedCrumb().getValue().filter.getClass().equals(FilterReset.class))
                 {
                     event.getSelectedCrumb().getValue().resetToLeaf(event.getSelectedCrumb());
