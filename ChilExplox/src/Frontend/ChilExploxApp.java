@@ -42,49 +42,7 @@ public class ChilExploxApp extends Application implements iNotificationListener 
         this.stage.setOnCloseRequest(e->chilexplox.Exit());
         System.out.println(com.sun.javafx.runtime.VersionInfo.getRuntimeVersion());
         
-        /*
-        //We add two Subsidiaries to ChilExplox and a User
-        Address addr = new Address("Amapolas",1500,"Providencia","Santiago");
-        Address addr2 = new Address("Hernando de Aguirre",1133,
-                "Providencia","Santiago");
-        Address addr3 = new Address("Cumbre San Juan",12496,
-                "Las Condes","Santiago");
-
-        chilexplox.addSubsidary(addr);
-        chilexplox.addSubsidary(addr2);
-        chilexplox.addSubsidary(addr3);
-        chilexplox.addUser("admin", "Administrador", "admin", Role.Administrator);
-        chilexplox.addUser("fdoflorenzano", "Fernando", "blorg");
-        chilexplox.addUser("user", "Usuario", "user");
-        
-        Truck t1 = new Truck("ER-3434",45,Type.Normal,chilexplox.getSubsidiary(addr));
-        chilexplox.getSubsidiary(addr).addVehicle(t1);
-        Truck t2 = new Truck("FH-1288",20,Type.Fragile, chilexplox.getSubsidiary(addr));
-        chilexplox.getSubsidiary(addr).addVehicle(t2);
-        Truck t3 = new Truck("GH-2188",2,Type.Radioactive, chilexplox.getSubsidiary(addr));
-        chilexplox.getSubsidiary(addr).addVehicle(t3);
-        Truck t4 = new Truck("FT-1348",10,Type.Refrigerated, chilexplox.getSubsidiary(addr));
-        chilexplox.getSubsidiary(addr).addVehicle(t4);
-        
-        t1 = new Truck("TH-3434",45,Type.Normal,chilexplox.getSubsidiary(addr2));
-        chilexplox.getSubsidiary(addr2).addVehicle(t1);
-        t2 = new Truck("QW-1288",20,Type.Fragile, chilexplox.getSubsidiary(addr2));
-        chilexplox.getSubsidiary(addr2).addVehicle(t2);
-        t3 = new Truck("ER-1288",2,Type.Radioactive, chilexplox.getSubsidiary(addr2));
-        chilexplox.getSubsidiary(addr2).addVehicle(t3);
-        t4 = new Truck("TY-1288",10,Type.Refrigerated, chilexplox.getSubsidiary(addr2));
-        chilexplox.getSubsidiary(addr2).addVehicle(t4);
-        
-        t1 = new Truck("AA-3434",45,Type.Normal,chilexplox.getSubsidiary(addr3));
-        chilexplox.getSubsidiary(addr3).addVehicle(t1);
-        t2 = new Truck("AB-1288",20,Type.Fragile, chilexplox.getSubsidiary(addr3));
-        chilexplox.getSubsidiary(addr3).addVehicle(t2);
-        t3 = new Truck("AC-1288",2,Type.Radioactive, chilexplox.getSubsidiary(addr3));
-        chilexplox.getSubsidiary(addr3).addVehicle(t3);
-        t4 = new Truck("BT-1288",10,Type.Refrigerated, chilexplox.getSubsidiary(addr3));
-        chilexplox.getSubsidiary(addr3).addVehicle(t4);
-        
-        */
+        //poblateApp();
         
         this.changeScene("LoginViewFXML.fxml", LoginViewFXMLController.class);
 
@@ -146,6 +104,50 @@ public class ChilExploxApp extends Application implements iNotificationListener 
                     "Se debe enviar encomienda",
                     contenido);
         });
+    }
+    
+    private void poblateApp(){
+        //We add two Subsidiaries to ChilExplox and a User
+        Address addr = new Address("Amapolas",1500,"Providencia","Santiago");
+        Address addr2 = new Address("Hernando de Aguirre",1133,
+                "Providencia","Santiago");
+        Address addr3 = new Address("Cumbre San Juan",12496,
+                "Las Condes","Santiago");
+
+        chilexplox.addSubsidary(addr);
+        chilexplox.addSubsidary(addr2);
+        chilexplox.addSubsidary(addr3);
+        chilexplox.addUser("admin", "Administrador", "admin", Role.Administrator);
+        chilexplox.addUser("fdoflorenzano", "Fernando", "blorg");
+        chilexplox.addUser("user", "Usuario", "user");
+        
+        Truck t1 = new Truck("ER3434",45,Type.Normal,chilexplox.getSubsidiary(addr));
+        chilexplox.getSubsidiary(addr).addVehicle(t1);
+        Truck t2 = new Truck("FH1288",20,Type.Fragile, chilexplox.getSubsidiary(addr));
+        chilexplox.getSubsidiary(addr).addVehicle(t2);
+        Truck t3 = new Truck("GH2188",2,Type.Radioactive, chilexplox.getSubsidiary(addr));
+        chilexplox.getSubsidiary(addr).addVehicle(t3);
+        Truck t4 = new Truck("FT1348",10,Type.Refrigerated, chilexplox.getSubsidiary(addr));
+        chilexplox.getSubsidiary(addr).addVehicle(t4);
+        
+        t1 = new Truck("TH3434",45,Type.Normal,chilexplox.getSubsidiary(addr2));
+        chilexplox.getSubsidiary(addr2).addVehicle(t1);
+        t2 = new Truck("QW1288",20,Type.Fragile, chilexplox.getSubsidiary(addr2));
+        chilexplox.getSubsidiary(addr2).addVehicle(t2);
+        t3 = new Truck("ER1288",2,Type.Radioactive, chilexplox.getSubsidiary(addr2));
+        chilexplox.getSubsidiary(addr2).addVehicle(t3);
+        t4 = new Truck("TY1288",10,Type.Refrigerated, chilexplox.getSubsidiary(addr2));
+        chilexplox.getSubsidiary(addr2).addVehicle(t4);
+        
+        t1 = new Truck("AA3434",45,Type.Normal,chilexplox.getSubsidiary(addr3));
+        chilexplox.getSubsidiary(addr3).addVehicle(t1);
+        t2 = new Truck("AB1288",20,Type.Fragile, chilexplox.getSubsidiary(addr3));
+        chilexplox.getSubsidiary(addr3).addVehicle(t2);
+        t3 = new Truck("AC1288",2,Type.Radioactive, chilexplox.getSubsidiary(addr3));
+        chilexplox.getSubsidiary(addr3).addVehicle(t3);
+        t4 = new Truck("BT1288",10,Type.Refrigerated, chilexplox.getSubsidiary(addr3));
+        chilexplox.getSubsidiary(addr3).addVehicle(t4);
+        
     }
     
 }

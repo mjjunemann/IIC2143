@@ -144,21 +144,21 @@ public class ModifyUsersViewFXMLController implements Initializable, iController
                     "Repita la contraseña");
             return false;
         }
+        if (role.getSelectionModel().isEmpty()){
+            ShowAlert.alertWithFieldAndMessage(
+                    "Rol", 
+                    "Seleccione un rol para el usuario");
+            return false;
+        }
         try {
             InputValidator.CheckName(name.getText());
         }
         catch (Exception e){
             ShowAlert.alertWithField(e, "nombre");
-            if (repeated_password.getText() == null){
-                ShowAlert.alertWithFieldAndMessage(
-                        "repetición contraseña",
-                        "Ingrese la contraseña de nuevo");
-                return false;
-            }
             return false;
         }
         if (password.getText().equals(repeated_password.getText())){
-            
+         
             return true;
         }
         ShowAlert.alertWithFieldAndMessage(

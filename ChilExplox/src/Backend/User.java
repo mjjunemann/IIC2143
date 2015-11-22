@@ -37,6 +37,7 @@ public class User extends iPerson implements java.io.Serializable
      * Get the users password
      * @return password
      */
+    @Override
     public String getPassword()
     {
         return this.password;
@@ -50,7 +51,8 @@ public class User extends iPerson implements java.io.Serializable
      * Changes the user password
      * @param password receives the user new password
      */
-    protected final void setPassword(String password)
+    @Override
+    public final void setPassword(String password)
     {
         this.password = password;
     }
@@ -61,10 +63,15 @@ public class User extends iPerson implements java.io.Serializable
      * @param user
      * @param role 
      */
-    public void setRole(User user, Role role){
-        if (user.role.equals(Role.Administrator)){
-            this.role = role;
-        }
+    
+    @Override
+    public void setName(String name){
+        this.name = name;
+    }
+    
+    @Override
+    public void setRole(Role role){
+        this.role = role;
     }
     
     @Override
@@ -72,18 +79,12 @@ public class User extends iPerson implements java.io.Serializable
         return this.role;
     }
     
+    @Override
     public String getUsername(){
         return this.username;
     }
     
-    /**
-     * This method takes a user and changes the role of the user
-     * @param user
-     * @param role 
-     */
-    public void changeRole(User user, Role role){
-        user.setRole(this, role);
-    }
+
     
     //</editor-fold>
 

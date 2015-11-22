@@ -7,7 +7,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="Frontend.ModifyTrucksViewFXMLController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Frontend.ModifyTrucksViewFXMLController">
     <children>
       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="56.0" prefWidth="496.0">
          <children>
@@ -76,12 +76,26 @@
                            <children>
                               <Pane prefHeight="60.0" prefWidth="127.0">
                                  <children>
-                                    <Text layoutX="24.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Conductor" />
+                                    <Text layoutX="-4.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre Conductor" />
                                  </children>
                               </Pane>
                               <Pane prefHeight="200.0" prefWidth="200.0">
                                  <children>
-                                    <ChoiceBox fx:id="driver" layoutX="8.0" layoutY="17.0" prefHeight="27.0" prefWidth="167.0" />
+                                    <TextField fx:id="driver_name" layoutX="8.0" layoutY="17.0" />
+                                 </children>
+                              </Pane>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="60.0" prefWidth="291.0">
+                           <children>
+                              <Pane prefHeight="60.0" prefWidth="127.0">
+                                 <children>
+                                    <Text layoutX="10.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rut Conductor" />
+                                 </children>
+                              </Pane>
+                              <Pane prefHeight="200.0" prefWidth="200.0">
+                                 <children>
+                                    <TextField fx:id="driver_rut" layoutX="8.0" layoutY="17.0" />
                                  </children>
                               </Pane>
                            </children>

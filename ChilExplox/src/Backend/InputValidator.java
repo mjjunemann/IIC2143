@@ -130,6 +130,19 @@ public class InputValidator {
         return validated;
     }
     
+    private static final Pattern VALID_LICENSE_PLATE_REGEX = 
+            Pattern.compile("^[A-Z]{2}\\d{4}|^[A-Z]{4}\\d{2}$", 
+                    Pattern.CASE_INSENSITIVE);
+    
+    public static void CheckLicensePlate(String plate) throws Exception{
+        Matcher matcher = VALID_LICENSE_PLATE_REGEX .matcher(plate);
+        if(!matcher.find()){
+
+            throw new Exception("Ingrese la patente en formato AB1234 o ABCD34");
+            
+        }
+    }
+    
     public static boolean IsNumber(String number) throws Exception{
         boolean validated = true;
         try {
@@ -152,6 +165,7 @@ public class InputValidator {
         }
         return validated;
     }
+    
     
     
 }

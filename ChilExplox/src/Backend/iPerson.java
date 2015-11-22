@@ -13,13 +13,26 @@ public abstract class iPerson {
     public Role role;
 
     public Role getRole(){
-        return null;
-    }
-    public void setRole(Role role){
-        
+        return role;
     }
     
     public String getName(){
         return "";
     }
+    
+    public String getUsername(){
+        return "";
+    }
+    
+    public String getPassword(){
+        return "";
+    }
+    
+    public void setPassword(String password){}
+    
+    public void setName(String name){}
+    
+    public void setRole(Role role){}
+    
+    
 }
