@@ -11,7 +11,7 @@ import java.util.ArrayList;
  *
  * @author Fernando
  */
-public class Report {
+public class Report implements java.io.Serializable{
     private ArchiveType type;
     private ArrayList<Record> records;
     
