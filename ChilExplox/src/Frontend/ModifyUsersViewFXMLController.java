@@ -105,6 +105,8 @@ public class ModifyUsersViewFXMLController implements Initializable, iController
         password.setDisable(true);
         repeated_password.setDisable(true);
         role.setDisable(true);
+        saveUserButton.setDisable(true);
+        removeUserButton.setDisable(true);
     }
 
     public void enableFields(){
@@ -113,6 +115,8 @@ public class ModifyUsersViewFXMLController implements Initializable, iController
         password.setDisable(false);
         repeated_password.setDisable(false);
         role.setDisable(false);
+        saveUserButton.setDisable(false);
+        removeUserButton.setDisable(false);
     }
     
     private boolean checkUserInputs(){
@@ -154,7 +158,7 @@ public class ModifyUsersViewFXMLController implements Initializable, iController
             return false;
         }
         if (password.getText().equals(repeated_password.getText())){
-            ShowAlert.message("Usuario creado", "Usuario creado exitosamente");
+            
             return true;
         }
         ShowAlert.alertWithFieldAndMessage(
@@ -167,6 +171,30 @@ public class ModifyUsersViewFXMLController implements Initializable, iController
     @FXML
     private void saveUser(ActionEvent event) {
         if (checkUserInputs()){
+        if (user_selected != null){
+            if (user_selected.getRole().equals(Role.Administrator) 
+                    && role.getValue().equals(Role.User)
+                    && this.main.getChilExplox().administratorCount() == 1){
+               ShowAlert.alertWithFieldAndMessage(
+                       "modificar administrador", 
+                       "Siempre debe haber un administrador");
+            }
+            else{
+                this.main.getChilExplox().removeUser(user_selected);
+                this.main.getChilExplox().addUser(
+                    user.getText(),
+                    name.getText(), 
+                    password.getText(), 
+                    role.getValue());
+
+                refreshUsers();
+                cleanUsersView();
+                disableFields();
+                ShowAlert.message("Usuario modificado", "Usuario modificado exitosamente");
+            }
+            
+        }else{
+            
             if (this.main.getChilExplox().addUser(
                     user.getText(),
                     name.getText(), 
@@ -176,6 +204,7 @@ public class ModifyUsersViewFXMLController implements Initializable, iController
                 refreshUsers();
                 cleanUsersView();
                 disableFields();
+                ShowAlert.message("Usuario creado", "Usuario creado exitosamente");
             }
             else{
                 ShowAlert.alertWithFieldAndMessage(
@@ -183,6 +212,7 @@ public class ModifyUsersViewFXMLController implements Initializable, iController
                         "El usuario ya existe");
             }
 
+        }
         }
     }
     
@@ -263,6 +293,7 @@ public class ModifyUsersViewFXMLController implements Initializable, iController
             if (user_selected != null){
                 fillFieldsWithUser(user_selected);
                 enableFields();
+                user.setDisable(true);
             }
         }
     }
