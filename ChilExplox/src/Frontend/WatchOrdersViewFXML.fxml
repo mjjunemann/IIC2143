@@ -43,11 +43,11 @@
                         <TableView fx:id="orderTable" editable="true" nodeOrientation="LEFT_TO_RIGHT" onDragDropped="#onDragDropped" onDragExited="#onDragExited" onDragOver="#onDragOver" onMouseClicked="#modifyOrder" prefHeight="533.0" prefWidth="637.0" style="-fx-border-width: 2; -fx-border-color: transparent; -fx-border-style: solid;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                           <columns>
                             <TableColumn fx:id="orderId" prefWidth="109.0" text="ORDER ID" />
-                              <TableColumn fx:id="orderName" prefWidth="72.0" text="NAME" />
-                              <TableColumn fx:id="orderRut" prefWidth="69.0" text="RUT" />
-                              <TableColumn prefWidth="111.0" text="QUANTITY" />
-                              <TableColumn fx:id="orderState" prefWidth="77.0" text="STATE" />
-                            <TableColumn fx:id="orderTotal" prefWidth="86.0" text="TOTAL" />
+                              <TableColumn fx:id="orderName" prefWidth="88.0" text="NAME" />
+                              <TableColumn fx:id="orderRut" prefWidth="90.0" text="RUT" />
+                              <TableColumn prefWidth="107.0" text="QUANTITY" />
+                              <TableColumn fx:id="orderState" prefWidth="97.0" text="STATE" />
+                            <TableColumn fx:id="orderTotal" prefWidth="106.0" text="TOTAL" />
                           </columns>
                         </TableView>
                      </children>
