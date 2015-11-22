@@ -8,14 +8,13 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane id="AnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="900.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.40" fx:controller="Frontend.WatchParcelsFXMLController">
+<AnchorPane id="AnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Frontend.WatchParcelsFXMLController">
    <children>
       <SplitPane dividerPositions="0.06856187290969899" layoutX="214.0" layoutY="100.0" minHeight="0.0" minWidth="0.0" orientation="VERTICAL" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="121.0" prefWidth="598.0">
                <children>
-                  <BorderPane prefHeight="62.0" prefWidth="798.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <BorderPane fx:id="topBorderPane" prefHeight="62.0" prefWidth="798.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <left>
                         <Button fx:id="returnToSubsidiaryButton" mnemonicParsing="false" onAction="#returnTuSubsidiary" text="Return" BorderPane.alignment="CENTER">
                            <BorderPane.margin>
@@ -23,28 +22,14 @@
                            </BorderPane.margin>
                         </Button>
                      </left>
-                     <right>
-                        <Button fx:id="searchButton" mnemonicParsing="false" text="Search" BorderPane.alignment="CENTER">
-                           <BorderPane.margin>
-                              <Insets right="10.0" />
-                           </BorderPane.margin>
-                        </Button>
-                     </right>
-                     <center>
-                        <TextField fx:id="searchTextField" prefHeight="27.0" prefWidth="275.0">
-                           <BorderPane.margin>
-                              <Insets left="250.0" right="10.0" />
-                           </BorderPane.margin>
-                        </TextField>
-                     </center>
                   </BorderPane>
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
-                  <SplitPane dividerPositions="0.22483221476510068" layoutX="27.0" layoutY="72.0" minHeight="0.0" minWidth="0.0" prefHeight="352.0" prefWidth="598.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <SplitPane dividerPositions="0.15959821428571427" layoutX="27.0" layoutY="72.0" minHeight="0.0" minWidth="0.0" prefHeight="352.0" prefWidth="598.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <items>
-                      <AnchorPane maxWidth="140.0" minHeight="0.0" minWidth="140.0" prefHeight="160.0" prefWidth="133.0">
+                      <AnchorPane maxWidth="140.0" minHeight="0.0" minWidth="155.0" prefHeight="160.0" prefWidth="133.0">
                            <children>
                               <ScrollPane hbarPolicy="NEVER" minHeight="0.0" prefHeight="552.0" prefWidth="140.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <content>

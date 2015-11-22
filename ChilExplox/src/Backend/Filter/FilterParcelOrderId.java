@@ -14,35 +14,36 @@ import javafx.collections.transformation.FilteredList;
  *
  * @author matia
  */
-public class FilterParcelID implements iFilter<Parcel,String>{
-
+public class FilterParcelOrderId implements iFilter<Parcel,String>{
     String last_param;
     @Override
     public ObservableList Filter(FilteredList<Parcel> list, String param) {
         last_param = param;
-        list.setPredicate(o->
+        list.setPredicate(o-> 
+                
         {
-            return param.equals(o.getId());
+            return param.equals(o.getOrder().getId());
         });
         return list;
     }
 
     @Override
     public ObservableList Reset(FilteredList<Parcel> list) {
-        list.setPredicate(o->
+        list.setPredicate(o-> 
+                
         {
             return true;
         });
-        return list;   
-    
+        return list;
     }
+
     @Override
     public ObservableList LastFilter(FilteredList<Parcel> list) {
         if (last_param != null){
-        list.setPredicate(p-> 
+        list.setPredicate(o-> 
                 
         {
-            return last_param.equals(p.getId());
+            return last_param.equals(o.getId());
         });
         }
         return list;
@@ -50,8 +51,6 @@ public class FilterParcelID implements iFilter<Parcel,String>{
     @Override
     public String toString()
     {
-        return "PARCEL ID";
+        return "ORDER ID";
     }
-
-
 }

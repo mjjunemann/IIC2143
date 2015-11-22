@@ -10,7 +10,10 @@ import Backend.Filter.FilterOrderID;
 import Backend.Filter.FilterOrderState;
 import Backend.Filter.FilterOrderTotal;
 import Backend.Filter.FilterParcelID;
+import Backend.Filter.FilterParcelOrderId;
 import Backend.Filter.FilterParcelState;
+import Backend.Filter.FilterParcelType;
+import Backend.Filter.FilterReset;
 import Backend.Filter.FilterRut;
 import Backend.Order;
 import Backend.Parcel;
@@ -26,11 +29,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.NodeOrientation;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TreeItem;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import org.controlsfx.control.BreadCrumbBar;
 
@@ -48,6 +55,7 @@ public class WatchParcelsFXMLController implements Initializable , iController {
     ChilExploxApp main;
     private ObservableList<Parcel> subsidiaryParcels;
     private FilteredList<Parcel> filteredParcels;
+    BreadCrumbBar testBar;
 
      @FXML
     private TableView<Parcel> parcelTable;
@@ -67,9 +75,12 @@ public class WatchParcelsFXMLController implements Initializable , iController {
     private TableColumn<Parcel,Float> parcelVolume;
     @FXML
     private VBox FilterBox;
+    @FXML 
+    private BorderPane topBorderPane;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
       initializeParcelTable();
+      initializeBreadCrumbBar();
       initializeFilters();
     }    
 
@@ -87,12 +98,21 @@ public class WatchParcelsFXMLController implements Initializable , iController {
 
         iFilter tmp2 = new FilterParcelID();
         iFilter tmp3 = new FilterParcelState();
-        BreadCrumbBar a = new BreadCrumbBar();
-        VisualFilter tmp_2 = new VisualFilter(tmp2,filteredParcels,selectedToggles,a);
-        VisualFilter tmp_3 = new VisualFilter(tmp3,filteredParcels,selectedToggles,a);
+        iFilter tmp4 = new FilterParcelType();
+        iFilter tmp5 = new FilterParcelOrderId();
+        
+        
+        VisualFilter tmp_2 = new VisualFilter(tmp2,filteredParcels,selectedToggles,testBar);
+        VisualFilter tmp_3 = new VisualFilter(tmp3,filteredParcels,selectedToggles,testBar);
+        VisualFilter tmp_4 = new VisualFilter(tmp4,filteredParcels,selectedToggles,testBar);
+        VisualFilter tmp_5 = new VisualFilter(tmp5,filteredParcels,selectedToggles,testBar);
 
+        
         FilterBox.getChildren().add(tmp_2);
         FilterBox.getChildren().add(tmp_3);
+        FilterBox.getChildren().add(tmp_4);
+        FilterBox.getChildren().add(tmp_5);
+
     }
     private void initializeParcelTable()
     {
@@ -109,6 +129,58 @@ public class WatchParcelsFXMLController implements Initializable , iController {
         
         filteredParcels = new FilteredList<>(subsidiaryParcels,p->true);
         parcelTable.setItems(filteredParcels);
+    }
+    
+    public void initializeBreadCrumbBar()
+    {   /*
+        ADD TO THE VisualFilter, that add a Crumb to the BreadCrumbBar, so it can
+        */
+        testBar = new BreadCrumbBar<>();
+        
+        testBar.setOnCrumbAction(new EventHandler<BreadCrumbBar.BreadCrumbActionEvent<VisualFilter>>()
+        {
+
+            @Override
+            public void handle(BreadCrumbBar.BreadCrumbActionEvent<VisualFilter> event) 
+            {
+                
+                System.out.print(event.getSelectedCrumb());
+                if (event.getSelectedCrumb().getValue().filter.getClass().equals(FilterReset.class))
+                {
+                    event.getSelectedCrumb().getValue().resetToLeaf(event.getSelectedCrumb());
+
+                    event.getSelectedCrumb().getValue().ResetFilter();
+                }
+                else
+                {
+                    event.getSelectedCrumb().getValue().resetToLeaf(event.getSelectedCrumb());
+                    event.getSelectedCrumb().getValue().filterSelectedCrumb(event.getSelectedCrumb());
+                }
+                
+            }
+            
+        });
+        topBorderPane.setCenter(testBar);
+        //testBar.autoNavigationEnabledProperty().setValue(Boolean.TRUE);
+        testBar.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
+        
+        testBar.selectedCrumbProperty().set(initializeResetFilter());
+        
+        
+    }
+    private TreeItem initializeResetFilter()
+    {
+        iFilter reset = new FilterReset();
+        VisualFilter tmp = new VisualFilter(reset,filteredParcels,new ArrayList<>(),testBar);
+        TreeItem tmp2 = new TreeItem<VisualFilter>(tmp)
+        {
+          @Override 
+          public String toString()
+          {
+            return this.getValue().toString();
+          }
+        };
+        return tmp2;
     }
     private void initializeOrders()
     {

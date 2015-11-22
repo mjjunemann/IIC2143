@@ -27,7 +27,7 @@ public enum Type {
     {
         for(Type type :Type.values())
         {
-            if (type.str.toLowerCase() == param.toLowerCase())
+            if (type.str.toLowerCase().equals(param.toLowerCase()))
             {
                 return type;
             }

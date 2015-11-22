@@ -6,6 +6,7 @@
 package Backend.Filter;
 
 import Backend.Parcel;
+import Backend.Type;
 import Backend.iFilter;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -14,44 +15,47 @@ import javafx.collections.transformation.FilteredList;
  *
  * @author matia
  */
-public class FilterParcelID implements iFilter<Parcel,String>{
-
-    String last_param;
+public class FilterParcelType implements iFilter<Parcel,String>{
+    Type last_param;
     @Override
     public ObservableList Filter(FilteredList<Parcel> list, String param) {
-        last_param = param;
-        list.setPredicate(o->
+        Type state = Type.lookup(param);
+        System.out.print(state);
+        if (state != null)
         {
-            return param.equals(o.getId());
-        });
+            last_param = state;
+            list.setPredicate(o->
+            {
+                return o.getType().equals(state);
+            });
+        }
         return list;
     }
 
     @Override
+    
     public ObservableList Reset(FilteredList<Parcel> list) {
         list.setPredicate(o->
         {
             return true;
         });
-        return list;   
-    
-    }
-    @Override
-    public ObservableList LastFilter(FilteredList<Parcel> list) {
-        if (last_param != null){
-        list.setPredicate(p-> 
-                
-        {
-            return last_param.equals(p.getId());
-        });
-        }
         return list;
     }
     @Override
-    public String toString()
-    {
-        return "PARCEL ID";
+    public ObservableList LastFilter(FilteredList<Parcel> list) {
+        if (last_param != null)
+        {
+            list.setPredicate(o->
+            {
+                return last_param.equals(o.getType());
+            });
+        }
+        return list;
     }
 
-
+    @Override
+    public String toString()
+    {
+        return "TYPE";
+    }
 }

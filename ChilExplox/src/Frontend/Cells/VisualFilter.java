@@ -126,6 +126,7 @@ public class VisualFilter extends ToggleSwitch{
     
     private void addCrumb()
     {
+        this.crumb = new TreeItem(this.me);
         this.bar.getSelectedCrumb().getChildren().add(this.crumb);
         this.bar.selectedCrumbProperty().set(this.crumb);   
     }
@@ -137,8 +138,8 @@ public class VisualFilter extends ToggleSwitch{
     {
         TreeItem tmp = this.bar.getSelectedCrumb().getParent();
         this.bar.setSelectedCrumb(tmp);
-        this.crumb.getParent().setValue(null);
-        this.crumb.getChildren().clear();
+        //this.crumb.getParent().setValue(null);
+        //this.crumb.getChildren().clear();
     }
     
     protected void resetToDeactivate()
@@ -184,6 +185,7 @@ public class VisualFilter extends ToggleSwitch{
         do
         {
             parent = (TreeItem) parent.getChildren().get(0);
+            //this.selected.remove(parent.getValue());
             ((VisualFilter) parent.getValue()).resetToDeactivate();
             
         }while(!parent.isLeaf());
