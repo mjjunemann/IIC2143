@@ -169,6 +169,7 @@ public class ChilExplox implements java.io.Serializable
         this.users.remove(user.getUsername());
     }
     
+    
     public int administratorCount(){
         int count = 0;
         for (User user: this.users.values()){

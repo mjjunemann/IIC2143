@@ -31,12 +31,15 @@ import javafx.scene.input.MouseEvent;
 public class ModifyTrucksViewFXMLController implements Initializable, iController {
 
     ChilExploxApp main;
+    Truck truck_selected;
+    
+    //FXML variables
     @FXML
     private Button returnButton;
     @FXML
     private Button newTruckButton;
     @FXML
-    private TableView<Truck> trucksTableView;
+    private TableView<ITransport> trucksTableView;
     @FXML
     private TableColumn<Truck, String> licensePlateColumn;
     @FXML
@@ -85,13 +88,12 @@ public class ModifyTrucksViewFXMLController implements Initializable, iControlle
      
     }
     
-    
     public void cleanFields(){
         license_plate.setText(null);
         capacity.setText(null);
         driver_name.setText(null);
         driver_rut.setText(null);
-        type.setSelectionModel(null);
+        type.setValue(null);
     }
     
     public void disableFields(){
@@ -123,12 +125,21 @@ public class ModifyTrucksViewFXMLController implements Initializable, iControlle
         typeColumn.setCellValueFactory(c -> 
                 new SimpleStringProperty(c.getValue().getType().toString()));
         driverColumn.setCellValueFactory(c -> 
-                new SimpleStringProperty(c.getValue().getDriver()));
+                new SimpleStringProperty(c.getValue().getDriverRut()));
         refreshTrucks();
     }
     
+    private void fillFieldsWithTruck(Truck truck){
+        license_plate.setText(truck.getPlate());
+        capacity.setText(String.valueOf(truck.getMaxParcels()));
+        type.setValue(truck.getType());
+        driver_name.setText(truck.getDriverName());
+        driver_rut.setText(truck.getDriverRut());
+    }
+    
+    
     private void refreshTrucks(){
-        ObservableList<Truck> trucks = 
+        ObservableList<ITransport> trucks = 
                 FXCollections.observableArrayList(
                         this.main.getChilExplox().getCurrentSubsidiary().getTrucks());
         trucksTableView.setItems(trucks);
@@ -147,27 +158,100 @@ public class ModifyTrucksViewFXMLController implements Initializable, iControlle
 
     @FXML
     private void selectTruck(MouseEvent event) {
-        
+        if (event.getClickCount() == 2)
+        {
+            truck_selected = (Truck)trucksTableView.getSelectionModel().getSelectedItem();
+            if (truck_selected != null){
+                fillFieldsWithTruck(truck_selected);
+                enableFields();
+                license_plate.setDisable(true);
+                driver_name.setDisable(true);
+                driver_rut.setDisable(true);
+            }
+        }
     }
 
     @FXML
     private void saveTruck(ActionEvent event) {
         if (checkTruckInputs()){
-            Truck truck = new Truck(license_plate.getText(),
+            if (truck_selected == null){
+                Truck truck = new Truck(license_plate.getText(),
                             Integer.valueOf(capacity.getText()),
                             type.getSelectionModel().getSelectedItem(),
                             this.main.getChilExplox().getCurrentSubsidiary(),
                             driver_rut.getText(),
                             driver_name.getText());
-            this.main.getChilExplox().getCurrentSubsidiary().addVehicle(truck);
-            cleanFields();
-            ShowAlert.message("Camión creado", "Camión creado con exito");
+                if (this.main.getChilExplox().getCurrentSubsidiary().addVehicle(truck)){
+                    ShowAlert.message(
+                            "Camión creado", 
+                            "Camión creado con exito");
+                    cleanFields();
+                }
+                else{
+                    ShowAlert.alertWithFieldAndMessage(
+                            "crear camion", 
+                            "esa patente ya existe");
+                }
+            }
+            else{
+                if (truck_selected.checkSpace() == truck_selected.getMaxParcels()){
+                    if (truck_selected.getState().equals(State.Origin)){
+                    truck_selected.setType(type.getValue());
+                    truck_selected.setSpace(Integer.valueOf(capacity.getText()));
+                    ShowAlert.message(
+                        "Camión modificado", 
+                        "Camión modificado con exito");
+                    trucksTableView.setItems(FXCollections.observableArrayList());
+                    refreshTrucks();
+                    cleanFields();
+                    truck_selected = null;
+                    }else{
+                        ShowAlert.alertWithFieldAndMessage(
+                            "modificar camion", 
+                            "el camion debe estar en la sucursal de origen");
+                        
+                    }
+                }
+                else{
+                    ShowAlert.alertWithFieldAndMessage(
+                            "modificar camion", 
+                            "el camion debe estar vacio");
+                }
+            }
+            
         }
+        refreshTrucks();
     }
 
     @FXML
     private void removeTruck(ActionEvent event) {
+        if (truck_selected != null){
+            if (ShowAlert.confirmation(
+                    "Borrar camión", 
+                    "¿Esta seguro que desea borrar el camion\n"
+                        + "Esta acción no es reversible")){
+                if (truck_selected.checkSpace() == truck_selected.getMaxParcels()){
+                    if (truck_selected.getAvaibility().equals(State.Origin)){
+                        this.main.getChilExplox().getCurrentSubsidiary().removeTruck(truck_selected);
+                        refreshTrucks();
+                        disableFields();
+                    }
+                    else{
+                        ShowAlert.alertWithFieldAndMessage(
+                            "borrar camión", 
+                            "El camión debe estar en la sucursal de origen");
+                    }
+                }
+                else{
+                    ShowAlert.alertWithFieldAndMessage(
+                            "borrar camión", 
+                            "El camión debe estar vacío");
+                }
+            }
+        }
+        truck_selected = null;
         cleanFields();
+        disableFields();
     }
     
     
