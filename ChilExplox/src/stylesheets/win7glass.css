@@ -24,9 +24,9 @@
 }
 
 .table-view {
-    -fx-base: #1d1d1d;
-    -fx-control-inner-background: #1d1d1d;
-    -fx-background-color: #1d1d1d;
+    -fx-base: #FFFFFF;
+    -fx-control-inner-background: #FFFFFF;
+    -fx-background-color: #FFFFFF;
     -fx-table-cell-border-color: transparent;
     -fx-table-header-border-color: transparent;
     -fx-padding: 5;
@@ -48,9 +48,9 @@
 }
 
 .table-view .column-header .label {
-    -fx-font-size: 20pt;
+    -fx-font-size: 15pt;
     -fx-font-family: "Segoe UI Light";
-    -fx-text-fill: white;
+    -fx-text-fill: black;
     -fx-alignment: center-left;
     -fx-opacity: 1;
 }
@@ -60,8 +60,8 @@
 }
 
 .split-pane:horizontal > * > .split-pane-divider {
-    -fx-border-color: transparent #1d1d1d transparent #1d1d1d;
-    -fx-background-color: transparent, derive(#1d1d1d,20%);
+    -fx-border-color: transparent #FFFFFF transparent #FFFFFF;
+    -fx-background-color: transparent, derive(#FFFFFF,20%);
 }
 
 .split-pane {
@@ -69,14 +69,14 @@
 }
 
 .menu-bar {
-    -fx-background-color: derive(#1d1d1d,20%);
+    -fx-background-color: derive(#FFFFFF,20%);
     -fx-selection-bar: derive(-fx-background,-7%);
 }
 
 .menu-bar .label {
-    -fx-font-size: 14pt;
+    -fx-font-size: 12pt;
     -fx-font-family: "Segoe UI Light";
-    -fx-text-fill: white;
+    -fx-text-fill: black;
     -fx-opacity: 0.9;
 }
 

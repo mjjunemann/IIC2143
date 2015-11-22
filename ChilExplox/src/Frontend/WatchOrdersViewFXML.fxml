@@ -10,9 +10,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Frontend.WatchOrdersViewFXMLController">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" styleClass="ba" stylesheets="@../stylesheets/win7glass.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Frontend.WatchOrdersViewFXMLController">
    <children>
-      <BorderPane fx:id="topBorderPane" layoutX="-7.0" prefHeight="43.0" prefWidth="600.0" AnchorPane.leftAnchor="-7.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="0.0">
+      <BorderPane fx:id="topBorderPane" layoutX="-7.0" prefHeight="43.0" prefWidth="600.0" styleClass="background" AnchorPane.leftAnchor="-7.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="0.0">
          <left>
             <Button fx:id="returnToSubsidiaryButton" mnemonicParsing="false" onAction="#returnTuSubsidiary" text="Return" BorderPane.alignment="CENTER">
                <BorderPane.margin>
@@ -29,7 +29,7 @@
                      <children>
                         <ScrollPane hbarPolicy="NEVER" layoutY="151.0" minHeight="0.0" prefHeight="562.0" prefWidth="155.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <content>
-                              <VBox fx:id="FilterBox" accessibleRole="SCROLL_BAR" maxWidth="140.0" minWidth="140.0" prefHeight="630.0" prefWidth="133.0">
+                              <VBox fx:id="FilterBox" accessibleRole="SCROLL_BAR" maxWidth="140.0" minWidth="140.0" prefHeight="630.0" prefWidth="133.0" styleClass="background">
                                  <children>
                                     <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="42.0" onDragDetected="#onDragDetected" stroke="BLACK" strokeType="INSIDE" width="140.0" />
                                  </children>
@@ -42,12 +42,12 @@
                      <children>
                         <TableView fx:id="orderTable" editable="true" nodeOrientation="LEFT_TO_RIGHT" onDragDropped="#onDragDropped" onDragExited="#onDragExited" onDragOver="#onDragOver" onMouseClicked="#modifyOrder" prefHeight="533.0" prefWidth="637.0" style="-fx-border-width: 2; -fx-border-color: transparent; -fx-border-style: solid;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                           <columns>
-                            <TableColumn fx:id="orderId" prefWidth="100.0" text="ORDER ID" />
-                              <TableColumn fx:id="orderName" prefWidth="75.0" text="NAME" />
-                              <TableColumn fx:id="orderRut" prefWidth="75.0" text="RUT" />
-                              <TableColumn prefWidth="75.0" text="QUANTITY" />
-                              <TableColumn fx:id="orderState" prefWidth="75.0" text="STATE" />
-                            <TableColumn fx:id="orderTotal" prefWidth="75.0" text="TOTAL" />
+                            <TableColumn fx:id="orderId" prefWidth="109.0" text="ORDER ID" />
+                              <TableColumn fx:id="orderName" prefWidth="72.0" text="NAME" />
+                              <TableColumn fx:id="orderRut" prefWidth="69.0" text="RUT" />
+                              <TableColumn prefWidth="111.0" text="QUANTITY" />
+                              <TableColumn fx:id="orderState" prefWidth="77.0" text="STATE" />
+                            <TableColumn fx:id="orderTotal" prefWidth="86.0" text="TOTAL" />
                           </columns>
                         </TableView>
                      </children>

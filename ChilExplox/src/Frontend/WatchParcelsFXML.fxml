@@ -8,13 +8,13 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Frontend.WatchParcelsFXMLController">
+<AnchorPane id="AnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="900.0" stylesheets="@../stylesheets/win7glass.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Frontend.WatchParcelsFXMLController">
    <children>
       <SplitPane dividerPositions="0.06856187290969899" layoutX="214.0" layoutY="100.0" minHeight="0.0" minWidth="0.0" orientation="VERTICAL" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="121.0" prefWidth="598.0">
                <children>
-                  <BorderPane fx:id="topBorderPane" prefHeight="62.0" prefWidth="798.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <BorderPane fx:id="topBorderPane" prefHeight="62.0" prefWidth="798.0" styleClass="background" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <left>
                         <Button fx:id="returnToSubsidiaryButton" mnemonicParsing="false" onAction="#returnTuSubsidiary" text="Return" BorderPane.alignment="CENTER">
                            <BorderPane.margin>
@@ -33,7 +33,7 @@
                            <children>
                               <ScrollPane hbarPolicy="NEVER" minHeight="0.0" prefHeight="552.0" prefWidth="140.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <content>
-                                    <VBox fx:id="FilterBox" accessibleRole="SCROLL_BAR" maxWidth="140.0" minWidth="140.0" prefHeight="630.0" prefWidth="133.0" />
+                                    <VBox fx:id="FilterBox" accessibleRole="SCROLL_BAR" maxWidth="140.0" minWidth="140.0" prefHeight="630.0" prefWidth="133.0" styleClass="background" />
                                  </content>
                               </ScrollPane>
                            </children>
@@ -41,10 +41,10 @@
                         <TableView fx:id="parcelTable" prefHeight="552.0" prefWidth="800.0" style="-fx-border-width: 2; -fx-border-color: transparent; -fx-border-style: solid;">
                            <columns>
                               <TableColumn fx:id="parcelOrderId" prefWidth="107.0" text="ID ORDER" />
-                              <TableColumn fx:id="parcelId" prefWidth="105.0" text="ID PARCEL" />
-                              <TableColumn fx:id="parcelType" prefWidth="98.0" text="TYPE" />
-                              <TableColumn fx:id="parcelState" prefWidth="98.0" text="STATE" />
-                              <TableColumn fx:id="parcelDestination" prefWidth="126.0" text="DESTINATION" />
+                              <TableColumn fx:id="parcelId" prefWidth="114.0" text="ID PARCEL" />
+                              <TableColumn fx:id="parcelType" prefWidth="89.0" text="TYPE" />
+                              <TableColumn fx:id="parcelState" prefWidth="87.0" text="STATE" />
+                              <TableColumn fx:id="parcelDestination" prefWidth="137.0" text="DESTINATION" />
                               <TableColumn fx:id="parcelWeight" minWidth="0.0" prefWidth="93.0" text="WEIGHT" />
                               <TableColumn fx:id="parcelVolume" minWidth="0.0" prefWidth="105.0" text="VOLUME" />
                            </columns>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
@@ -7,7 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Frontend.ModifySubsidiariesViewFXMLController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" stylesheets="@../stylesheets/win7glass.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Frontend.ModifySubsidiariesViewFXMLController">
     <children>
       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="56.0" prefWidth="496.0">
          <children>
@@ -15,7 +16,7 @@
                <items>
                   <HBox alignment="CENTER" prefHeight="44.0" prefWidth="91.0" spacing="8.0">
                      <children>
-                        <Button fx:id="returnButton" mnemonicParsing="false" onAction="#returnToSubsidiary" prefHeight="26.0" prefWidth="75.0" text="Volver" />
+                        <Button fx:id="returnButton" mnemonicParsing="false" onAction="#returnToSubsidiary" prefHeight="33.0" prefWidth="94.0" text="Back" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER_RIGHT" prefHeight="44.0" prefWidth="455.0" spacing="8.0" />
@@ -36,7 +37,7 @@
                   </TableView>
                </children>
             </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="420.0" prefWidth="321.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="420.0" prefWidth="321.0" styleClass="background">
                <children>
                   <Button fx:id="saveSubsidiaryButton" layoutX="99.0" layoutY="370.0" mnemonicParsing="false" onAction="#saveSubsidiary" text="Guardar Sucursal" />
                   <VBox layoutX="14.0" layoutY="57.0" prefHeight="300.0" prefWidth="291.0">
