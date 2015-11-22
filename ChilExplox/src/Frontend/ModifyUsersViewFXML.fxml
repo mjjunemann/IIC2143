@@ -29,7 +29,7 @@
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="403.0" prefWidth="582.0">
                <children>
-                  <TableView fx:id="usersTableView" prefHeight="411.0" prefWidth="356.0">
+                  <TableView fx:id="usersTableView" onMouseClicked="#selectUser" prefHeight="411.0" prefWidth="356.0">
                     <columns>
                       <TableColumn fx:id="nameColumn" prefWidth="124.00768184661865" text="Nombre" />
                       <TableColumn fx:id="userColumn" prefWidth="119.99234008789062" text="Usuario" />

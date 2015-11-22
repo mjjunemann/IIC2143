@@ -165,6 +165,20 @@ public class ChilExplox implements java.io.Serializable
         return new ArrayList<User>(this.users.values());
     }
     
+    public void removeUser(User user){
+        this.users.remove(user.getUsername());
+    }
+    
+    public int administratorCount(){
+        int count = 0;
+        for (User user: this.users.values()){
+            if (user.getRole().equals(Role.Administrator)){
+                count++;
+            }
+        }
+        return count;
+    }
+    
     public void Exit() 
     {
         System.out.print("Closing Bitches Come Back Tomorrow");

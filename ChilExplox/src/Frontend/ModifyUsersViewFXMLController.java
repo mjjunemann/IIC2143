@@ -20,6 +20,7 @@ import javafx.scene.control.TextField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
+import javafx.scene.input.MouseEvent;
 
 /**
  * FXML Controller class
@@ -28,7 +29,12 @@ import javafx.scene.control.TableColumn;
  */
 public class ModifyUsersViewFXMLController implements Initializable, iController {
 
+    
     ChilExploxApp main;
+    User user_selected;
+    
+    
+    //FXML variables
     @FXML
     private Button returnButton;
     @FXML
@@ -86,6 +92,8 @@ public class ModifyUsersViewFXMLController implements Initializable, iController
     private void newUser(ActionEvent event) {
         //Fields text are reseated
         cleanUsersView();
+        
+        user_selected = null;
         
        //All fields are enabled
         enableFields();
@@ -184,8 +192,33 @@ public class ModifyUsersViewFXMLController implements Initializable, iController
                 "Borrar Usuario", 
                 "¿Esta seguro que desea borrar el usuario\n"
                         + "Esta acción no es reversible")){
+            
+            if (user_selected != null){
+                if (user_selected.getRole().equals(Role.Administrator)){
+                    if (ShowAlert.confirmation(
+                        "Borrar Administrador", 
+                        "El usuario es administrador\n"
+                        + "¿Esta seguro que desea borrarlo?")){
+                        if (this.main.getChilExplox().administratorCount() == 1){
+                            ShowAlert.alertWithFieldAndMessage(
+                                    "eliminar administrador", 
+                                    "No puede haber menos de un administrador");
+                        }else{
+                            this.main.getChilExplox().removeUser(user_selected);
+                            refreshUsers();
+                        }
+                    }
+                }
+                else {
+                    this.main.getChilExplox().removeUser(user_selected);
+                    refreshUsers();
+                }
+                
+            }
             cleanUsersView();
             disableFields();
+            user_selected = null;
+            
         }
         
     }
@@ -212,6 +245,26 @@ public class ModifyUsersViewFXMLController implements Initializable, iController
                 FXCollections.observableArrayList(
                         this.main.getChilExplox().getUsers());
         usersTableView.setItems(users);
+    }
+
+    private void fillFieldsWithUser(User user){
+        name.setText(user.getName());
+        this.user.setText(user.username);
+        password.setText(user.getPassword());
+        repeated_password.setText(user.getPassword());
+        role.setValue(user.getRole());
+    }
+    
+    @FXML
+    private void selectUser(MouseEvent event) {
+        if (event.getClickCount() == 2)
+        {
+            user_selected = usersTableView.getSelectionModel().getSelectedItem();
+            if (user_selected != null){
+                fillFieldsWithUser(user_selected);
+                enableFields();
+            }
+        }
     }
     
   
