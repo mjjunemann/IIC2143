@@ -89,7 +89,9 @@ public class NotificationCenter implements java.io.Serializable
       long difference = today.getTime() - saleDate.getTime();
       float daysDifference = (float)difference / 1000; /// 60 / 24;
       if (daysDifference > 120){
-          return true;
+          if (parcel.getState().equals(State.Origin)){
+            return true;
+          }
       }
       return false;
   }
