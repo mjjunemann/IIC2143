@@ -117,7 +117,7 @@ public class UnloadParcelFXMLController implements Initializable, iController {
     private void unloadParcel(ActionEvent event){
         if (selectedParcel != null) {
             truck.unloadArrived(trucksParcelsImgs.get(selectedParcel).parcel);
-            parcelTile.getChildren().remove(selectedParcel);
+            parcelTile.getChildren().remove(trucksParcelsImgs.get(selectedParcel).button);
             stateTruckLabel.setText(truck.getAvaibility().toString());
             originTruckLabel.setText(truck.getDestinyString());
             nParcelsTruckLabel.setText(String.valueOf(truck.getParcels().size()));

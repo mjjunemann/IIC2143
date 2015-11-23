@@ -26,18 +26,22 @@ import Frontend.Cells.VisualFilter;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.NodeOrientation;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TreeItem;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import org.controlsfx.control.BreadCrumbBar;
@@ -58,7 +62,7 @@ public class WatchParcelsFXMLController implements Initializable , iController {
     private FilteredList<Parcel> filteredParcels;
     BreadCrumbBar testBar;
 
-     @FXML
+    @FXML
     private TableView<Parcel> parcelTable;
     @FXML
     private TableColumn<Parcel,String> parcelId;
@@ -203,6 +207,29 @@ public class WatchParcelsFXMLController implements Initializable , iController {
         }else{
             main.changeScene("SubsidiaryViewFXML.fxml",
                 SubsidiaryViewFXMLController.class);
+        }
+    }
+    @FXML
+    private void historyParcelAction(ActionEvent event) {
+        Parcel p = this.parcelTable.getSelectionModel().getSelectedItem();
+        if (p != null) {
+            changeToParcel(p);
+        }
+    }
+    
+    public void changeToParcel(Parcel p){
+        try{
+            FXMLLoader loader = new FXMLLoader(ChilExploxApp.class.
+                    getResource("historyParcelFXML.fxml"));
+            AnchorPane page = (AnchorPane)loader.load();
+            HistoryParcelFXMLController controller = loader.getController();
+            controller.setChilExploxApp(this.main);
+            controller.setParcel(p);
+            
+            this.main.changeSceneFromPage(page);
+            
+        } catch(Exception ex) {
+            Logger.getLogger(ChilExploxApp.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

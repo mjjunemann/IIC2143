@@ -292,7 +292,15 @@ public class Parcel implements java.io.Serializable
           }
           return records;
       }
-      
+      public ArrayList<Record> getHistory(){
+          ArrayList<Record> hist = new ArrayList<>();
+          for (Record r: recordsProperty().get()) {
+              if (r.getType() == ArchiveType.Delivery) {
+                  hist.add(r);
+              }
+          }
+          return hist;
+      }
      //</editor-fold>
      
     public static  Callback<Parcel,Observable[]> extractor()
