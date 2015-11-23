@@ -47,5 +47,10 @@ public class FilterRut implements iFilter<Order,String> {
         }
         return list;
     }
+    @Override
+    public String toString()
+    {
+        return "RUT";
+    }
 
 }

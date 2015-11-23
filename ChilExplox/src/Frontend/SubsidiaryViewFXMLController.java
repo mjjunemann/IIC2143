@@ -40,8 +40,20 @@ public class SubsidiaryViewFXMLController implements Initializable, iController 
     ChilExploxApp main;
     Subsidiary current_subsidiary;
     User logged_user;
+
+    
     @FXML
     private Button viewMessagesButton;
+    @FXML
+    private Button newUserButton;
+    @FXML
+    private Button newSubsidiaryButton;
+    @FXML
+    private Button newTruckButton;
+    @FXML
+    private Button watchParcelsButton;
+    @FXML
+    private Button viewReportsButton;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -78,9 +90,16 @@ public class SubsidiaryViewFXMLController implements Initializable, iController 
         this.main = main;
         this.current_subsidiary = main.getChilExplox().getCurrentSubsidiary();
         this.logged_user = main.getChilExplox().getCurrentUser();
+        
         this.welcomeLabel.setText("Bienvenido "+this.logged_user.getName()
                                     + " \nHas ingresado via la sucursal en \n"
                                     + this.current_subsidiary.getAddress());
+        Role user_role = this.logged_user.getRole();
+        if (user_role.equals(Role.Administrator)){
+            this.newUserButton.setVisible(true);
+            this.newTruckButton.setVisible(true);
+            this.newSubsidiaryButton.setVisible(true);
+        }
     }
     
     @FXML
@@ -107,6 +126,28 @@ public class SubsidiaryViewFXMLController implements Initializable, iController 
     @FXML
     private void viewOrders(ActionEvent event){
         main.changeScene("WatchOrdersViewFXML.fxml", WatchOrdersViewFXMLController.class);
+    }
+
+    @FXML
+    private void createNewUser(ActionEvent event) {
+        main.changeScene("ModifyUsersViewFXML.fxml", ModifyUsersViewFXMLController.class);
+    }
+
+    @FXML
+    private void createNewSubsidiary(ActionEvent event) {
+        main.changeScene("ModifySubsidiariesViewFXML.fxml", ModifySubsidiariesViewFXMLController.class);
+    }
+
+    @FXML
+    private void createNewTruck(ActionEvent event) {
+        main.changeScene("ModifyTrucksViewFXML.fxml", 
+                ModifyTrucksViewFXMLController.class);
+    }
+
+    @FXML
+    private void viewReports(ActionEvent event) {
+        main.changeScene("ViewReportsFXML.fxml", 
+                ModifyTrucksViewFXMLController.class);
     }
     
     

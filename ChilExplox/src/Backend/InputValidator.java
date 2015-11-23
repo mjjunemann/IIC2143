@@ -11,7 +11,7 @@ import java.util.regex.*;
  * @author guille
  */
 public class InputValidator {
-      
+     
     /*
     RUT Validation
     */
@@ -28,14 +28,16 @@ public class InputValidator {
         String dv = rut.substring(rut.length() - 1);
         
         if (!matcher.find()){
-            throw new Exception("Debe ingresar un Rut con caracteres válidos");
+            String messageError = "Debe ingresar un Rut con caracteres válidos";
+            throw new Exception(messageError);
         }
 
 	String[] rutTemp = rut.split("-");
      
         int digitAux = Integer.parseInt(rutTemp[0]);
 	if (!dv.equals(Digito(digitAux))) {
-		throw new Exception("Debe ingresar un Rut válido");
+            String messageError = "Debe ingresar un Rut válido";
+            throw new Exception(messageError);
 	}
 	return true;
     }
@@ -78,6 +80,21 @@ public class InputValidator {
         }
     }
     
+    private static final Pattern VALID_NORMAL_STRING_REGEX = 
+            Pattern.compile("^[A-Z0-9._%+-]+$", 
+                    Pattern.CASE_INSENSITIVE);
+    
+    public static boolean CheckNormalString(String text) throws Exception{
+        Matcher matcher = VALID_NORMAL_STRING_REGEX .matcher(text);
+        if (matcher.find()){
+            return true;
+        }
+        else{
+            throw new Exception
+                ("Debe ingresar un texto valido");
+        }
+    }
+    
     /*
     Verifies if is a valid email
     */
@@ -113,6 +130,19 @@ public class InputValidator {
         return validated;
     }
     
+    private static final Pattern VALID_LICENSE_PLATE_REGEX = 
+            Pattern.compile("^[A-Z]{2}\\d{4}|^[A-Z]{4}\\d{2}$", 
+                    Pattern.CASE_INSENSITIVE);
+    
+    public static void CheckLicensePlate(String plate) throws Exception{
+        Matcher matcher = VALID_LICENSE_PLATE_REGEX .matcher(plate);
+        if(!matcher.find()){
+
+            throw new Exception("Ingrese la patente en formato AB1234 o ABCD34");
+            
+        }
+    }
+    
     public static boolean IsNumber(String number) throws Exception{
         boolean validated = true;
         try {
@@ -135,6 +165,7 @@ public class InputValidator {
         }
         return validated;
     }
+    
     
     
 }

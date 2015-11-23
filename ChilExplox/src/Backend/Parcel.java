@@ -36,7 +36,8 @@ public class Parcel implements java.io.Serializable
     private transient SimpleObjectProperty<State> state;
     private transient SimpleObjectProperty<Type> type;
     private transient SimpleObjectProperty<Order> order;
-
+    private transient SimpleObjectProperty<User> responsable;
+    private transient SimpleObjectProperty<ArrayList<Record>> records;
     
     /**
      * 
@@ -47,7 +48,9 @@ public class Parcel implements java.io.Serializable
      * @param origin
      * @param destination 
      */
-    public Parcel(Type type,float weight,float volume,int priority,Address origin,Address destination,Order order, String id)
+    public Parcel(Type type,float weight,float volume,int priority,
+            Address origin,Address destination,Order order, 
+            String id, User responsable)
     {
         setOrigin(origin);
         setType(type);
@@ -58,6 +61,8 @@ public class Parcel implements java.io.Serializable
         setWeight(weight);
         setOrder(order);
         setPriority(priority);
+        setResponsable(responsable);
+        setRecords(new ArrayList<>());
     }
  
     
@@ -67,10 +72,16 @@ public class Parcel implements java.io.Serializable
         State tmp_state = getState();
         if (tmp_state == State.Origin){
             setState(State.OnTransit);
+            Record r = new Record(ArchiveType.Delivery,this.getId()+" parcel on"
+            + "Transit.",this.getResposable(),this);
         }else if (tmp_state == State.OnTransit){
             setState(State.Destination);
+            Record r = new Record(ArchiveType.Delivery,this.getId()+" parcel on"
+            + "Destination.",this.getResposable(),this);
         }else{
             setState(State.Delivered);
+            Record r = new Record(ArchiveType.Delivery,this.getId()+" parcel "
+            + "Delivered.",this.getResposable(),this);
         }
         /*Every time a parcel changes status, the whole order may change
         status. Example: one parcel was missing from being delivered, once is 
@@ -78,6 +89,11 @@ public class Parcel implements java.io.Serializable
         So It calls the update Status from Order.
         */
         getOrder().updateStatus();
+    }
+    public void updateStatusToError(){
+        setState(State.OriginError);
+        Record r = new Record(ArchiveType.Delivery,this.getId()+" parcel on"
+            +" Origin with error.",this.getResposable(),this);
     }
     //<editor-fold desc="Setter&Getters">
      public final Address getDestination()
@@ -95,6 +111,26 @@ public class Parcel implements java.io.Serializable
      public void setOrder(Order o)
      {
          orderProperty().set(o);
+     }
+     public User getResposable()
+     {
+         return responsableProperty().get();
+     }
+     public void setResponsable(User r)
+     {
+         responsableProperty().set(r);
+     }
+     public ArrayList<Record> getRecords()
+     {
+         return recordsProperty().get();
+     }
+     public void setRecords(ArrayList<Record> r)
+     {
+         recordsProperty().set(r);
+     }
+     public void addRecord(Record r)
+     {
+         recordsProperty().get().add(r);
      }
      public final Address getOrigin()
      {
@@ -240,6 +276,31 @@ public class Parcel implements java.io.Serializable
           }
           return order;
       }
+      public final ObjectProperty<User> responsableProperty()
+      {
+          if (responsable == null)
+          {
+              responsable = new SimpleObjectProperty();
+          }
+          return responsable;
+      }
+      public final ObjectProperty<ArrayList<Record>> recordsProperty()
+      {
+          if (records == null)
+          {
+              records = new SimpleObjectProperty();
+          }
+          return records;
+      }
+      public ArrayList<Record> getHistory(){
+          ArrayList<Record> hist = new ArrayList<>();
+          for (Record r: recordsProperty().get()) {
+              if (r.getType() == ArchiveType.Delivery) {
+                  hist.add(r);
+              }
+          }
+          return hist;
+      }
      //</editor-fold>
      
     public static  Callback<Parcel,Observable[]> extractor()
@@ -247,7 +308,8 @@ public class Parcel implements java.io.Serializable
         return (Parcel p) -> new Observable[]{p.weightProperty(),p.volumeProperty(),
             p.priorityProperty(),p.originProperty(),
             p.destinationProperty(),p.idProperty(),
-            p.stateProperty(),p.typeProperty(),p.orderProperty()
+            p.stateProperty(),p.typeProperty(),p.orderProperty(),
+            p.responsableProperty(),p.recordsProperty()
         };
     }
     
@@ -267,6 +329,9 @@ public class Parcel implements java.io.Serializable
       oos.writeObject(getState());
       oos.writeObject(getType());
       oos.writeObject(getOrder());
+      oos.writeObject(getResposable());
+      oos.writeObject(getRecords());
+
       }
 
     private void readObject(ObjectInputStream ois)
@@ -286,5 +351,7 @@ public class Parcel implements java.io.Serializable
         this.setState((State) ois.readObject());
         this.setType((Type) ois.readObject());
         this.setOrder((Order) ois.readObject());
+        this.setResponsable((User) ois.readObject());
+        this.setRecords((ArrayList<Record>) ois.readObject());
     }
 }   

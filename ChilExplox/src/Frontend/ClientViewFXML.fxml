@@ -6,8 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="Frontend.ClientViewFXMLController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="background" stylesheets="@../stylesheets/win7glass.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Frontend.ClientViewFXMLController">
    <children>
       <Label fx:id="welcomeLabel" layoutX="35.0" layoutY="18.0" text="Bienvenido " />
       <Button fx:id="logoutButton" layoutX="503.0" layoutY="13.0" mnemonicParsing="false" onAction="#logoutClient" text="Logout" />

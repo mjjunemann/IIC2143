@@ -34,6 +34,7 @@ public class Order implements java.io.Serializable
     private transient SimpleObjectProperty<Client> client;
     private transient SimpleObjectProperty<State> state;
     private transient SimpleStringProperty orderId;
+    private transient SimpleObjectProperty responsable;
     
     private int parcelIdCounter = 100;
     /*constructor para testear */
@@ -52,7 +53,7 @@ public class Order implements java.io.Serializable
      * @param date of the sale
      * @param id 
      */
-    public Order(Date date,String id)
+    public Order(Date date,String id, User responsable)
     {
         this.setId(id);
         this.setParcels( new ArrayList<>());
@@ -62,6 +63,7 @@ public class Order implements java.io.Serializable
         this.setSaleDate(date);
         this.client = null;
         this.setState(State.Origin);
+        setResponsable(responsable);
     }
     
     
@@ -94,7 +96,8 @@ public class Order implements java.io.Serializable
         this.calculated = false;
         String id = getId() + String.valueOf(parcelIdCounter);
         parcelIdCounter++;
-        Parcel parcel = new Parcel(type,weight, volume, priority, origin, destination, this, id);
+        Parcel parcel = new Parcel(type,weight, volume, priority, origin,
+                destination, this, id, this.getResponsable());
         this.getParcels().add(parcel);
         return parcel;
     }
@@ -135,6 +138,13 @@ public class Order implements java.io.Serializable
     }
     public String getId(){
          return orderIdProperty().get();
+    }
+    public void setResponsable(User u)
+    {
+        responsableProperty().set(u);
+    }
+    public User getResponsable(){
+         return responsableProperty().get();
     }
     
     public void updateStatus()
@@ -307,6 +317,14 @@ public class Order implements java.io.Serializable
         }
         return client;
     }
+    public final ObjectProperty<User> responsableProperty()
+    {
+        if (responsable == null)
+        {
+            responsable = new SimpleObjectProperty<>();
+        }
+        return responsable;
+    }
     public final SimpleObjectProperty<State> stateProperty()
     {
         if (state == null)
@@ -330,7 +348,7 @@ public class Order implements java.io.Serializable
         return (Order o) -> new Observable[]
         {
          o.saleDateProperty(),o.clientProperty(),o.deliveryDateProperty(),o.stateProperty(),
-            o.totalProperty(),o.orderIdProperty(),o.parcelProperty()
+            o.totalProperty(),o.orderIdProperty(),o.parcelProperty(),o.responsableProperty()
         };
     }
     
@@ -347,6 +365,7 @@ public class Order implements java.io.Serializable
       oos.writeObject(this.getClient());
       oos.writeObject(this.getTotal());
       oos.writeObject(this.getState());
+      oos.writeObject(this.getResponsable());
       
       
       }
@@ -367,6 +386,7 @@ public class Order implements java.io.Serializable
         this.setClient((Client)ois.readObject());
         this.setTotal((Float)ois.readObject());
         this.setState((State)ois.readObject());
+        this.setResponsable((User) ois.readObject());
     }
 
     public void cancelSave() {

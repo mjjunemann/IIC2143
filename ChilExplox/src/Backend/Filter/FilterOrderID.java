@@ -48,5 +48,11 @@ public class FilterOrderID implements iFilter<Order,String> {
         }
         return list;
     }
+    @Override
+    public String toString()
+    {
+        return "ID";
+    }
+
     
 }

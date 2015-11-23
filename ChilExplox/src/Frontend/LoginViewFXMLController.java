@@ -43,7 +43,7 @@ public class LoginViewFXMLController implements Initializable, iController {
     private TextField passwordTextField; 
 
     @FXML
-    private ListView<String> addressList = new ListView<String>();
+    private ListView<Subsidiary> addressList;
     
     
     ChilExploxApp main;
@@ -54,35 +54,32 @@ public class LoginViewFXMLController implements Initializable, iController {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+       
     }  
     
     public void setItemsListView(){
-        ObservableList<String> addressStringList = 
-                FXCollections.observableArrayList();
-        ArrayList<Address> subsidiariesAddress = 
-                this.main.getChilExplox().getSubsidiariesAddress();
-        for (Address address : subsidiariesAddress) {
-            addressStringList.add(address.getAddress());
-        }
-        addressList.setItems(addressStringList);  
+        ObservableList<Subsidiary> addressSubsidiariesList = 
+                FXCollections.observableArrayList(
+                        this.main.getChilExplox().getEnabledSubsidiaries());
+        addressList.setItems(addressSubsidiariesList);  
     }
     
     @Override
     public void setChilExploxApp(ChilExploxApp main){
         this.main = main;
+        this.main.getChilExplox().logout();
         setItemsListView();
-
         
     }
 
     @FXML
     private void onEnter(KeyEvent e)
-    {
-            
+    {   
      if(e.getCode().equals(KeyCode.ENTER))
      {
-      this.login();
+
+        this.login();
+
      }
     }
     @FXML
@@ -101,27 +98,51 @@ public class LoginViewFXMLController implements Initializable, iController {
     }
     
     private void loginAsClient(){
+        if (checkClientLoginInputs()){
         String rut = rutTextField.getText();
-        int positionSelected = addressList.getSelectionModel().getSelectedIndex();
-        if (positionSelected >= 0){
-            Address address = this.main.getChilExplox().getSubsidiariesAddress().get(positionSelected);
+        Subsidiary subsidiary_selected = addressList.getSelectionModel().getSelectedItem();
+        if (subsidiary_selected != null){
+            Address address = subsidiary_selected.getAddr();
             if (this.main.getChilExplox().loginClient(rut, address)){
                 this.main.changeScene("ClientViewFXML.fxml", ClientViewFXMLController.class);
             }
+            else{
+                ShowAlert.alertWithFieldAndMessage(
+                    "login", 
+                    "no existe este cliente en la sucursal");
+            }
         } 
+        else{
+            ShowAlert.alertWithFieldAndMessage(
+                    "sucursal", 
+                    "debe ingresar una sucursal");
+        }
+        }
     }
     
     private void loginAsUser()
     {
+        if (checkUserLoginInputs()){
       String username = usernameTextField.getText();
         String password = passwordTextField.getText();
-        int positionSelected = addressList.getSelectionModel().getSelectedIndex();
-        if (positionSelected >= 0){
-            Address address = this.main.getChilExplox().getSubsidiariesAddress().get(positionSelected);
+        Subsidiary subsidiary_selected = addressList.getSelectionModel().getSelectedItem();
+        if (subsidiary_selected != null){
+            Address address = subsidiary_selected.getAddr();
             if (this.main.getChilExplox().login(username, password, address)){
                 this.main.changeScene("SubsidiaryViewFXML.fxml", SubsidiaryViewFXMLController.class);
             }
-        }  
+            else{
+                ShowAlert.alertWithFieldAndMessage(
+                    "login", 
+                    "usuario o contraseña invalido");
+            }
+        } 
+        else{
+            ShowAlert.alertWithFieldAndMessage(
+                    "sucursal", 
+                    "debe seleccionar una sucursal");
+        }
+        }
     }
 
     @FXML
@@ -138,6 +159,33 @@ public class LoginViewFXMLController implements Initializable, iController {
         rutTextField.setVisible(true);
         usernameTextField.setVisible(false);
         passwordTextField.setVisible(false);
+    }
+    
+    private boolean checkUserLoginInputs(){
+        if (usernameTextField.getText().isEmpty()){
+            ShowAlert.alertWithFieldAndMessage(
+                    "usuario",
+                    "debe ingresar un usuario");
+            return false;
+        }
+        if (passwordTextField.getText().isEmpty()){
+            ShowAlert.alertWithFieldAndMessage(
+                    "contraseña",
+                    "debe ingresar una contraseña");
+            return false;
+        }
+        return true;
+    }
+    
+    
+    private boolean checkClientLoginInputs(){
+        if (rutTextField.getText().isEmpty()){
+            ShowAlert.alertWithFieldAndMessage(
+                    "rut",
+                    "debe ingresar un rut");
+            return false;
+        }
+        return true;
     }
     
 }

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="459.0" prefWidth="799.0" stylesheets="@../stylesheets/win7glass.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Frontend.ModifyTrucksViewFXMLController">
+    <children>
+      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="56.0" prefWidth="496.0">
+         <children>
+            <ToolBar layoutX="-1.0" prefHeight="49.0" prefWidth="799.0" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="-302.0" AnchorPane.topAnchor="0.0">
+               <items>
+                  <HBox alignment="CENTER" prefHeight="37.0" prefWidth="110.0" spacing="8.0">
+                     <children>
+                        <Button fx:id="returnButton" mnemonicParsing="false" onAction="#returnToSubsidiary" prefHeight="33.0" prefWidth="203.0" text="Volver" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="33.0" prefWidth="412.0" spacing="8.0" />
+                  <Button fx:id="newTruckButton" mnemonicParsing="false" onAction="#newTruck" text="Nuevo Camión" />
+               </items>
+            </ToolBar>
+         </children>
+      </AnchorPane>
+      <SplitPane dividerPositions="0.5519399249061326" layoutX="-1.0" layoutY="46.0" prefHeight="413.0" prefWidth="799.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="403.0" prefWidth="582.0">
+               <children>
+                  <TableView fx:id="trucksTableView" onMouseClicked="#selectTruck" prefHeight="411.0" prefWidth="437.0">
+                    <columns>
+                      <TableColumn fx:id="licensePlateColumn" prefWidth="100.0" text="Patente" />
+                      <TableColumn fx:id="typeColumn" prefWidth="75.0" text="Tipo" />
+                        <TableColumn fx:id="capacityColumn" prefWidth="130.0" text="Capacidad" />
+                        <TableColumn fx:id="driverColumn" prefWidth="127.0" text="Conductor" />
+                    </columns>
+                  </TableView>
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="412.0" prefWidth="411.0">
+               <children>
+                  <Button fx:id="saveTruckButton" layoutX="166.0" layoutY="370.0" mnemonicParsing="false" onAction="#saveTruck" text="Guardar Camión" />
+                  <Button fx:id="removeTruckButton" layoutX="8.0" layoutY="370.0" mnemonicParsing="false" onAction="#removeTruck" text="Eliminar Camión" />
+                  <VBox layoutX="14.0" layoutY="57.0" prefHeight="300.0" prefWidth="291.0">
+                     <children>
+                        <HBox prefHeight="60.0" prefWidth="291.0">
+                           <children>
+                              <Pane prefHeight="60.0" prefWidth="127.0">
+                                 <children>
+                                    <Text layoutX="31.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Patente" />
+                                 </children>
+                              </Pane>
+                              <Pane prefHeight="200.0" prefWidth="200.0">
+                                 <children>
+                                    <TextField fx:id="license_plate" layoutX="7.0" layoutY="15.0" />
+                                 </children>
+                              </Pane>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="60.0" prefWidth="291.0">
+                           <children>
+                              <Pane prefHeight="60.0" prefWidth="127.0">
+                                 <children>
+                                    <Text layoutX="22.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Capacidad" />
+                                 </children>
+                              </Pane>
+                              <Pane prefHeight="200.0" prefWidth="200.0">
+                                 <children>
+                                    <TextField fx:id="capacity" layoutX="7.0" layoutY="15.0" />
+                                 </children>
+                              </Pane>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="60.0" prefWidth="291.0">
+                           <children>
+                              <Pane prefHeight="60.0" prefWidth="127.0">
+                                 <children>
+                                    <Text layoutX="-4.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre Conductor" />
+                                 </children>
+                              </Pane>
+                              <Pane prefHeight="200.0" prefWidth="200.0">
+                                 <children>
+                                    <TextField fx:id="driver_name" layoutX="8.0" layoutY="17.0" />
+                                 </children>
+                              </Pane>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="60.0" prefWidth="291.0">
+                           <children>
+                              <Pane prefHeight="60.0" prefWidth="127.0">
+                                 <children>
+                                    <Text layoutX="10.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rut Conductor" />
+                                 </children>
+                              </Pane>
+                              <Pane prefHeight="200.0" prefWidth="200.0">
+                                 <children>
+                                    <TextField fx:id="driver_rut" layoutX="8.0" layoutY="17.0" />
+                                 </children>
+                              </Pane>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="60.0" prefWidth="291.0">
+                           <children>
+                              <Pane prefHeight="60.0" prefWidth="127.0">
+                                 <children>
+                                    <Text layoutX="41.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tipo" />
+                                 </children>
+                              </Pane>
+                              <Pane prefHeight="200.0" prefWidth="200.0">
+                                 <children>
+                                    <ChoiceBox fx:id="type" layoutX="8.0" layoutY="17.0" prefHeight="27.0" prefWidth="167.0" />
+                                 </children>
+                              </Pane>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>

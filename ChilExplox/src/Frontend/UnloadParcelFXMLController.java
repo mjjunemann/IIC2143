@@ -5,12 +5,14 @@
  */
 package Frontend;
 
+import Backend.ArchiveType;
 import Backend.ChilExplox;
 import Backend.Mailbox;
 import Backend.Message;
 import Backend.MessageType;
 import Backend.Order;
 import Backend.Parcel;
+import Backend.Record;
 import Backend.Truck;
 import java.net.URL;
 import java.util.HashMap;
@@ -92,7 +94,7 @@ public class UnloadParcelFXMLController implements Initializable, iController {
             pv = new ParcelView(p);
             pv.setMouseevent(this);
             trucksParcelsImgs.put(pv.view, pv);
-            parcelTile.getChildren().add(pv.view);
+            parcelTile.getChildren().add(pv.button);
         }
         
     }
@@ -115,7 +117,7 @@ public class UnloadParcelFXMLController implements Initializable, iController {
     private void unloadParcel(ActionEvent event){
         if (selectedParcel != null) {
             truck.unloadArrived(trucksParcelsImgs.get(selectedParcel).parcel);
-            parcelTile.getChildren().remove(selectedParcel);
+            parcelTile.getChildren().remove(trucksParcelsImgs.get(selectedParcel).button);
             stateTruckLabel.setText(truck.getAvaibility().toString());
             originTruckLabel.setText(truck.getDestinyString());
             nParcelsTruckLabel.setText(String.valueOf(truck.getParcels().size()));
@@ -160,7 +162,12 @@ public class UnloadParcelFXMLController implements Initializable, iController {
                 String content = result.get();
                 Message mail = new Message(origin,destiny, subject, content, 
                                         MessageType.Error);
-        
+                Parcel p = trucksParcelsImgs.get(selectedParcel).parcel;
+                Record r = new Record(ArchiveType.Error, subject+" "+content,
+                            p.getResposable(),
+                            p);
+                p.updateStatusToError();
+                main.getChilExplox().getSubsidiary(truck.getHomeAddress()).addRecord(r);
                 if (mail.getDestinyMailbox() != null){
                     main.getChilExplox().getCurrentSubsidiary().getMailbox().
                         sendMessage(mail);

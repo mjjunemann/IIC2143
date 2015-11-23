@@ -10,11 +10,11 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="389.0" prefWidth="909.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Frontend.WatchTrucksListFXMLController">
+<AnchorPane id="AnchorPane" prefHeight="389.0" prefWidth="909.0" styleClass="background" stylesheets="@../stylesheets/win7glass.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Frontend.WatchTrucksListFXMLController">
    <children>
-      <SplitPane dividerPositions="0.28" layoutY="55.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <SplitPane dividerPositions="0.31903190319031904" layoutY="55.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="387.0" prefWidth="280.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="388.0" prefWidth="308.0">
                <children>
                   <ToolBar prefHeight="55.0" prefWidth="306.0">
                     <items>
@@ -34,13 +34,11 @@
                   <Label fx:id="nParcelsLabel" layoutX="168.0" layoutY="277.0" text="-" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="280.0" />
                   <Label layoutX="41.0" layoutY="159.0" text="Type:" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="140.0" />
                   <Label fx:id="typeLabel" layoutX="168.0" layoutY="159.0" text="-" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="160.0" />
-                  <Button fx:id="viewContentButton" layoutX="42.0" layoutY="328.0" mnemonicParsing="false" onAction="#seeContent" text="Load" AnchorPane.bottomAnchor="20.0" />
-                  <Button fx:id="unloadParcelButton" layoutX="132.0" layoutY="328.0" mnemonicParsing="false" onAction="#unloadParcel" text="Unload" AnchorPane.bottomAnchor="20.0" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <SplitPane dividerPositions="0.5" prefHeight="398.0" prefWidth="414.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <SplitPane dividerPositions="0.6433224755700325" prefHeight="398.0" prefWidth="414.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <items>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                            <children>
@@ -49,11 +47,11 @@
                         </AnchorPane>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                            <children>
-                              <SplitPane dividerPositions="0.2" layoutX="33.0" layoutY="52.0" orientation="VERTICAL" prefHeight="385.0" prefWidth="383.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <SplitPane dividerPositions="0.17357512953367876" layoutX="33.0" layoutY="52.0" orientation="VERTICAL" prefHeight="385.0" prefWidth="383.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <items>
                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                                        <children>
-                                          <Label alignment="CENTER" layoutX="16.0" layoutY="23.0" prefHeight="23.0" prefWidth="285.0" text="On Truck:" textAlignment="CENTER" />
+                                          <Label alignment="CENTER" layoutX="40.0" layoutY="20.0" prefHeight="33.0" prefWidth="134.0" text="On Truck:" textAlignment="CENTER" AnchorPane.topAnchor="20.0" />
                                        </children>
                                     </AnchorPane>
                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">

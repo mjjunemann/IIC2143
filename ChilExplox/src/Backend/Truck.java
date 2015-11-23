@@ -19,6 +19,8 @@ public class Truck extends ITransport implements java.io.Serializable{
     Subsidiary home_sub;
     Address destiny;
     Type type;
+    String driver_rut;
+    String driver_name;
     
     public Truck (String S, int max, Type t ,Subsidiary sub) {
         license_plate = S;
@@ -28,6 +30,28 @@ public class Truck extends ITransport implements java.io.Serializable{
         home_sub = sub;
         destiny = null;
         type = t;
+        this.driver_rut = "12345678-5";
+        this.driver_name = "Juan";
+    }
+    
+    public Truck (String S, int max, Type t ,Subsidiary sub, String rut, String name){
+        license_plate = S;
+        max_parcels = max;
+        parcels = new ArrayList<>();
+        availability = State.Origin; /* Truck starts at origin.*/
+        home_sub = sub;
+        destiny = null;
+        type = t;
+        this.driver_rut = rut;
+        this.driver_name = name;
+    }
+    
+    public String getDriverRut(){
+        return this.driver_rut;
+    }
+    
+    public String getDriverName(){
+        return this.driver_name;
     }
     
     public String getPlate(){
@@ -50,7 +74,7 @@ public class Truck extends ITransport implements java.io.Serializable{
         }
     }
     public Type getType(){
-        return type;
+        return this.type;
     }
     public boolean canParcelLoad(Parcel parcel){
         if (destiny == null) {
@@ -129,6 +153,14 @@ public class Truck extends ITransport implements java.io.Serializable{
     @Override
     public int checkSpace(){
         return max_parcels - parcels.size();
+    }
+    
+    public void setSpace(int capacity){
+        this.max_parcels = capacity;
+    }
+    
+    public void setType(Type type){
+        this.type = type;
     }
     
     public State getState(){

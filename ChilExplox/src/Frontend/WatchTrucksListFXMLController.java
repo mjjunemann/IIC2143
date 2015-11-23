@@ -45,10 +45,6 @@ public class WatchTrucksListFXMLController implements Initializable, iController
     
     ChilExploxApp main;
     @FXML
-    private Button viewContentButton;
-    @FXML
-    private Button unloadParcelButton;
-    @FXML
     private TilePane TruckTile;
     @FXML
     public TilePane parcelTile;
@@ -66,7 +62,7 @@ public class WatchTrucksListFXMLController implements Initializable, iController
     private Label truckTitle;
     
     
-    private boolean muestraLocal = true;
+    public boolean muestraLocal = true;
     public Truck selectedTruck;
     private ArrayList<TruckImage> localTrucksImgs;
     private ArrayList<TruckImage> arrivedTrucksImgs;
@@ -108,8 +104,9 @@ public class WatchTrucksListFXMLController implements Initializable, iController
     @FXML
     private void loadLocalTrucks(ActionEvent event ){
         TruckTile.getChildren().clear();
+        Button b;
         for (TruckImage ti: localTrucksImgs ){
-            TruckTile.getChildren().add(ti.view);
+            TruckTile.getChildren().add(ti.button);
         }
         muestraLocal = true;
         clearLabels();
@@ -118,7 +115,7 @@ public class WatchTrucksListFXMLController implements Initializable, iController
     private void loadArrivedTrucks(ActionEvent event ){
         TruckTile.getChildren().clear();
         for (TruckImage ti:  arrivedTrucksImgs){
-            TruckTile.getChildren().add(ti.view);
+            TruckTile.getChildren().add(ti.button);
         }
         muestraLocal = false;
         clearLabels();
@@ -132,12 +129,10 @@ public class WatchTrucksListFXMLController implements Initializable, iController
         typeLabel.setText("-");
         selectedTruck = null;
         parcelTile.getChildren().clear();
-        viewContentButton.setVisible(false);
-        unloadParcelButton.setVisible(false);
     }
     
     @FXML
-    private void seeContent(ActionEvent event){
+    public void seeContent(ActionEvent event){
         
         if (selectedTruck != null && 
                 (selectedTruck.getAvaibility() == State.Origin || 
@@ -149,19 +144,6 @@ public class WatchTrucksListFXMLController implements Initializable, iController
     private void unloadParcel(ActionEvent event){
         if (selectedTruck != null) {
            changeSceneToUnloadParcel(selectedTruck);
-        }
-    }
-    public void showButton(){
-        if (((selectedTruck.getAvaibility()==State.Origin
-                ||selectedTruck.getAvaibility()==State.OriginError) 
-                && muestraLocal)
-                ||(selectedTruck.getAvaibility()!=State.Origin 
-                && !muestraLocal)) {
-            viewContentButton.setVisible(muestraLocal);
-            unloadParcelButton.setVisible(!muestraLocal);
-        }else{
-            viewContentButton.setVisible(false);
-            unloadParcelButton.setVisible(false);
         }
     }
     public void changeSceneToTruck(Truck truck){

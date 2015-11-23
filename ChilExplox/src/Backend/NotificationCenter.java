@@ -21,16 +21,19 @@ public class NotificationCenter implements java.io.Serializable
   private ArrayList<Notification> unsolved_notifications;
   private ArrayList<Notification> solved_notifications;
   EventListenerList listeners = new EventListenerList();
-  ChilExplox main;
-  
+  ChilExplox main;  
   
   public NotificationCenter(ChilExplox main){
       this.main = main;
       this.unsolved_notifications = new ArrayList<>();
       this.solved_notifications = new ArrayList<>();
-      Timer timer = new Timer();
-      timer.schedule(new NotificationTask(), 0, 10000);
       
+  }
+  
+  public Timer initializeTimer(){
+      Timer timer = new Timer();
+      timer.schedule(new NotificationTask(), 0, 30000);
+      return timer;
   }
   
   public void cleanListener(){
@@ -85,8 +88,10 @@ public class NotificationCenter implements java.io.Serializable
       Date today = new Date();
       long difference = today.getTime() - saleDate.getTime();
       float daysDifference = (float)difference / 1000; /// 60 / 24;
-      if (daysDifference > 60){
-          return true;
+      if (daysDifference > 120){
+          if (parcel.getState().equals(State.Origin)){
+            return true;
+          }
       }
       return false;
   }
@@ -94,25 +99,34 @@ public class NotificationCenter implements java.io.Serializable
   public ArrayList<Parcel> parcelsToNotify(){
       Subsidiary subsidiary = this.main.getCurrentSubsidiary();
       ArrayList<Parcel> parcelsShouldBeNotified = new ArrayList<Parcel>();
-      if (subsidiary != null){
-          for (Order order: subsidiary.getOrders().values()){
-              for (Parcel parcel: order.getParcels()){
-                  if (shouldNotify(parcel)){
+     
+      if (this.main.getCurrentLogged() != null && (
+              this.main.getCurrentLogged().getRole().equals(Role.Administrator) 
+              || this.main.getCurrentLogged().getRole().equals(Role.User))){
+        if (subsidiary != null){
+            for (Order order: subsidiary.getOrders().values()){
+                for (Parcel parcel: order.getParcels()){
+                    if (shouldNotify(parcel)){
                       parcelsShouldBeNotified.add(parcel);
-                  }
-              }
-          }
+                    }
+                }
+            }
+        }
       }
       return parcelsShouldBeNotified;
   }
   
   public void stopTimer(){
-
+      
+      //timer.cancel();
+      //timer.purge();
+              
   }
   
   class NotificationTask extends TimerTask {
       @Override
       public void run(){
+          
           ArrayList<Parcel> parcels = parcelsToNotify();
           for (Parcel parcel: parcels){
             Object[] listenersList = listeners.getListenerList();

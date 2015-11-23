@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Frontend.HistoryParcelFXMLController">
+    <stylesheets>
+        <URL value="@/stylesheets/win7glass.css" />
+    </stylesheets>
+    <children>
+      <SplitPane dividerPositions="0.5" layoutX="148.0" layoutY="86.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <children>
+                  <Button fx:id="backButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#backScene" text="Back" />
+                  <Label fx:id="titleLabel" layoutX="45.0" layoutY="74.0" text="Parcel History">
+                     <font>
+                        <Font size="24.0" />
+                     </font></Label>
+                  <Label fx:id="idLabel" layoutX="146.0" layoutY="116.0" text="ID" />
+                  <Label fx:id="destinationLabel" layoutX="146.0" layoutY="143.0" text="Destination" />
+                  <Label fx:id="typeLabel" layoutX="146.0" layoutY="170.0" text="Type" />
+                  <Label fx:id="volumeLabel" layoutX="146.0" layoutY="201.0" text="Volume" />
+                  <Label fx:id="weightLabel" layoutX="147.0" layoutY="228.0" text="Weight" />
+                  <Label fx:id="priorityLabel" layoutX="147.0" layoutY="255.0" text="Priority" />
+                  <Label fx:id="idLabel1" layoutX="45.0" layoutY="118.0" text="ID:" />
+                  <Label fx:id="destinationLabel1" layoutX="45.0" layoutY="145.0" text="Destination:" />
+                  <Label fx:id="typeLabel1" layoutX="45.0" layoutY="172.0" text="Type:" />
+                  <Label fx:id="volumeLabel1" layoutX="45.0" layoutY="203.0" text="Volume:" />
+                  <Label fx:id="weightLabel1" layoutX="46.0" layoutY="230.0" text="Weight: " />
+                  <Label fx:id="priorityLabel1" layoutX="46.0" layoutY="257.0" text="Priority: " />
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <children>
+                  <ListView fx:id="reportListView" layoutX="25.0" layoutY="35.0" prefHeight="398.0" prefWidth="294.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>

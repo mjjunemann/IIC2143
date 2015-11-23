@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="459.0" prefWidth="717.0" styleClass="background" stylesheets="@../stylesheets/win7glass.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Frontend.ModifyUsersViewFXMLController">
+   <children>
+      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="56.0" prefWidth="496.0">
+         <children>
+            <ToolBar layoutX="-1.0" prefHeight="49.0" prefWidth="717.0" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="-220.0" AnchorPane.topAnchor="0.0">
+               <items>
+                  <HBox alignment="CENTER" prefHeight="37.0" prefWidth="115.0" spacing="8.0">
+                     <children>
+                        <Button fx:id="returnButton" mnemonicParsing="false" onAction="#returnToSubsidiary" prefHeight="33.0" prefWidth="116.0" text="Volver" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="33.0" prefWidth="414.0" spacing="8.0" />
+                  <Button fx:id="newUserButton" mnemonicParsing="false" onAction="#newUser" text="Nuevo Usuario" />
+               </items>
+            </ToolBar>
+         </children>
+      </AnchorPane>
+      <SplitPane dividerPositions="0.497907949790795" layoutX="-1.0" layoutY="46.0" prefHeight="413.0" prefWidth="717.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="403.0" prefWidth="582.0">
+               <children>
+                  <TableView fx:id="usersTableView" onMouseClicked="#selectUser" prefHeight="411.0" prefWidth="356.0">
+                    <columns>
+                      <TableColumn fx:id="nameColumn" prefWidth="124.00768184661865" text="Nombre" />
+                      <TableColumn fx:id="userColumn" prefWidth="119.99234008789062" text="Usuario" />
+                        <TableColumn fx:id="roleColumn" prefWidth="111.99009704589844" text="Rol" />
+                    </columns>
+                  </TableView>
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="412.0" prefWidth="358.0" styleClass="background">
+               <children>
+                  <Button fx:id="saveUserButton" layoutX="162.0" layoutY="370.0" mnemonicParsing="false" onAction="#saveUser" prefHeight="33.0" prefWidth="161.0" text="Guardar Usuario" />
+                  <Button fx:id="removeUserButton" layoutX="7.0" layoutY="370.0" mnemonicParsing="false" onAction="#removeUser" prefHeight="33.0" prefWidth="153.0" text="Eliminar Usuario" />
+                  <VBox layoutX="14.0" layoutY="57.0" prefHeight="300.0" prefWidth="291.0">
+                     <children>
+                        <HBox prefHeight="60.0" prefWidth="291.0">
+                           <children>
+                              <Pane prefHeight="60.0" prefWidth="127.0">
+                                 <children>
+                                    <Text layoutX="30.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre" />
+                                 </children>
+                              </Pane>
+                              <Pane prefHeight="200.0" prefWidth="200.0">
+                                 <children>
+                                    <TextField fx:id="name" layoutX="7.0" layoutY="15.0" />
+                                 </children>
+                              </Pane>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="60.0" prefWidth="291.0">
+                           <children>
+                              <Pane prefHeight="60.0" prefWidth="127.0">
+                                 <children>
+                                    <Text layoutX="31.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Usuario" />
+                                 </children>
+                              </Pane>
+                              <Pane prefHeight="200.0" prefWidth="200.0">
+                                 <children>
+                                    <TextField fx:id="user" layoutX="7.0" layoutY="15.0" />
+                                 </children>
+                              </Pane>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="60.0" prefWidth="291.0">
+                           <children>
+                              <Pane prefHeight="60.0" prefWidth="127.0">
+                                 <children>
+                                    <Text layoutX="24.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contraseña" />
+                                 </children>
+                              </Pane>
+                              <Pane prefHeight="200.0" prefWidth="200.0">
+                                 <children>
+                                    <PasswordField fx:id="password" layoutX="8.0" layoutY="17.0" />
+                                 </children>
+                              </Pane>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="60.0" prefWidth="291.0">
+                           <children>
+                              <Pane prefHeight="60.0" prefWidth="127.0">
+                                 <children>
+                                    <Text layoutX="-5.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Repetir Contraseña" />
+                                 </children>
+                              </Pane>
+                              <Pane prefHeight="200.0" prefWidth="200.0">
+                                 <children>
+                                    <PasswordField fx:id="repeated_password" layoutX="8.0" layoutY="17.0" />
+                                 </children>
+                              </Pane>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="60.0" prefWidth="291.0">
+                           <children>
+                              <Pane prefHeight="60.0" prefWidth="127.0">
+                                 <children>
+                                    <Text layoutX="41.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rol" />
+                                 </children>
+                              </Pane>
+                              <Pane prefHeight="200.0" prefWidth="200.0">
+                                 <children>
+                                    <ChoiceBox fx:id="role" layoutX="10.0" layoutY="17.0" prefHeight="27.0" prefWidth="167.0" />
+                                 </children>
+                              </Pane>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>

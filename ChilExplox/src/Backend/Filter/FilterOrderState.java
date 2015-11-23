@@ -23,18 +23,20 @@ public class FilterOrderState implements iFilter<Order,String> {
     @Override
     public ObservableList Filter(FilteredList<Order> list, String param) {
         State state = State.lookup(param);
+        System.out.print(state);
         if (state != null)
         {
             last_param = state;
             list.setPredicate(o->
             {
-                return state.equals(o.getState());
+                return o.getState().equals(state);
             });
         }
         return list;
     }
 
     @Override
+    
     public ObservableList Reset(FilteredList<Order> list) {
         list.setPredicate(o->
         {
@@ -54,6 +56,11 @@ public class FilterOrderState implements iFilter<Order,String> {
         return list;
     }
 
+    @Override
+    public String toString()
+    {
+        return "STATE";
+    }
 
     
 }

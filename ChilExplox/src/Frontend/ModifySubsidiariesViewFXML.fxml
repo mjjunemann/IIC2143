@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="463.0" prefWidth="740.0" stylesheets="@../stylesheets/win7glass.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Frontend.ModifySubsidiariesViewFXMLController">
+    <children>
+      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="56.0" prefWidth="496.0">
+         <children>
+            <ToolBar layoutX="-1.0" prefHeight="49.0" prefWidth="740.0" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="-243.0" AnchorPane.topAnchor="0.0">
+               <items>
+                  <HBox alignment="CENTER" prefHeight="37.0" prefWidth="106.0" spacing="8.0">
+                     <children>
+                        <Button fx:id="returnButton" mnemonicParsing="false" onAction="#returnToSubsidiary" prefHeight="33.0" prefWidth="94.0" text="Volver" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="33.0" prefWidth="413.0" spacing="8.0" />
+                  <Button fx:id="newSubsidiaryButton" mnemonicParsing="false" onAction="#newSubsidiary" text="Nueva Sucursal" />
+               </items>
+            </ToolBar>
+         </children>
+      </AnchorPane>
+      <SplitPane dividerPositions="0.5255474452554745" layoutX="-1.0" layoutY="46.0" prefHeight="413.0" prefWidth="740.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="403.0" prefWidth="582.0">
+               <children>
+                  <TableView fx:id="subsidiariesTableView" onMouseClicked="#selectSubsidiary" prefHeight="411.0" prefWidth="385.0">
+                    <columns>
+                      <TableColumn fx:id="addressColumn" prefWidth="242.0" text="Direccion" />
+                      <TableColumn fx:id="stateColumn" prefWidth="138.0" text="Estado" />
+                    </columns>
+                  </TableView>
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="420.0" prefWidth="321.0" styleClass="background">
+               <children>
+                  <Button fx:id="saveSubsidiaryButton" layoutX="99.0" layoutY="370.0" mnemonicParsing="false" onAction="#saveSubsidiary" text="Guardar Sucursal" />
+                  <VBox layoutX="14.0" layoutY="57.0" prefHeight="300.0" prefWidth="291.0">
+                     <children>
+                        <HBox prefHeight="60.0" prefWidth="291.0">
+                           <children>
+                              <Pane prefHeight="60.0" prefWidth="127.0">
+                                 <children>
+                                    <Text layoutX="39.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Calle" />
+                                 </children>
+                              </Pane>
+                              <Pane prefHeight="200.0" prefWidth="200.0">
+                                 <children>
+                                    <TextField fx:id="street" layoutX="7.0" layoutY="15.0" />
+                                 </children>
+                              </Pane>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="60.0" prefWidth="291.0">
+                           <children>
+                              <Pane prefHeight="60.0" prefWidth="127.0">
+                                 <children>
+                                    <Text layoutX="30.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Numero" />
+                                 </children>
+                              </Pane>
+                              <Pane prefHeight="200.0" prefWidth="200.0">
+                                 <children>
+                                    <TextField fx:id="number" layoutX="7.0" layoutY="15.0" />
+                                 </children>
+                              </Pane>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="60.0" prefWidth="291.0">
+                           <children>
+                              <Pane prefHeight="60.0" prefWidth="127.0">
+                                 <children>
+                                    <Text layoutX="29.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Comuna" />
+                                 </children>
+                              </Pane>
+                              <Pane prefHeight="200.0" prefWidth="200.0">
+                                 <children>
+                                    <TextField fx:id="neighborhood" layoutX="8.0" layoutY="17.0" />
+                                 </children>
+                              </Pane>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="60.0" prefWidth="291.0">
+                           <children>
+                              <Pane prefHeight="60.0" prefWidth="127.0">
+                                 <children>
+                                    <Text layoutX="33.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ciudad" />
+                                 </children>
+                              </Pane>
+                              <Pane prefHeight="200.0" prefWidth="200.0">
+                                 <children>
+                                    <TextField fx:id="city" layoutX="8.0" layoutY="17.0" />
+                                 </children>
+                              </Pane>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="60.0" prefWidth="291.0">
+                           <children>
+                              <Pane prefHeight="60.0" prefWidth="292.0">
+                                 <children>
+                                    <CheckBox fx:id="enabled" layoutX="115.0" layoutY="21.0" mnemonicParsing="false" text="Activa" />
+                                 </children>
+                              </Pane>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>

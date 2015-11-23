@@ -52,5 +52,11 @@ public class FilterParcelState implements iFilter<Parcel,String> {
         }
         return list;
     }
+    @Override
+    public String toString()
+    {
+        return "State";
+    }
+
     
 }

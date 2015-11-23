@@ -5,21 +5,36 @@
  */
 package Backend;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author matia
  */
-public class User implements java.io.Serializable
+public class User extends iPerson implements java.io.Serializable
 {
     public final String username;
     private String password;
     protected String name;
+    private ArrayList<Record> records;
+    Role role;
     
     public User(String username,String name,String password)
     {
         this.username = username;
         this.name = name;
         this.setPassword(password);
+        this.role = Role.User;
+        this.records = new ArrayList<>();
+    }
+    
+    public User(String username,String name,String password, Role role)
+    {
+        this.username = username;
+        this.name = name;
+        this.setPassword(password);
+        this.role = role;
+        this.records = new ArrayList<>();
     }
 
     //<editor-fold desc="Setter & Getters">
@@ -27,6 +42,7 @@ public class User implements java.io.Serializable
      * Get the users password
      * @return password
      */
+    @Override
     public String getPassword()
     {
         return this.password;
@@ -40,9 +56,71 @@ public class User implements java.io.Serializable
      * Changes the user password
      * @param password receives the user new password
      */
-    protected final void setPassword(String password)
+    @Override
+    public final void setPassword(String password)
     {
         this.password = password;
+    }
+    
+    /**
+     * This method set the role of this user
+     * @param user : this param is a permission needed to change the param role
+     * @param user
+     * @param role 
+     */
+    
+    @Override
+    public void setName(String name){
+        this.name = name;
+    }
+    
+    @Override
+    public void setRole(Role role){
+        this.role = role;
+    }
+    
+    @Override
+    public Role getRole(){
+        return this.role;
+    }
+    
+    @Override
+    public String getUsername(){
+        return this.username;
+    }
+    
+    public ArrayList<Record> getRecords(){
+        return this.records;
+    }
+    
+    public void addRecord(Record r){
+        if (this.records == null) {
+            this.records = new ArrayList<>();
+        }
+       this.records.add(r);
+    }
+
+    @Override
+    public String toString(){
+        return this.getUsername();
+    }
+    public ArrayList<Record> getErrorRecords(){
+        ArrayList<Record> erecords = new ArrayList<>();
+        for (Record r: this.getRecords()) {
+            if (r.getType() == ArchiveType.Error) {
+                erecords.add(r);
+            }
+        }
+        return erecords;
+    }
+    public ArrayList<Record> getSaleRecords(){
+        ArrayList<Record> srecords = new ArrayList<>();
+        for (Record r: this.getRecords()) {
+            if (r.getType() == ArchiveType.Sale) {
+                srecords.add(r);
+            }
+        }
+        return srecords;
     }
     
     //</editor-fold>

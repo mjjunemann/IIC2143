@@ -47,5 +47,11 @@ public class FilterParcelID implements iFilter<Parcel,String>{
         }
         return list;
     }
+    @Override
+    public String toString()
+    {
+        return "PARCEL ID";
+    }
+
 
 }

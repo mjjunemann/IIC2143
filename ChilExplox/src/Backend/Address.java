@@ -150,11 +150,11 @@ public class Address implements java.io.Serializable
     }
     public String getAddress()
     {
-        return String.format("%1$s %2$s,%3$s,%4$s",getStreet(),getNumber(),getNeighborhood(),getCity());
+        return String.format("%1$s %2$s, %3$s, %4$s",getStreet(),getNumber(),getNeighborhood(),getCity());
     }
     public String stringValue()
     {
-        return String.format("%1$s %2$s,%3$s,%4$s",getStreet(),getNumber(),getNeighborhood(),getCity());
+        return String.format("%1$s %2$s, %3$s, %4$s",getStreet(),getNumber(),getNeighborhood(),getCity());
     }
     
     @Override

@@ -10,10 +10,12 @@ import Backend.Filter.FilterOrderID;
 import Backend.Filter.FilterOrderState;
 import Backend.Filter.FilterOrderTotal;
 import Backend.Filter.FilterParcelState;
+import Backend.Filter.FilterReset;
 import Backend.Filter.FilterRut;
 import Frontend.Cells.AddressCellTable;
 import Frontend.Cells.VisualFilter;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.net.URL;
 import java.util.*;
 import java.util.logging.Level;
@@ -33,6 +35,7 @@ import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.NodeOrientation;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.cell.ComboBoxListCell;
@@ -49,10 +52,12 @@ import javafx.scene.layout.TilePane;
 import javafx.scene.shape.Box;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.controlsfx.control.BreadCrumbBar;
 /**
  * FXML Controller class
  *
@@ -66,6 +71,7 @@ public class WatchOrdersViewFXMLController implements Initializable, iController
     private ObservableList<Order> subsidiaryOrders;
     private FilteredList<Order> filteredOrders;
     private ObservableList<Parcel> subsidiaryParcels;
+    private BreadCrumbBar testBar;
     
     private ObservableList<String> ordersList;
     
@@ -114,6 +120,8 @@ public class WatchOrdersViewFXMLController implements Initializable, iController
     private Button searchButton;
     @FXML
     private AnchorPane pane;
+    @FXML
+    private BorderPane topBorderPane;
     //</editor-fold>
 
     private TranslateTransition transition;
@@ -121,6 +129,7 @@ public class WatchOrdersViewFXMLController implements Initializable, iController
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         this.initializeOrderTable();
+        initializeBreadCrumbBar();
         //this.initializeParcelTable();
         this.initializeFilters();
     }    
@@ -144,21 +153,81 @@ public class WatchOrdersViewFXMLController implements Initializable, iController
     
     private void initializeFilters()
     {
-        //ToggleGroup group = new ToggleGroup();
+        
+        
+        
+        
+        
         ArrayList<VisualFilter> selectedToggles = new ArrayList<>();
         rutFilter = new FilterRut();
         iFilter tmp2 = new FilterOrderID();
         iFilter tmp3 = new FilterOrderState();
         iFilter tmp4 = new FilterOrderTotal();
-        rutVisualFilter = new VisualFilter(rutFilter,filteredOrders,selectedToggles);
-        VisualFilter tmp_2 = new VisualFilter(tmp2,filteredOrders,selectedToggles);
-        VisualFilter tmp_3 = new VisualFilter(tmp3,filteredOrders,selectedToggles);
-        VisualFilter tmp_4 = new VisualFilter(tmp4,filteredOrders,selectedToggles);
-
+        
+        
+        
+        
+        rutVisualFilter = new VisualFilter(rutFilter,filteredOrders,selectedToggles,testBar);
+        VisualFilter tmp_2 = new VisualFilter(tmp2,filteredOrders,selectedToggles,testBar);
+        VisualFilter tmp_3 = new VisualFilter(tmp3,filteredOrders,selectedToggles,testBar);
+        VisualFilter tmp_4 = new VisualFilter(tmp4,filteredOrders,selectedToggles,testBar);
+  
+//testBar.selectedCrumbProperty();
         FilterBox.getChildren().add(rutVisualFilter);
         FilterBox.getChildren().add(tmp_2);
         FilterBox.getChildren().add(tmp_3);
         FilterBox.getChildren().add(tmp_4);
+    }
+    
+    public void initializeBreadCrumbBar()
+    {   /*
+        ADD TO THE VisualFilter, that add a Crumb to the BreadCrumbBar, so it can
+        */
+        testBar = new BreadCrumbBar<>();
+        
+        testBar.setOnCrumbAction(new EventHandler<BreadCrumbBar.BreadCrumbActionEvent<VisualFilter>>()
+        {
+
+            @Override
+            public void handle(BreadCrumbBar.BreadCrumbActionEvent<VisualFilter> event) 
+            {
+                
+                if (event.getSelectedCrumb().getValue().filter.getClass().equals(FilterReset.class))
+                {
+                    event.getSelectedCrumb().getValue().resetToLeaf(event.getSelectedCrumb());
+
+                    event.getSelectedCrumb().getValue().ResetFilter();
+                }
+                else
+                {
+                    event.getSelectedCrumb().getValue().resetToLeaf(event.getSelectedCrumb());
+                    event.getSelectedCrumb().getValue().filterSelectedCrumb(event.getSelectedCrumb());
+                }
+                
+            }
+            
+        });
+        topBorderPane.setCenter(testBar);
+        //testBar.autoNavigationEnabledProperty().setValue(Boolean.TRUE);
+        testBar.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
+        
+        testBar.selectedCrumbProperty().set(initializeResetFilter());
+        
+        
+    }
+    private TreeItem initializeResetFilter()
+    {
+        iFilter reset = new FilterReset();
+        VisualFilter tmp = new VisualFilter(reset,filteredOrders,new ArrayList<>(),testBar);
+        TreeItem tmp2 = new TreeItem<VisualFilter>(tmp)
+        {
+          @Override 
+          public String toString()
+          {
+            return this.getValue().toString();
+          }
+        };
+        return tmp2;
     }
     private void initializeOrderTable()
     {
@@ -244,8 +313,11 @@ public class WatchOrdersViewFXMLController implements Initializable, iController
         if (event.getClickCount() == 2)
         {
             Order orderSelected = orderTable.getSelectionModel().getSelectedItem();
-            if (orderSelected != null)
+            if (orderSelected != null){
+
                 changeSceneToModifyOrder(orderSelected);
+                
+            }
         }
     }
     
@@ -298,6 +370,7 @@ public class WatchOrdersViewFXMLController implements Initializable, iController
     @FXML
     public void onDragDropped(DragEvent event)
     {
+        System.out.print(event.getGestureSource()  );
         System.out.print("Dropped Event");
         
     }

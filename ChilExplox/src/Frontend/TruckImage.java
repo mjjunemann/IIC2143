@@ -10,7 +10,9 @@ import Backend.State;
 import Backend.Truck;
 import Backend.Type;
 import javafx.event.EventHandler;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -25,27 +27,45 @@ public class TruckImage {
     Image img;
     final ImageView view;
     final WatchTrucksListFXMLController controller;
+    final Button button;
+    final Tooltip tool;
     
     public TruckImage(Truck truck, WatchTrucksListFXMLController c){
         this.truck=truck;
         this.controller = c;
         updateImage();
         this.view = new ImageView(this.img);
+        this.button = new Button();
+        this.button.setGraphic(this.view);
+        this.tool = new Tooltip();
+        this.tool.setText(String.format("Plate: %s\nClick para ver su info!\nDoble Click para cargar!", truck.getPlate()));
+        this.button.setTooltip(this.tool);
         this.view.setStyle("-fx-cursor:hand;");
-        this.view.setOnMouseClicked((MouseEvent t) -> {
-            controller.plateLabel.setText(truck.getPlate());
-            controller.typeLabel.setText(truck.getType().toString());
-            controller.stateLabel.setText(truck.getAvaibility().toString());
-            controller.destinationLabel.setText(truck.getDestinyString());
-            controller.nParcelsLabel.setText(String.valueOf(truck.getParcels().size()));
-            controller.selectedTruck = truck;
-            controller.showButton();
-            controller.parcelTile.getChildren().clear();
-            ParcelView pv;
-            for (Parcel p: truck.getParcels()) {
-                pv = new ParcelView(p);
-                controller.parcelTile.getChildren().add(pv.view);
+        this.button.setOnMouseClicked((MouseEvent t) -> {
+            if (t.getClickCount() == 1) {
+                controller.plateLabel.setText(truck.getPlate());
+                controller.typeLabel.setText(truck.getType().toString());
+                controller.stateLabel.setText(truck.getAvaibility().toString());
+                controller.destinationLabel.setText(truck.getDestinyString());
+                controller.nParcelsLabel.setText(String.valueOf(truck.getParcels().size()));
+                controller.selectedTruck = truck;
+                controller.parcelTile.getChildren().clear();
+                ParcelView pv;
+                for (Parcel p: truck.getParcels()) {
+                    pv = new ParcelView(p);
+                    pv.setToolTip();
+                    controller.parcelTile.getChildren().add(pv.button);
+                }
+            }else{
+                if (controller.muestraLocal && 
+                        (this.truck.getAvaibility()==State.Origin ||
+                        this.truck.getAvaibility()==State.OriginError) ) {
+                    controller.changeSceneToTruck(this.truck);
+                }else{
+                    controller.changeSceneToUnloadParcel(this.truck);
+                }
             }
+            
         });
     }
     public void updateImage(){
