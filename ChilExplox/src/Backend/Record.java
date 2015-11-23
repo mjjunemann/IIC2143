@@ -46,5 +46,8 @@ public class Record implements java.io.Serializable{
     public Date getDate(){
         return this.date;
     };
-    
+    @Override
+    public String toString(){
+        return this.getContent();
+    }
 }

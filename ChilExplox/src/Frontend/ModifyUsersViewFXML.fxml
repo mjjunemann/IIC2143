@@ -19,7 +19,7 @@
                         <Button fx:id="returnButton" mnemonicParsing="false" onAction="#returnToSubsidiary" prefHeight="33.0" prefWidth="116.0" text="Volver" />
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER_RIGHT" prefHeight="37.0" prefWidth="421.0" spacing="8.0" />
+                  <HBox alignment="CENTER_RIGHT" prefHeight="33.0" prefWidth="414.0" spacing="8.0" />
                   <Button fx:id="newUserButton" mnemonicParsing="false" onAction="#newUser" text="Nuevo Usuario" />
                </items>
             </ToolBar>
@@ -40,8 +40,8 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="412.0" prefWidth="358.0" styleClass="background">
                <children>
-                  <Button fx:id="saveUserButton" layoutX="186.0" layoutY="370.0" mnemonicParsing="false" onAction="#saveUser" text="Guardar Usuario" />
-                  <Button fx:id="removeUserButton" layoutX="14.0" layoutY="370.0" mnemonicParsing="false" onAction="#removeUser" text="Eliminar Usuario" />
+                  <Button fx:id="saveUserButton" layoutX="162.0" layoutY="370.0" mnemonicParsing="false" onAction="#saveUser" prefHeight="33.0" prefWidth="161.0" text="Guardar Usuario" />
+                  <Button fx:id="removeUserButton" layoutX="7.0" layoutY="370.0" mnemonicParsing="false" onAction="#removeUser" prefHeight="33.0" prefWidth="153.0" text="Eliminar Usuario" />
                   <VBox layoutX="14.0" layoutY="57.0" prefHeight="300.0" prefWidth="291.0">
                      <children>
                         <HBox prefHeight="60.0" prefWidth="291.0">

@@ -19,7 +19,7 @@
                         <Button fx:id="returnButton" mnemonicParsing="false" onAction="#returnToSubsidiary" prefHeight="33.0" prefWidth="94.0" text="Volver" />
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER_RIGHT" prefHeight="44.0" prefWidth="455.0" spacing="8.0" />
+                  <HBox alignment="CENTER_RIGHT" prefHeight="33.0" prefWidth="413.0" spacing="8.0" />
                   <Button fx:id="newSubsidiaryButton" mnemonicParsing="false" onAction="#newSubsidiary" text="Nueva Sucursal" />
                </items>
             </ToolBar>

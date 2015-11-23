@@ -178,4 +178,50 @@ public class Subsidiary implements java.io.Serializable
     public void addRecord(Record r){
         this.records.add(r);
     }
+    
+    public ArrayList<Record> getDaySaleRecords(){
+        ArrayList<Record> rec = new ArrayList<>();
+        Date date = new Date();
+        Calendar cal = Calendar.getInstance();
+        Calendar cal2 = Calendar.getInstance();
+        cal.setTime(date);
+        for (Record r: this.records) {
+            cal2.setTime(r.getDate());
+            if ( (cal.get(Calendar.DAY_OF_YEAR)==  cal2.get(Calendar.DAY_OF_YEAR))
+             && (cal.get(Calendar.YEAR)==  cal2.get(Calendar.YEAR) )) {
+                rec.add(r);
+            }
+        }
+        return rec;
+    }
+    public ArrayList<Record> getWeekSaleRecords(){
+        ArrayList<Record> rec = new ArrayList<>();
+        Date date = new Date();
+        Calendar cal = Calendar.getInstance();
+        Calendar cal2 = Calendar.getInstance();
+        cal.setTime(date);
+        for (Record r: this.records) {
+            cal2.setTime(r.getDate());
+            if ( (cal.get(Calendar.WEEK_OF_YEAR)==  cal2.get(Calendar.WEEK_OF_YEAR))
+             && (cal.get(Calendar.YEAR)==  cal2.get(Calendar.YEAR) )) {
+                rec.add(r);
+            }
+        }
+        return rec;
+    }
+    public ArrayList<Record> getMonthSaleRecords(){
+        ArrayList<Record> rec = new ArrayList<>();
+        Date date = new Date();
+        Calendar cal = Calendar.getInstance();
+        Calendar cal2 = Calendar.getInstance();
+        cal.setTime(date);
+        for (Record r: this.records) {
+            cal2.setTime(r.getDate());
+            if ( (cal.get(Calendar.MONTH)==  cal2.get(Calendar.MONTH))
+             && (cal.get(Calendar.YEAR)==  cal2.get(Calendar.YEAR) )) {
+                rec.add(r);
+            }
+        }
+        return rec;
+    }
 }

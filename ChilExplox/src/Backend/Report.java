@@ -37,4 +37,5 @@ public class Report implements java.io.Serializable{
     public ArrayList<Record> getRecords(){
         return this.records;
     }
+    
 }

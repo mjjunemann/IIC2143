@@ -146,6 +146,8 @@ public class SubsidiaryViewFXMLController implements Initializable, iController 
 
     @FXML
     private void viewReports(ActionEvent event) {
+        main.changeScene("ViewReportsFXML.fxml", 
+                ModifyTrucksViewFXMLController.class);
     }
     
     

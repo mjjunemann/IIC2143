@@ -158,7 +158,6 @@ public class ChilExplox implements java.io.Serializable
     public ArrayList<Subsidiary> getAllSubsidiaries(){
         return new ArrayList<Subsidiary>(this.subsidiaries.values());
     }
-    
     public ArrayList<Subsidiary> getEnabledSubsidiaries(){
         ArrayList<Subsidiary> enabled_subsidiaries = new ArrayList<Subsidiary>();
         for (Subsidiary subsidiary: this.subsidiaries.values()){

@@ -100,6 +100,28 @@ public class User extends iPerson implements java.io.Serializable
        this.records.add(r);
     }
 
+    @Override
+    public String toString(){
+        return this.getUsername();
+    }
+    public ArrayList<Record> getErrorRecords(){
+        ArrayList<Record> erecords = new ArrayList<>();
+        for (Record r: this.getRecords()) {
+            if (r.getType() == ArchiveType.Error) {
+                erecords.add(r);
+            }
+        }
+        return erecords;
+    }
+    public ArrayList<Record> getSaleRecords(){
+        ArrayList<Record> srecords = new ArrayList<>();
+        for (Record r: this.getRecords()) {
+            if (r.getType() == ArchiveType.Sale) {
+                srecords.add(r);
+            }
+        }
+        return srecords;
+    }
     
     //</editor-fold>
 

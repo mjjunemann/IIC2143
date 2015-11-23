@@ -94,7 +94,7 @@ public class UnloadParcelFXMLController implements Initializable, iController {
             pv = new ParcelView(p);
             pv.setMouseevent(this);
             trucksParcelsImgs.put(pv.view, pv);
-            parcelTile.getChildren().add(pv.view);
+            parcelTile.getChildren().add(pv.button);
         }
         
     }
