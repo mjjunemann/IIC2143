@@ -8,7 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="background" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.40" fx:controller="Frontend.UserReportFXMLController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="background" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Frontend.UserReportFXMLController">
     <stylesheets>
         <URL value="@/stylesheets/win7glass.css" />
     </stylesheets>
@@ -24,7 +24,7 @@
                         <Font size="36.0" />
                      </font>
                   </Label>
-                  <Button fx:id="generateButton" disable="true" layoutX="70.0" layoutY="296.0" mnemonicParsing="false" text="Generate Report" />
+                  <Button fx:id="generateButton" layoutX="51.0" layoutY="297.0" mnemonicParsing="false" onAction="#generatePDF" text="Generate PDF Report" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">

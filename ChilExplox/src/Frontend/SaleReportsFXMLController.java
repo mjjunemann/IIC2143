@@ -12,6 +12,7 @@ import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,8 +34,8 @@ import javafx.stage.FileChooser;
 public class SaleReportsFXMLController implements Initializable, iController {
 
     ChilExploxApp main;
-    private Desktop desktop = Desktop.getDesktop();
     String option;
+    ArrayList<Record> records;
     
     @FXML
      Button backButton;
@@ -47,6 +48,7 @@ public class SaleReportsFXMLController implements Initializable, iController {
     
     final FileChooser fileChooser = new FileChooser();
     final DirectoryChooser directoryChooser = new DirectoryChooser();
+    private Desktop desktop = Desktop.getDesktop();
     
     /**
      * Initializes the controller class.
@@ -65,18 +67,17 @@ public class SaleReportsFXMLController implements Initializable, iController {
         this.titleLabel.setText(option+ " Sales Records.");
         ObservableList<Record> recordsList ;
         if ("Day".equals(option)) {
-            recordsList = 
-                FXCollections.observableArrayList(this.main.getChilExplox()
-                        .getCurrentSubsidiary().getDaySaleRecords());
+            records = this.main.getChilExplox()
+                        .getCurrentSubsidiary().getDaySaleRecords();
         }else if("Week".equals(option)){
-            recordsList = 
-                FXCollections.observableArrayList(this.main.getChilExplox()
-                        .getCurrentSubsidiary().getWeekSaleRecords());
+            records = this.main.getChilExplox()
+                        .getCurrentSubsidiary().getWeekSaleRecords();
         }else{
-            recordsList = 
-                FXCollections.observableArrayList(this.main.getChilExplox()
-                        .getCurrentSubsidiary().getMonthSaleRecords());
+            records = this.main.getChilExplox()
+                        .getCurrentSubsidiary().getMonthSaleRecords();
         }
+        recordsList = 
+                FXCollections.observableArrayList(records);
         reportListView.setItems(recordsList);
     }
     
@@ -90,11 +91,13 @@ public class SaleReportsFXMLController implements Initializable, iController {
         
         File f = this.directoryChooser.showDialog(this.main.getStage());
         if (f != null) {
-            String filepath = f.getPath()+"/report.pdf";
             System.out.print(f.getPath());
-            Report r = new Report(ArchiveType.Delivery,filepath);
-            File fil = new File(filepath);
-            openFile(fil);
+            Report r = new Report(ArchiveType.Sale,records, f.getPath());
+            String filepath = r.generateSaleReport(this.option);
+            if (filepath!="") {
+                File fil = new File(filepath);
+                openFile(fil);
+            }
         }
     }
     
