@@ -78,6 +78,7 @@ public class UnloadParcelFXMLController implements Initializable, iController {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        
     }    
     @Override
     public void setChilExploxApp(ChilExploxApp main){

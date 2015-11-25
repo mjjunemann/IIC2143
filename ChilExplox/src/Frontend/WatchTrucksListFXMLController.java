@@ -107,6 +107,10 @@ public class WatchTrucksListFXMLController implements Initializable, iController
         Button b;
         for (TruckImage ti: localTrucksImgs ){
             TruckTile.getChildren().add(ti.button);
+            if (ti.truck.getAvaibility()!=State.Origin &&
+                ti.truck.getAvaibility()!=State.OriginError){
+                ti.button.setDisable(true);
+            }
         }
         muestraLocal = true;
         clearLabels();
